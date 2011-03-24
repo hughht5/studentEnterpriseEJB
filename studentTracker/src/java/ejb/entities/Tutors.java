@@ -55,4 +55,66 @@ public class Tutors implements Serializable {
         return "ejb.entities.Tutors[id=" + id + "]";
     }
 
+     ///////////////////////////hughs code/////////////////
+    private int tutorID;
+
+    /**
+     * Get the value of tutorID
+     *
+     * @return the value of tutorID
+     */
+    public int getTutorID() {
+        return tutorID;
+    }
+
+    /**
+     * Set the value of tutorID
+     *
+     * @param tutorID new value of tutorID
+     */
+    public void setTutorID(int tutorID) {
+        this.tutorID = tutorID;
+    }
+    private String studentEmailID;
+
+    /**
+     * Get the value of studentEmailID
+     *
+     * @return the value of studentEmailID
+     */
+    public String getStudentID() {
+        return studentEmailID;
+    }
+
+    /**
+     * Set the value of studentEmailID
+     *
+     * @param studentEmailID new value of studentEmailID
+     */
+    public void setStudentID(String studentID) {
+        this.studentEmailID = studentID;
+    }
+
+    private String staffEmailID;
+
+    /**
+     * Get the value of staffEmailID
+     *
+     * @return the value of staffEmailID
+     */
+    public String getStaffEmailID() {
+        return staffEmailID;
+    }
+
+    /**
+     * Set the value of staffEmailID
+     *
+     * @param staffEmailID new value of staffEmailID
+     */
+    public void setStaffEmailID(String staffEmailID) {
+        this.staffEmailID = staffEmailID;
+    }
+
+    /////////////////////////claimed///////////////
+
 }
