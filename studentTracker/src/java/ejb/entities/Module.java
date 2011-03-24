@@ -93,6 +93,44 @@ public class Module implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    private int credits;
+
+    /**
+     * Get the value of credits
+     *
+     * @return the value of credits
+     */
+    public int getCredits() {
+        return credits;
+    }
+
+    /**
+     * Set the value of credits
+     *
+     * @param credits new value of credits
+     */
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
+    private float avgMark;
+
+    /**
+     * Get the value of avgMark
+     *
+     * @return the value of avgMark
+     */
+    public float getAvgMark() {
+        return avgMark;
+    }
+
+    /**
+     * Set the value of avgMark
+     *
+     * @param avgMark new value of avgMark
+     */
+    public void setAvgMark(float avgMark) {
+        this.avgMark = avgMark;
+    }
 
     /////////////////////////claimed///////////////
 }
