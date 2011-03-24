@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @author hmh205
  */
 @Entity
-public class CourseModules implements Serializable {
+public class Prerequisites implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,10 +40,10 @@ public class CourseModules implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CourseModules)) {
+        if (!(object instanceof Prerequisites)) {
             return false;
         }
-        CourseModules other = (CourseModules) object;
+        Prerequisites other = (Prerequisites) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -52,48 +52,30 @@ public class CourseModules implements Serializable {
 
     @Override
     public String toString() {
-        return "ejb.entities.CourseModules[id=" + id + "]";
+        return "ejb.entities.Prerequisites[id=" + id + "]";
     }
+
 
      ///////////////////////////hughs code/////////////////
 
-    private int courseModuleID;
+    private int prerequisiteID;
 
     /**
-     * Get the value of courseModuleID
+     * Get the value of prerequisiteID
      *
-     * @return the value of courseModuleID
+     * @return the value of prerequisiteID
      */
-    public int getCourseModuleID() {
-        return courseModuleID;
+    public int getPrerequisiteID() {
+        return prerequisiteID;
     }
 
     /**
-     * Set the value of courseModuleID
+     * Set the value of prerequisiteID
      *
-     * @param courseModuleID new value of courseModuleID
+     * @param prerequisiteID new value of prerequisiteID
      */
-    public void setCourseModuleID(int courseModuleID) {
-        this.courseModuleID = courseModuleID;
-    }
-    private String courseID;
-
-    /**
-     * Get the value of courseID
-     *
-     * @return the value of courseID
-     */
-    public String getCourseID() {
-        return courseID;
-    }
-
-    /**
-     * Set the value of courseID
-     *
-     * @param courseID new value of courseID
-     */
-    public void setCourseID(String courseID) {
-        this.courseID = courseID;
+    public void setPrerequisiteID(int prerequisiteID) {
+        this.prerequisiteID = prerequisiteID;
     }
 
     private String moduleID;
@@ -115,25 +97,27 @@ public class CourseModules implements Serializable {
     public void setModuleID(String moduleID) {
         this.moduleID = moduleID;
     }
-    private boolean isCompulsary;
+    private String prerequisiteModuleID;
 
     /**
-     * Get the value of isCompulsary
+     * Get the value of prerequisiteModuleID
      *
-     * @return the value of isCompulsary
+     * @return the value of prerequisiteModuleID
      */
-    public boolean isIsCompulsary() {
-        return isCompulsary;
+    public String getPrerequisiteModuleID() {
+        return prerequisiteModuleID;
     }
 
     /**
-     * Set the value of isCompulsary
+     * Set the value of prerequisiteModuleID
      *
-     * @param isCompulsary new value of isCompulsary
+     * @param prerequisiteModuleID new value of prerequisiteModuleID
      */
-    public void setIsCompulsary(boolean isCompulsary) {
-        this.isCompulsary = isCompulsary;
+    public void setPrerequisiteModuleID(String prerequisiteModuleID) {
+        this.prerequisiteModuleID = prerequisiteModuleID;
     }
+
+    
 
     /////////////////////////claimed///////////////
 
