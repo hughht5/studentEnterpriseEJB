@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package ejb.sessions;
+package client.logon;
 
+import ejb.sessions.UserSessionRemote;
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -16,14 +17,14 @@ import javax.naming.NamingException;
  */
 public class Sessions {
 
-    public UserSessionRemote userSession;
+    private UserSessionRemote userSession;
 
     String host;
     String port;
 
     public Sessions() {
-        host = "blue101.ex.ac.uk";
-        port = "26103";
+        host = "blue102.ex.ac.uk";
+        port = "11494";
 
         Properties props = new Properties();
         props.put("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
@@ -38,11 +39,15 @@ public class Sessions {
 
     private UserSessionRemote lookupUserSessionRemote(Properties props) {
         try {
+            System.out.println("Initialising context");
             Context c = new InitialContext(props);
+            System.out.println("Context initialised");
             String jndiName = "java:global/studentTracker/UserSession!" + "ejb.sessions.UserSessionRemote";
             return (UserSessionRemote) c.lookup(jndiName);
         } catch (NamingException ne) {
-            throw new RuntimeException(ne);
+            //throw new RuntimeException(ne);
+            ne.printStackTrace();
+            return null;
         }
     }
 

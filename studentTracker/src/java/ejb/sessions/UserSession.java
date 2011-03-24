@@ -27,7 +27,7 @@ public class UserSession implements UserSessionRemote {
             return true;
         }
         else
-            return null;
+            return false;
     }
 
     @Override

@@ -5,7 +5,7 @@
  */
 package client.logon;
 
-import ejb.sessions.Sessions;
+import ejb.sessions.UserSessionRemote;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,9 +42,12 @@ public class logon {
     private static void logIn(){
         Sessions session = new Sessions();
 
+        UserSessionRemote userSession = session.userSession();
+        System.out.println(userSession);
+        /*
         if(session.userSession().checkLogin(username, password))
         {
-            if(session.userSession.checkIfStaff(username))
+            if(session.userSession().checkIfStaff(username))
             {
                 //Get the staff user object
                 //Staff staff = session.staffSession.getStaffMember(username);
@@ -65,7 +68,7 @@ public class logon {
         {
             System.out.println("Incorrect Login Details. Please try again");
             getUserPass();
-        }
+        }*/
     }
 
     /**
