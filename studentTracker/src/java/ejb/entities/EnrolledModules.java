@@ -138,4 +138,17 @@ public class EnrolledModules implements Serializable {
         this.student = student;
     }
 
+     //Student has many submissions. A Submission has one student
+    @JoinColumn(name = "COURSE_MODULE_ENROLLED_MODULES_REF", referencedColumnName = "ID")
+    @ManyToOne
+    private CourseModules courseModule;
+    public CourseModules getcourseModule()
+    {
+        return courseModule;
+    }
+    public void setcourseModule(CourseModules courseModule)
+    {
+        this.courseModule = courseModule;
+    }
+
 }

@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -140,8 +141,8 @@ public class CourseModules implements Serializable {
     /////////////////////////claimed///////////////
 
     //hugh
-    //Student is enrolled to many modules. An enrolled module only has one student
-    @OneToMany(mappedBy = "student", fetch=FetchType.EAGER)
+    //CourseModules have many enrollments. An enrolled module only has one course module
+    @OneToMany(mappedBy = "courseModule", fetch=FetchType.EAGER)
     private Collection<EnrolledModules> listOfEnrolledModules;
 
     public Collection<EnrolledModules> getListOfEnrolledModules()
