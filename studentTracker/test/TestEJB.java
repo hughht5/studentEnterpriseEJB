@@ -120,5 +120,5 @@ public class TestEJB {
         System.out.println("testAddStudentUser: Added student "+student.getName()+" ("+student.getEmailID()+")");
         Assert.assertTrue(result);
 
-    }
+    } 
 }
