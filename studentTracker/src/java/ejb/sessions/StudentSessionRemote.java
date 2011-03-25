@@ -22,3 +22,4 @@ public interface StudentSessionRemote {
     list<List> listStudentModules(int studentNumber);
     
 }
+ 
