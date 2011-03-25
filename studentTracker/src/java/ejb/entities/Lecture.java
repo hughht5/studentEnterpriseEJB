@@ -144,7 +144,7 @@ public class Lecture implements Serializable {
 
 
     // alex
-    //A Staff has many lectures. A lecturer has one staff
+    //A Staff has many lectures. A lecture has one staff
     @JoinColumn(name = "STAFF_LECTURES-REF", referencedColumnName = "ID")
     @ManyToOne
     private Staff staff;

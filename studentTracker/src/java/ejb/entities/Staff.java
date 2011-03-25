@@ -159,7 +159,7 @@ public class Staff implements Serializable {
 
     // alex start
 
-    //The staff consists of many lecturers. A lecturor is only part of one staff.
+    //The staff has many lecturers. A lecturer is only part of one staff.
     @OneToMany(mappedBy = "staff", fetch=FetchType.EAGER)
     private Collection<Lecture> listOfLecturers;
 
