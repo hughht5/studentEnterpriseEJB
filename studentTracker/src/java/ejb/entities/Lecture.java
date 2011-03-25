@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -139,4 +141,35 @@ public class Lecture implements Serializable {
     }
 
     /////////////////////////claimed///////////////
+
+
+    // alex
+    //A Staff has many lectures. A lecturer has one staff
+    @JoinColumn(name = "STAFF_LECTURES-REF", referencedColumnName = "ID")
+    @ManyToOne
+    private Staff staff;
+    public Staff getStaff()
+    {
+        return staff;
+    }
+    public void setStaff(Staff staff)
+    {
+        this.staff = staff;
+    }
+
+    //A module has many lecturers. A lecturer has one module.
+    @JoinColumn(name = "MODULE_LECTURES-REF", referencedColumnName = "ID")
+    @ManyToOne
+    private Module module;
+    public Module getModule()
+    {
+        return module;
+    }
+    public void setModule(Module module)
+    {
+        this.module = module;
+    }
+
+    //alex end
+
 }

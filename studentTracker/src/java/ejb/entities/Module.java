@@ -153,15 +153,33 @@ public class Module implements Serializable {
 
     //Modules have many prereqs (other modules). A prereq may belong to many modules
     @OneToMany(mappedBy = "prereq", fetch=FetchType.EAGER)
-    private Collection<Prerequisites> listOfPrereqs;
+    private Collection<Module> listOfPrereqs;
 
-    public Collection<Prerequisites> getListOfPrereqs()
+    public Collection<Module> getListOfPrereqs()
     {
         return listOfPrereqs;
     }
-    public void setListOfPrereqs(Collection<Prerequisites> listOfPrereqs)
+    public void setListOfPrereqs(Collection<Module> listOfPrereqs)
     {
         this.listOfPrereqs = listOfPrereqs;
     }
     //micmo end
+
+
+    // alex start
+
+    // A module consists of many lectures. A lecturer is only part of one module.
+    @OneToMany(mappedBy = "module", fetch=FetchType.EAGER)
+    private Collection<Lecture> listOfLecturers;
+
+    public Collection<Lecture> getListOfLecturers()
+    {
+        return listOfLecturers;
+    }
+    public void setListLecturers(Collection<Lecture> listOfLecturers)
+    {
+        this.listOfLecturers = listOfLecturers;
+    }
+
+    // alex end
 }

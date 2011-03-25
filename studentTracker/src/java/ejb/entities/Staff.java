@@ -156,4 +156,22 @@ public class Staff implements Serializable {
     }
     //micmo end
 
+
+    // alex start
+
+    //The staff consists of many lecturers. A lecturor is only part of one staff.
+    @OneToMany(mappedBy = "staff", fetch=FetchType.EAGER)
+    private Collection<Lecture> listOfLecturers;
+
+    public Collection<Lecture> getListOfLecturers()
+    {
+        return listOfLecturers;
+    }
+    public void setListLecturers(Collection<Lecture> listOfLecturers)
+    {
+        this.listOfLecturers = listOfLecturers;
+    }
+
+    // alex end
+
 }
