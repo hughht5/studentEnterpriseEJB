@@ -6,7 +6,9 @@
 package ejb.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -136,5 +138,21 @@ public class CourseModules implements Serializable {
     }
 
     /////////////////////////claimed///////////////
+
+    //hugh
+    //Student is enrolled to many modules. An enrolled module only has one student
+    @OneToMany(mappedBy = "student", fetch=FetchType.EAGER)
+    private Collection<EnrolledModules> listOfEnrolledModules;
+
+    public Collection<EnrolledModules> getListOfEnrolledModules()
+    {
+        return listOfEnrolledModules;
+    }
+    public void setListEnrolledModules(Collection<EnrolledModules> listOfEnrolledModules)
+    {
+        this.listOfEnrolledModules = listOfEnrolledModules;
+    }
+
+    ///hugh end
 
 }
