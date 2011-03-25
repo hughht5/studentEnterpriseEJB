@@ -1,8 +1,17 @@
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
+package client.logon;
+
+/**
+ *
+ * @author mm336
+ */
+public class NewClass {
+/*
+
 package client.logon;
 
 import ejb.sessions.UserSessionRemote;
@@ -10,10 +19,7 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author mm336
- */
+
 public class logon {
 
     private static String username = null;
@@ -40,7 +46,12 @@ public class logon {
     }
 
     private static void logIn(){
-        Sessions session = new Sessions();
+        System.out.print("fuck1");
+        Sessions session = new Sessions("lol");
+
+        ///
+        System.out.print("fuck3");
+        ////
 
         if(session.userSession().checkLogin(username, password))
         {
@@ -68,9 +79,7 @@ public class logon {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
         if (args.length == 2) {
             username = args[0];
@@ -84,4 +93,6 @@ public class logon {
 
     }
 
+}
+*/
 }
