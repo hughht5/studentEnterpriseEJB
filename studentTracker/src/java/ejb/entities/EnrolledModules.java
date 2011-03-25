@@ -125,7 +125,7 @@ public class EnrolledModules implements Serializable {
 
     /////////////////////////claimed///////////////
 
-    //Student has many submissions. A Submission has one student
+    //Student has many enrolled modules. An enrolled module has one student
     @JoinColumn(name = "STUDENT_ENROLLED_MODULES_REF", referencedColumnName = "ID")
     @ManyToOne
     private Student student;
