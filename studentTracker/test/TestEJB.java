@@ -3,31 +3,33 @@
  * and open the template in the editor.
  */
 
-package client.logon;
+
 
 import ejb.sessions.StudentSessionRemote;
-import ejb.sessions.UserSessionRemote;
-
 import ejb.entities.Users;
-import ejb.entities.Student;
-
 import java.sql.Date;
-
+import ejb.entities.Student;
+import junit.framework.Assert;
+import ejb.sessions.UserSessionRemote;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author mm336
  */
-public class Sessions {
+public class TestEJB {
 
     UserSessionRemote userSession;
     StudentSessionRemote studentSession;
@@ -35,7 +37,7 @@ public class Sessions {
     String host;
     String port;
 
-    public Sessions() {
+    public TestEJB() {
         host = "blue98.ex.ac.uk";
         port = "20911";
 
@@ -48,6 +50,22 @@ public class Sessions {
 
         userSession = lookupUserSessionRemote(props);
         studentSession = lookupStudentSessionRemote(props);
+    }
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
     }
 
     private UserSessionRemote lookupUserSessionRemote(Properties props) {
@@ -70,14 +88,37 @@ public class Sessions {
         }
     }
 
-    public StudentSessionRemote studentSession()
-    {
-        return studentSession;
+    @Test
+    public void testCheckLogin() {
+        if(userSession.checkLogin("user", "pass"))
+        {
+            Assert.assertTrue(true);
+        }
+        else
+        {
+            Assert.assertFalse(false);
+        }
     }
 
-    public UserSessionRemote userSession()
+    @Test
+    public void testAddStudentUser()
     {
-        return userSession;
-    }
+        boolean result = false;
+        java.sql.Date dob = java.sql.Date.valueOf("1980-06-28"); //yyyy-mm-dd
 
+        //studentSession.addStudent(10, 20, "xzy101", "Joe Bloggs", dob);
+
+        Student student = new Student();
+        student.setCandidateNumber(1);
+        student.setStudentNumber(2);
+        student.setEmailID("xyz101");
+        student.setName("Joe Bloggs");
+        student.setDateOfBirth(dob);
+
+        result = userSession.addStudentUser(student, "password");
+
+        System.out.println("testAddStudentUser: Added student "+student.getName()+" ("+student.getEmailID()+")");
+        Assert.assertTrue(result);
+
+    }
 }

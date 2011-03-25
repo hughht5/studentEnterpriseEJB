@@ -36,6 +36,8 @@ public class UserSession implements UserSessionRemote {
     @Override
     public Boolean checkIfStaff(String _username) {
         boolean isStaff = false;
+
+        //if(Staff.getStaff(_username).isAdmin)
         if(isStaff)
             return true;
         else
@@ -73,40 +75,42 @@ public class UserSession implements UserSessionRemote {
 
         Users user = new Users();
 
-        user.setUsername(_staff.getEmailID());
-        user.setPassword(_password);
+        try
+        {
+            user.setUsername(_staff.getEmailID());
+            user.setPassword(_password);
 
-        user.setIsAdmin(_isAdmin);
-        user.setIsStaff(true);
+            user.setIsAdmin(_isAdmin);
+            user.setIsStaff(true);
 
-        user.setStudent(null);
-        user.setStaff(_staff);
+            user.setStudent(null);
+            user.setStaff(_staff);
 
-        //possible try catch for already existing entities
-        manager.persist(user);
+            //possible try catch for already existing entities
+            manager.persist(user);
 
-        return true;
-    }
-
-
-    
-    public Student getStudentUser(String _username)
-    {
-        return new Student();
+            return true;
+        }catch(Exception ex)
+        {
+            System.out.println(ex);
+            return false;
+        }
     }
 
     public Staff getStaffUser(String _username)
     {
         return new Staff();
     }
-    /*public Student getStudentUser(String _username) {
+
+    public Student getStudentUser(String _username) {
         //Get the student from the database
-        Student student = StudentSession.getStudent(_username);
-        
-        return student;
+        //Student student = StudentSession.(_username);
+        //return student;
+
+        return new Student();
     }
 
-    public Staff getStaffUser(String _username) {
+    /*public Staff getStaffUser(String _username) {
         //Get the staff from the database
         Staff staff = StaffSession.getStaff(_username);
 

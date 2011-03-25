@@ -17,7 +17,7 @@ import ejb.entities.Student;
 public class StudentSession implements StudentSessionRemote {
 
     @Override
-    public boolean addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob) {
+    public Boolean addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob) {
         Student student = new Student();
         student.setCandidateNumber(candidateNum);
         student.setStudentNumber(studentNum);

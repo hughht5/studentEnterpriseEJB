@@ -15,6 +15,6 @@ import javax.ejb.Remote;
 @Remote
 public interface StudentSessionRemote {
 
-    string addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob);
+    Boolean addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob);
     
 }

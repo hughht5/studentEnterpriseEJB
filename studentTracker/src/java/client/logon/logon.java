@@ -42,9 +42,6 @@ public class logon {
     private static void logIn(){
         Sessions session = new Sessions();
 
-        UserSessionRemote userSession = session.userSession();
-        System.out.println(userSession);
-        /*
         if(session.userSession().checkLogin(username, password))
         {
             if(session.userSession().checkIfStaff(username))
@@ -68,7 +65,7 @@ public class logon {
         {
             System.out.println("Incorrect Login Details. Please try again");
             getUserPass();
-        }*/
+        }
     }
 
     /**
