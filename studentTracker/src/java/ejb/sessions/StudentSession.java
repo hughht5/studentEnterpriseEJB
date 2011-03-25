@@ -7,15 +7,23 @@ package ejb.sessions;
 
 import java.sql.Date;
 import javax.ejb.Stateless;
+import ejb.entities.Student;
 
 /**
  *
  * @author hmh205
  */
 @Stateless
-public class Student implements StudentRemote {
+public class StudentSession implements StudentSessionRemote {
 
+    @Override
     public boolean addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob) {
+        Student student = new Student();
+        student.setCandidateNumber(candidateNum);
+        student.setStudentNumber(studentNum);
+        student.setEmailID(emailID);
+        student.setName(name);
+        student.setDateOfBirth(dob);
         return true;
     }
     

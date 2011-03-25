@@ -13,7 +13,7 @@ import javax.ejb.Remote;
  * @author hmh205
  */
 @Remote
-public interface StudentRemote {
+public interface StudentSessionRemote {
 
     string addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob);
     
