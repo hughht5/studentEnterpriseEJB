@@ -16,5 +16,9 @@ import javax.ejb.Remote;
 public interface StudentSessionRemote {
 
     string addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob);
+
+    boolean getStudent(int studentNumber);
+
+    list<List> listStudentModules(int studentNumber);
     
 }
