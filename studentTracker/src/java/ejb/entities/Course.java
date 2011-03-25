@@ -103,7 +103,7 @@ public class Course implements Serializable {
 
     /////////////////////////claimed///////////////
     //hugh
-    //Student is enrolled to many modules. An enrolled module only has one student
+    //Course has many course modules - course modules each have one course.
     @OneToMany(mappedBy = "course", fetch=FetchType.EAGER)
     private Collection<CourseModules> listOfCourseModules;
 

@@ -181,5 +181,18 @@ public class Module implements Serializable {
         this.listOfLecturers = listOfLecturers;
     }
 
+    // A module consists of many lectures. A lecturer is only part of one module.
+    @OneToMany(mappedBy = "module", fetch=FetchType.EAGER)
+    private Collection<Module> listOfModules;
+
+    public Collection<Module> getlistOfModules()
+    {
+        return listOfModules;
+    }
+    public void setlistOfModules(Collection<Module> listOfModules)
+    {
+        this.listOfModules = listOfModules;
+    }
+
     // alex end
 }
