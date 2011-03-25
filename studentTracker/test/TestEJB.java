@@ -85,4 +85,10 @@ public class TestEJB {
             Assert.assertFalse(false);
         }
     }
+
+    @Test
+    public void testAddStudents()
+    {
+        
+    }
 }

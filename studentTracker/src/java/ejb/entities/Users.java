@@ -117,7 +117,7 @@ public class Users implements Serializable {
      *
      * @param isAdmin new value of isAdmin
      */
-    public void setAdmin(boolean admin) {
+    public void setIsAdmin(boolean admin) {
         this.isAdmin = admin;
     }
     private boolean isStaff;
@@ -136,7 +136,7 @@ public class Users implements Serializable {
      *
      * @param isStaff new value of isStaff
      */
-    public void setStaff(boolean staff) {
+    public void setIsStaff(boolean staff) {
         this.isStaff = staff;
     }
 
