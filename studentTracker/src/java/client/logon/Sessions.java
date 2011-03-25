@@ -6,6 +6,7 @@
 package client.logon;
 
 import ejb.sessions.UserSessionRemote;
+
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -17,7 +18,7 @@ import javax.naming.NamingException;
  */
 public class Sessions {
 
-    private UserSessionRemote userSession;
+    UserSessionRemote userSession;
 
     String host;
     String port;
@@ -39,15 +40,16 @@ public class Sessions {
 
     private UserSessionRemote lookupUserSessionRemote(Properties props) {
         try {
+            
+            
+
             System.out.println("Initialising context");
             Context c = new InitialContext(props);
             System.out.println("Context initialised");
             String jndiName = "java:global/studentTracker/UserSession!" + "ejb.sessions.UserSessionRemote";
             return (UserSessionRemote) c.lookup(jndiName);
         } catch (NamingException ne) {
-            //throw new RuntimeException(ne);
-            ne.printStackTrace();
-            return null;
+            throw new RuntimeException(ne);
         }
     }
 

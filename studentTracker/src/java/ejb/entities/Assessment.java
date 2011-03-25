@@ -246,7 +246,7 @@ public class Assessment implements Serializable {
 
     //micmo relationships
     //Assessments have many submissions. A submission has one assessment
-    @OneToMany(mappedBy = "assessment", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "submission", fetch=FetchType.EAGER)
     private Collection<Submission> listOfSubmissions;
 
     public Collection<Submission> getListOfSubmissions()

@@ -125,7 +125,7 @@ public class Prerequisites implements Serializable {
 
     //micmo relationships
     //Modules have many prereqs (other modules). A prereq may belong to many modules
-    @JoinColumn(name = "MODULEPREREQS_REF", referencedColumnName = "ID")
+    @JoinColumn(name = "MODULE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Module prereq;
     public Module getPreReq()

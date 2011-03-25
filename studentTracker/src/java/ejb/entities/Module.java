@@ -153,13 +153,13 @@ public class Module implements Serializable {
 
     //Modules have many prereqs (other modules). A prereq may belong to many modules
     @OneToMany(mappedBy = "prereq", fetch=FetchType.EAGER)
-    private Collection<Module> listOfPrereqs;
+    private Collection<Prerequisites> listOfPrereqs;
 
-    public Collection<Module> getListOfPrereqs()
+    public Collection<Prerequisites> getListOfPrereqs()
     {
         return listOfPrereqs;
     }
-    public void setListOfPrereqs(Collection<Module> listOfPrereqs)
+    public void setListOfPrereqs(Collection<Prerequisites> listOfPrereqs)
     {
         this.listOfPrereqs = listOfPrereqs;
     }
