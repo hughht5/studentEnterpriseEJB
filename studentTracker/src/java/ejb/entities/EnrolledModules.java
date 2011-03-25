@@ -142,11 +142,11 @@ public class EnrolledModules implements Serializable {
     @JoinColumn(name = "COURSE_MODULE_ENROLLED_MODULES_REF", referencedColumnName = "ID")
     @ManyToOne
     private CourseModules courseModule;
-    public CourseModules getcourseModule()
+    public CourseModules getCourseModule()
     {
         return courseModule;
     }
-    public void setcourseModule(CourseModules courseModule)
+    public void setCourseModule(CourseModules courseModule)
     {
         this.courseModule = courseModule;
     }

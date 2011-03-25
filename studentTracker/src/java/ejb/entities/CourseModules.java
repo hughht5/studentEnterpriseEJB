@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -152,6 +154,19 @@ public class CourseModules implements Serializable {
     public void setListEnrolledModules(Collection<EnrolledModules> listOfEnrolledModules)
     {
         this.listOfEnrolledModules = listOfEnrolledModules;
+    }
+
+    //Student has many submissions. A Submission has one student
+    @JoinColumn(name = "COURSE_MODULE_COURSE_REF", referencedColumnName = "ID")
+    @ManyToOne
+    private Course course;
+    public Course getCourse()
+    {
+        return course;
+    }
+    public void setCourse(Course course)
+    {
+        this.course = course;
     }
 
     ///hugh end
