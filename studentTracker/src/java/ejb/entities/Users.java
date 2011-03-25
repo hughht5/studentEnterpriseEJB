@@ -101,43 +101,43 @@ public class Users implements Serializable {
         this.password = password;
     }
 
-    private boolean admin;
+    private boolean isAdmin;
 
     /**
-     * Get the value of admin
+     * Get the value of isAdmin
      *
-     * @return the value of admin
+     * @return the value of isAdmin
      */
     public boolean isAdmin() {
-        return admin;
+        return isAdmin;
     }
 
     /**
-     * Set the value of admin
+     * Set the value of isAdmin
      *
-     * @param admin new value of admin
+     * @param isAdmin new value of isAdmin
      */
     public void setAdmin(boolean admin) {
-        this.admin = admin;
+        this.isAdmin = admin;
     }
-    private boolean staff;
+    private boolean isStaff;
 
     /**
-     * Get the value of staff
+     * Get the value of isStaff
      *
-     * @return the value of staff
+     * @return the value of isStaff
      */
     public boolean isStaff() {
-        return staff;
+        return isStaff;
     }
 
     /**
-     * Set the value of staff
+     * Set the value of isStaff
      *
-     * @param staff new value of staff
+     * @param isStaff new value of isStaff
      */
     public void setStaff(boolean staff) {
-        this.staff = staff;
+        this.isStaff = staff;
     }
 
 
@@ -154,7 +154,7 @@ public class Users implements Serializable {
     {
         this.student = _student;
     }
-/*
+
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="STAFF_ID")
     private Staff staff;
@@ -166,7 +166,7 @@ public class Users implements Serializable {
     public void setStaff(Staff _staff)
     {
         this.staff = _staff;
-    }*/
+    }
 
     //micmo end
 

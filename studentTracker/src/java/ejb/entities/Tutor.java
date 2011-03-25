@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -55,66 +57,32 @@ public class Tutor implements Serializable {
         return "ejb.entities.Tutors[id=" + id + "]";
     }
 
-     ///////////////////////////hughs code/////////////////
-    private int tutorID;
 
-    /**
-     * Get the value of tutorID
-     *
-     * @return the value of tutorID
-     */
-    public int getTutorID() {
-        return tutorID;
+    //Micmo data relationships
+    @JoinColumn(name = "TUTEE_REF", referencedColumnName = "ID")
+    @ManyToOne
+    private Student student;
+    public Student getStudent()
+    {
+        return student;
+    }
+    public void setStudent(Student _student)
+    {
+        this.student = _student;
     }
 
-    /**
-     * Set the value of tutorID
-     *
-     * @param tutorID new value of tutorID
-     */
-    public void setTutorID(int tutorID) {
-        this.tutorID = tutorID;
+
+    @JoinColumn(name = "TUTOR_REF", referencedColumnName = "ID")
+    @ManyToOne
+    private Staff staff;
+    public Staff getStaff()
+    {
+        return staff;
     }
-    private String studentEmailID;
-
-    /**
-     * Get the value of studentEmailID
-     *
-     * @return the value of studentEmailID
-     */
-    public String getStudentID() {
-        return studentEmailID;
+    public void setStaff(Staff _staff)
+    {
+        this.staff = _staff;
     }
-
-    /**
-     * Set the value of studentEmailID
-     *
-     * @param studentEmailID new value of studentEmailID
-     */
-    public void setStudentID(String studentID) {
-        this.studentEmailID = studentID;
-    }
-
-    private String staffEmailID;
-
-    /**
-     * Get the value of staffEmailID
-     *
-     * @return the value of staffEmailID
-     */
-    public String getStaffEmailID() {
-        return staffEmailID;
-    }
-
-    /**
-     * Set the value of staffEmailID
-     *
-     * @param staffEmailID new value of staffEmailID
-     */
-    public void setStaffEmailID(String staffEmailID) {
-        this.staffEmailID = staffEmailID;
-    }
-
-    /////////////////////////claimed///////////////
+    //Micmo end
 
 }

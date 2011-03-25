@@ -6,10 +6,13 @@
 package ejb.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -136,5 +139,21 @@ public class Staff implements Serializable {
 
 
     /////////////////////////claimed///////////////
+
+    //micmo relationships
+
+    //Student has one Tutor. Tutor has many Tutees.
+    @OneToMany(mappedBy = "tutor", fetch=FetchType.EAGER)
+    private Collection<Student> listOfTutees;
+
+    public Collection<Student> getListOfTutees()
+    {
+        return listOfTutees;
+    }
+    public void setListOfTutees(Collection<Student> listOfTutees)
+    {
+        this.listOfTutees = listOfTutees;
+    }
+    //micmo end
 
 }

@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -120,5 +122,20 @@ public class Prerequisites implements Serializable {
     
 
     /////////////////////////claimed///////////////
+
+    //micmo relationships
+    //Modules have many prereqs (other modules). A prereq may belong to many modules
+    @JoinColumn(name = "MODULEPREREQS_REF", referencedColumnName = "ID")
+    @ManyToOne
+    private Module prereq;
+    public Module getPreReq()
+    {
+        return prereq;
+    }
+    public void setPreReq(Module prereq)
+    {
+        this.prereq = prereq;
+    }
+    //micmo end
 
 }

@@ -6,10 +6,13 @@
 package ejb.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -133,4 +136,32 @@ public class Module implements Serializable {
     }
 
     /////////////////////////claimed///////////////
+
+    //micmo relationships
+    //Modules have many Assessments. An assessment has only one module
+    @OneToMany(mappedBy = "module", fetch=FetchType.EAGER)
+    private Collection<Assessment> listOfAssessments;
+
+    public Collection<Assessment> getListOfAssessments()
+    {
+        return listOfAssessments;
+    }
+    public void setListOfAssessments(Collection<Assessment> listOfAssessments)
+    {
+        this.listOfAssessments = listOfAssessments;
+    }
+
+    //Modules have many prereqs (other modules). A prereq may belong to many modules
+    @OneToMany(mappedBy = "prereq", fetch=FetchType.EAGER)
+    private Collection<Module> listOfPrereqs;
+
+    public Collection<Module> getListOfPrereqs()
+    {
+        return listOfPrereqs;
+    }
+    public void setListOfPrereqs(Collection<Module> listOfPrereqs)
+    {
+        this.listOfPrereqs = listOfPrereqs;
+    }
+    //micmo end
 }

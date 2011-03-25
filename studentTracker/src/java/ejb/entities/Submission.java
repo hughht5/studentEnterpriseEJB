@@ -10,10 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
- * @author mm336
+ * @author hmh205
  */
 @Entity
 public class Submission implements Serializable {
@@ -52,12 +54,137 @@ public class Submission implements Serializable {
 
     @Override
     public String toString() {
-        return "ejb.entities.Submission[id=" + id + "]";
+        return "ejb.entities.submission[id=" + id + "]";
     }
 
 
+    ///////////////////////////hughs code/////////////////
 
-    //micmo start
-    
-    //micmo end
+    private int submissionID;
+
+    /**
+     * Get the value of submissionID
+     *
+     * @return the value of submissionID
+     */
+    public int getSubmissionID() {
+        return submissionID;
+    }
+
+    /**
+     * Set the value of submissionID
+     *
+     * @param submissionID new value of submissionID
+     */
+    public void setSubmissionID(int submissionID) {
+        this.submissionID = submissionID;
+    }
+    private int assesmentID;
+
+    /**
+     * Get the value of assesmentID
+     *
+     * @return the value of assesmentID
+     */
+    public int getAssesmentID() {
+        return assesmentID;
+    }
+
+    /**
+     * Set the value of assesmentID
+     *
+     * @param assesmentID new value of assesmentID
+     */
+    public void setAssesmentID(int assesmentID) {
+        this.assesmentID = assesmentID;
+    }
+    private float mark;
+
+    /**
+     * Get the value of mark
+     *
+     * @return the value of mark
+     */
+    public float getMark() {
+        return mark;
+    }
+
+    /**
+     * Set the value of mark
+     *
+     * @param mark new value of mark
+     */
+    public void setMark(float mark) {
+        this.mark = mark;
+    }
+    private String isLate;
+
+    /**
+     * Get the value of isLate
+     *
+     * @return the value of isLate
+     */
+    public String getIsLate() {
+        return isLate;
+    }
+
+    /**
+     * Set the value of isLate
+     *
+     * @param isLate new value of isLate
+     */
+    public void setIsLate(String isLate) {
+        this.isLate = isLate;
+    }
+    private String studentID;
+
+    /**
+     * Get the value of studentID
+     *
+     * @return the value of studentID
+     */
+    public String getStudentID() {
+        return studentID;
+    }
+
+    /**
+     * Set the value of studentID
+     *
+     * @param studentID new value of studentID
+     */
+    public void setStudentID(String studentID) {
+        this.studentID = studentID;
+    }
+
+
+    /////////////////////////claimed///////////////
+
+
+    //micmo relationships
+
+    //Student has many submissions. A Submission has one student
+    @JoinColumn(name = "STUDENTSUBMISSION_REF", referencedColumnName = "ID")
+    @ManyToOne
+    private Student student;
+    public Student getStudent()
+    {
+        return student;
+    }
+    public void setStudent(Student student)
+    {
+        this.student = student;
+    }
+
+    //Assessments have many submissions. A submission has one assessment
+    @JoinColumn(name = "ASSESSMENTSUBMISSION_REF", referencedColumnName = "ID")
+    @ManyToOne
+    private Assessment assessment;
+    public Assessment getAssessment()
+    {
+        return assessment;
+    }
+    public void setAssessment(Assessment assessment)
+    {
+        this.assessment = assessment;
+    }
 }

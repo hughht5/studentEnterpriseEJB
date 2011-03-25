@@ -23,8 +23,8 @@ public class Sessions {
     String port;
 
     public Sessions() {
-        host = "blue102.ex.ac.uk";
-        port = "11494";
+        host = "blue98.ex.ac.uk";
+        port = "20911";
 
         Properties props = new Properties();
         props.put("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");

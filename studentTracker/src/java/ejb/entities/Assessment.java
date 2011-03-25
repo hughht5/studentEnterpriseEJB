@@ -6,11 +6,16 @@
 package ejb.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -18,7 +23,7 @@ import javax.persistence.Temporal;
  * @author hmh205
  */
 @Entity
-public class Assesment implements Serializable {
+public class Assessment implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,10 +47,10 @@ public class Assesment implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Assesment)) {
+        if (!(object instanceof Assessment)) {
             return false;
         }
-        Assesment other = (Assesment) object;
+        Assessment other = (Assessment) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -238,4 +243,32 @@ public class Assesment implements Serializable {
 
     /////////////////////////claimed///////////////
 
+
+    //micmo relationships
+    //Assessments have many submissions. A submission has one assessment
+    @OneToMany(mappedBy = "assessment", fetch=FetchType.EAGER)
+    private Collection<Submission> listOfSubmissions;
+
+    public Collection<Submission> getListOfSubmissions()
+    {
+        return listOfSubmissions;
+    }
+    public void setListOfSubmissions(Collection<Submission> listOfSubmissions)
+    {
+        this.listOfSubmissions = listOfSubmissions;
+    }
+
+    //Modules have many Assessments. An assessment has only one module
+    @JoinColumn(name = "MODULEASSESSMENT_REF", referencedColumnName = "ID")
+    @ManyToOne
+    private Module module;
+    public Module getModule()
+    {
+        return module;
+    }
+    public void setModule(Module module)
+    {
+        this.module = module;
+    }
+    //micmo end
 }

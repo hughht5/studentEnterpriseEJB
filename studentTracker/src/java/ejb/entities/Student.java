@@ -5,11 +5,16 @@
 package ejb.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -158,4 +163,33 @@ public class Student implements Serializable {
 
 
     /////////////////////////claimed///////////////
+
+    //Micmo relationships
+
+    //Student has one Tutor. Tutor has many Tutees.
+    @JoinColumn(name = "TUTOR_REF", referencedColumnName = "ID")
+    @ManyToOne
+    private Staff tutor;
+    public Staff getTutor()
+    {
+        return tutor;
+    }
+    public void setTutor(Staff tutor)
+    {
+        this.tutor = tutor;
+    }
+
+    //Student has many submissions. A Submission only has one student
+    @OneToMany(mappedBy = "student", fetch=FetchType.EAGER)
+    private Collection<Submission> listOfSubmissions;
+
+    public Collection<Submission> getListOfSubmissions()
+    {
+        return listOfSubmissions;
+    }
+    public void setListOfSubmissions(Collection<Submission> listOfSubmissions)
+    {
+        this.listOfSubmissions = listOfSubmissions;
+    }
+    //micmo end
 }
