@@ -157,7 +157,7 @@ public class CourseModules implements Serializable {
     }
 
     //Student has many submissions. A Submission has one student
-    @JoinColumn(name = "COURSE_MODULE_COURSE_REF", referencedColumnName = "ID")
+    @JoinColumn(name = "COURSE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Course course;
     public Course getCourse()
@@ -170,7 +170,7 @@ public class CourseModules implements Serializable {
     }
 
     //Student has many submissions. A Submission has one student
-    @JoinColumn(name = "COURSE_MODULE_MODULE_REF", referencedColumnName = "ID")
+    @JoinColumn(name = "MODULE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Module module;
     public Module getModule()

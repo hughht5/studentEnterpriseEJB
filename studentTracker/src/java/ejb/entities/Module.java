@@ -152,7 +152,7 @@ public class Module implements Serializable {
     }
 
     //Modules have many prereqs (other modules). A prereq may belong to many modules
-    @OneToMany(mappedBy = "prereq", fetch=FetchType.EAGER)
+    @OneToMany(/*mappedBy = "module", */fetch=FetchType.EAGER)
     private Collection<Module> listOfPrereqs;
 
     public Collection<Module> getListOfPrereqs()
@@ -181,7 +181,7 @@ public class Module implements Serializable {
         this.listOfLecturers = listOfLecturers;
     }
 
-    // A module consists of many lectures. A lecturer is only part of one module.
+    /*// A module consists of many lectures. A lecturer is only part of one module.
     @OneToMany(mappedBy = "module", fetch=FetchType.EAGER)
     private Collection<Module> listOfModules;
 
@@ -192,7 +192,7 @@ public class Module implements Serializable {
     public void setlistOfModules(Collection<Module> listOfModules)
     {
         this.listOfModules = listOfModules;
-    }
+    }*/
 
     // alex end
 }

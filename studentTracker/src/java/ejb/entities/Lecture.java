@@ -145,7 +145,7 @@ public class Lecture implements Serializable {
 
     // alex
     //A Staff has many lectures. A lecture has one staff
-    @JoinColumn(name = "STAFF_LECTURES-REF", referencedColumnName = "ID")
+    @JoinColumn(name = "LECTURES-REF", referencedColumnName = "ID")
     @ManyToOne
     private Staff staff;
     public Staff getStaff()
@@ -158,7 +158,7 @@ public class Lecture implements Serializable {
     }
 
     //A module has many lecturers. A lecturer has one module.
-    @JoinColumn(name = "MODULE_LECTURES-REF", referencedColumnName = "ID")
+    @JoinColumn(name = "MODULE-REF", referencedColumnName = "ID")
     @ManyToOne
     private Module module;
     public Module getModule()

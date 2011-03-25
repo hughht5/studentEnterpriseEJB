@@ -75,14 +75,14 @@ public class TestEJB {
     }
 
     @Test
-    public void testAssignBookCopyToLibrary() {
+    public void testCheckLogin() {
         if(userSession.checkLogin("user", "pass"))
         {
             Assert.assertTrue(true);
         }
         else
         {
-            System.out.println("false");
+            Assert.assertFalse(false);
         }
     }
 }

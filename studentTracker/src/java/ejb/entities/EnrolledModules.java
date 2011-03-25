@@ -139,7 +139,7 @@ public class EnrolledModules implements Serializable {
     }
 
      //A courseModule has many enrollments. Each enrollment has one course module
-    @JoinColumn(name = "COURSE_MODULE_ENROLLED_MODULES_REF", referencedColumnName = "ID")
+    @JoinColumn(name = "COURSEMODULES_REF", referencedColumnName = "ID")
     @ManyToOne
     private CourseModules courseModule;
     public CourseModules getCourseModule()

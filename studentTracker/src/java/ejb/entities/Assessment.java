@@ -246,7 +246,7 @@ public class Assessment implements Serializable {
 
     //micmo relationships
     //Assessments have many submissions. A submission has one assessment
-    @OneToMany(mappedBy = "submission", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "assessment", fetch=FetchType.EAGER)
     private Collection<Submission> listOfSubmissions;
 
     public Collection<Submission> getListOfSubmissions()
@@ -259,7 +259,7 @@ public class Assessment implements Serializable {
     }
 
     //Modules have many Assessments. An assessment has only one module
-    @JoinColumn(name = "MODULEASSESSMENT_REF", referencedColumnName = "ID")
+    @JoinColumn(name = "MODULE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Module module;
     public Module getModule()
