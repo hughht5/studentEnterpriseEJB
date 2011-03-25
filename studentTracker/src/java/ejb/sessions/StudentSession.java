@@ -26,16 +26,7 @@ public class StudentSession implements StudentSessionRemote {
         student.setDateOfBirth(dob);
         return true;
     }
-
-    public boolean getStudent(int studentNumber) {
-        return false;
-    }
-
-    public list<List> listStudentModules(int studentNumber) {
-        return null;
-    }
-
-
+    
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
  
