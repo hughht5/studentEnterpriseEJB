@@ -164,7 +164,7 @@ public class Student implements Serializable {
 
     /////////////////////////claimed///////////////
 
-    //Micmo relationships
+    //Micmo relationships 
 
     //Student has one Tutor. Tutor has many Tutees.
     @JoinColumn(name = "TUTOR_REF", referencedColumnName = "ID")
