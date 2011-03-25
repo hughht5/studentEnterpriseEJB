@@ -192,4 +192,20 @@ public class Student implements Serializable {
         this.listOfSubmissions = listOfSubmissions;
     }
     //micmo end
+
+    //hugh and alex
+    //Student is enrolled to many modules. An enrolled module only has one student
+    @OneToMany(mappedBy = "student", fetch=FetchType.EAGER)
+    private Collection<EnrolledModules> listOfEnrolledModules;
+
+    public Collection<EnrolledModules> getListOfEnrolledModules()
+    {
+        return listOfEnrolledModules;
+    }
+    public void setListEnrolledModules(Collection<EnrolledModules> listOfEnrolledModules)
+    {
+        this.listOfEnrolledModules = listOfEnrolledModules;
+    }
+    
+    ///hugh and alex end
 }
