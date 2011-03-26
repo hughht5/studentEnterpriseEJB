@@ -7,6 +7,7 @@ package ejb.sessions;
 import java.sql.Date;
 import javax.ejb.Stateless;
 import ejb.entities.Student;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -41,12 +42,34 @@ public class StudentSession implements StudentSessionRemote {
     @Override
     public boolean removeStudent(Student _student) {
         try{
-            manager.remove(manager.find(Student.class, _student.getId()));
+            manager.remove(manager.find(Student.class, _student.getEmailID()));
         } catch (Exception e) {
             return false;
         }
         return true;
     }
+
+    public Student getStudentByEmailID(String _emailID) {
+        List<Student> students;
+        try{
+            String query = "SELECT student FROM Student as student";
+
+            students = manager.createQuery(query).getResultList();
+
+            for(Student s : students)
+            {
+               if(s.getEmailID().equals(_emailID))
+                   return s;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("getStudentByEmailID ERROR: "+e);
+            return null;
+        }
+    }
+
+    
+
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 

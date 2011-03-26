@@ -20,4 +20,6 @@ public interface StudentSessionRemote {
 
     boolean removeStudent(Student _student);
 
+    Student getStudentByEmailID(String _emailID);
+
 }

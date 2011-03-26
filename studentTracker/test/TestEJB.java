@@ -25,6 +25,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.net.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -32,14 +34,16 @@ import java.net.*;
  */
 public class TestEJB {
 
-    UserSessionRemote userSession;
-    StudentSessionRemote studentSession;
+    @PersistenceContext
+    private EntityManager manager;
 
-    String host;
-    String port;
+    private UserSessionRemote userSession;
+    private StudentSessionRemote studentSession;
+
+    private String host;
+    private String port;
 
     public TestEJB() {
-
         //Get the hostname (bluexxx.ex.ac.uk)
         try {
             InetAddress addr = InetAddress.getLocalHost();
@@ -54,8 +58,6 @@ public class TestEJB {
             //On the management console: ORB -> IIOP Listeners -> 'orb-listener-1'
             //Change port to 20911
         port = "20911";
-
-        System.out.println("Connecting to glassfish on "+host+":"+port);
 
         Properties props = new Properties();
         props.put("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
@@ -117,24 +119,43 @@ public class TestEJB {
     }
 
     @Test
-    public void testAddStudentUser()
+    public void testAddStudent()
     {
-        boolean result = false;
-        java.sql.Date dob = java.sql.Date.valueOf("1980-06-28"); //yyyy-mm-dd
+        try {
+            java.sql.Date dob = java.sql.Date.valueOf("1980-06-28"); //yyyy-mm-dd
+            studentSession.addStudent(10, 20, "abc101", "Micmo1", dob);
+            studentSession.addStudent(10, 20, "abc102", "Micmo2", dob);
+            studentSession.addStudent(10, 20, "abc103", "Micmo3", dob);
+            studentSession.addStudent(10, 20, "abc104", "Micmo4", dob);
+            Assert.assertTrue(true);
+        } catch (Exception e) {
+            Assert.assertTrue("testAddStudent() ERROR: "+e, false);
+        }
+    }
 
-        //studentSession.addStudent(10, 20, "xzy101", "Joe Bloggs", dob);
+    @Test
+    public void getStudentByID()
+    {
+        String emailID = "abc103";
 
-        Student student = new Student();
-        student.setCandidateNumber(1);
-        student.setStudentNumber(2);
-        student.setEmailID("xyz101");
-        student.setName("Joe Bloggs");
-        student.setDateOfBirth(dob);
+        Student student = studentSession.getStudentByEmailID(emailID);
 
+        if(student!=null)
+            Assert.assertTrue(true);
+        else
+            Assert.assertTrue(false);
+
+        System.out.println("Student with EmailID "+emailID+" = "+student.getName());
+    }
+
+    @Test
+    public void testAddStudentUserAccount(){
+        Boolean result = false;
+
+        Student student = studentSession.getStudentByEmailID("abc103"); //Micmo3
         result = userSession.addStudentUser(student, "password");
 
         System.out.println("testAddStudentUser: Added student "+student.getName()+" ("+student.getEmailID()+")");
         Assert.assertTrue(result);
-
-    } 
+    }
 }
