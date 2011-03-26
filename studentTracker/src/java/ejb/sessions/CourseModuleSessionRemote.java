@@ -6,6 +6,7 @@
 package ejb.sessions;
 
 import ejb.entities.Course;
+import ejb.entities.CourseModules;
 import ejb.entities.Module;
 import javax.ejb.Remote;
 
@@ -17,5 +18,8 @@ import javax.ejb.Remote;
 public interface CourseModuleSessionRemote {
 
     public boolean addModuleToCourse(Module _module, Course _course);
+
+    boolean removeModuleFromCourse(CourseModules _courseModule);
+
     
 }

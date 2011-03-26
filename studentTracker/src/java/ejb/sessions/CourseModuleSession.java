@@ -35,4 +35,17 @@ public class CourseModuleSession implements CourseModuleSessionRemote {
         }
         return true;
     }
+
+    @Override
+    public boolean removeModuleFromCourse(CourseModules _courseModule) {
+        try{
+            manager.remove(manager.find(CourseModules.class, _courseModule.getId()));
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    
+
 }
