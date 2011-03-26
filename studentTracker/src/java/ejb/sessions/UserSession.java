@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author mm336
  */
-@Stateless
+@Stateless(mappedName="UserSession")
 public class UserSession implements UserSessionRemote {
     @PersistenceContext
     EntityManager manager;

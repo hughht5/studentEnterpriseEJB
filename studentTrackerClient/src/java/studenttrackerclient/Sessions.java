@@ -10,6 +10,8 @@ import ejb.sessions.UserSessionRemote;
 
 import ejb.entities.Users;
 import ejb.entities.Student;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import java.sql.Date;
 
@@ -29,32 +31,40 @@ import javax.naming.NamingException;
  */
 public class Sessions {
 
-    UserSessionRemote userSession;
-    StudentSessionRemote studentSession;
+    private static UserSessionRemote userSession;
+    private static StudentSessionRemote studentSession;
 
     String host;
     String port;
 
-    public Sessions(String msg) {
-        System.out.print(msg);
-        System.out.print("fuck2");
-        host = "blue98.ex.ac.uk";
+    public Sessions() {
+
+        //Get the hostname (bluexxx.ex.ac.uk)
+        try {
+            InetAddress addr = InetAddress.getLocalHost();
+            host = addr.getHostName();
+        } catch (UnknownHostException e) {
+            System.out.println("Could not get the host name");
+        }
+
+        //Set the IIOP Listener port for the Glassfish server
+        //Do this by:
+            //In Netbeans click: Services -> Servers -> Glassfish, rightclick 'Admin Console'
+            //On the management console: ORB -> IIOP Listeners -> 'orb-listener-1'
+            //Change port to 20911
         port = "20911";
-System.out.print("fuck3");
+
+        System.out.println("Connecting to glassfish on "+host+":"+port);
+
         Properties props = new Properties();
-        System.out.print("fuck4");
         props.put("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
         props.put("java.naming.factory.url.pkgs", "com.sun.enterprise.naming");
         props.put("java.naming.factory.state", "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
         props.put("org.omg.CORBA.ORBInitialHost", host);
         props.put("org.omg.CORBA.ORBInitialPort", port);
-System.out.print("fuck5");
+
         userSession = lookupUserSessionRemote(props);
-        System.out.print("fuck6");
-
         studentSession = lookupStudentSessionRemote(props);
-        System.out.print("fuck7");
-
     }
 
     private UserSessionRemote lookupUserSessionRemote(Properties props) {
@@ -63,7 +73,6 @@ System.out.print("fuck5");
             String jndiName = "java:global/studentTracker/UserSession!" + "ejb.sessions.UserSessionRemote";
             return (UserSessionRemote) c.lookup(jndiName);
         } catch (NamingException ne) {
-            System.out.print("fuck200"); 
             throw new RuntimeException(ne);
         }
     }
@@ -78,12 +87,12 @@ System.out.print("fuck5");
         }
     }
 
-    public StudentSessionRemote studentSession()
+    public static StudentSessionRemote studentSession()
     {
         return studentSession;
     }
 
-    public UserSessionRemote userSession()
+    public static UserSessionRemote userSession()
     {
         return userSession;
     }
