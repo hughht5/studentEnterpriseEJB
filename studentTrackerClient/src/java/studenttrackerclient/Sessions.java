@@ -63,7 +63,7 @@ System.out.print("fuck5");
             String jndiName = "java:global/studentTracker/UserSession!" + "ejb.sessions.UserSessionRemote";
             return (UserSessionRemote) c.lookup(jndiName);
         } catch (NamingException ne) {
-            System.out.print("fuck200");
+            System.out.print("fuck200"); 
             throw new RuntimeException(ne);
         }
     }
