@@ -162,7 +162,7 @@ public class TestEJB {
         System.out.println("Student with EmailID "+emailID+" = "+student.getName());
     }
 
-    @Test
+//    @Test
     public void testAddStudentUserAccount(){
         Boolean result = false;
 
@@ -200,7 +200,7 @@ public class TestEJB {
         System.out.println("Staff with EmailID "+emailID+" = "+staff.getName());
     }
 
-    @Test
+//    @Test
     public void testAddStaffUserAccount(){
         Boolean result = false;
 
@@ -215,7 +215,12 @@ public class TestEJB {
     public void testAddTutorToStudent(){
         Student student = studentSession.getStudentByEmailID("abc102"); //Micmo2
         Staff tutor = staffSession.getStaffByEmailID("tut02"); //MrTutor2
-        
+
+        System.out.println("testAddTutorToStudent()");
+        System.out.println("student: "+student.getEmailID());
+        System.out.println("tutor: "+tutor.getEmailID());
+
+
 
         studentSession.addTutor(student, tutor);
     }
