@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejb.sessions;
 
 import ejb.entities.Staff;
@@ -19,6 +18,5 @@ public interface StaffSessionRemote {
 
     boolean removeStaff(Staff _staff);
 
-    Staff findStaff(String _emailID);
-    
+    Staff getStaffByEmailID(String _emailID);
 }

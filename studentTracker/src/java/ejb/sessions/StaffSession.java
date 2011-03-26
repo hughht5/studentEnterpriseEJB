@@ -5,6 +5,7 @@
 package ejb.sessions;
 
 import ejb.entities.Staff;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -44,8 +45,23 @@ public class StaffSession implements StaffSessionRemote {
     }
 
     @Override
-    public Staff findStaff(String _emailID) {
-        return null;
+    public Staff getStaffByEmailID(String _emailID) {
+         List<Staff> staff;
+        try{
+            String query = "SELECT staff FROM Staff as staff";
+
+            staff = manager.createQuery(query).getResultList();
+
+            for(Staff s : staff)
+            {
+               if(s.getEmailID().equals(_emailID))
+                   return s;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("getStaffByEmailID ERROR: "+e);
+            return null;
+        }
     }
 
 
