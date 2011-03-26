@@ -17,7 +17,7 @@ import javax.ejb.Remote;
 @Remote
 public interface StudentSessionRemote {
 
-    Boolean addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob);
+    Boolean addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob, String password);
 
     boolean removeStudent(Student _student);
 
@@ -25,4 +25,5 @@ public interface StudentSessionRemote {
 
     Boolean addTutor(Student _student, Staff _tutor);
 
+    boolean checkStudentLogin(String _username, String _password);
 }

@@ -6,9 +6,9 @@
 package client.logon;
 
 import ejb.sessions.StudentSessionRemote;
-import ejb.sessions.UserSessionRemote;
+import ejb.sessions.old_UserSessionRemote;
 
-import ejb.entities.Users;
+import ejb.entities.old_Users;
 import ejb.entities.Student;
 
 import java.sql.Date;
@@ -29,7 +29,7 @@ import javax.naming.NamingException;
  */
 public class Sessions {
 
-    UserSessionRemote userSession;
+    old_UserSessionRemote userSession;
     StudentSessionRemote studentSession;
 
     String host;
@@ -57,11 +57,11 @@ System.out.print("fuck5");
 
     }
 
-    private UserSessionRemote lookupUserSessionRemote(Properties props) {
+    private old_UserSessionRemote lookupUserSessionRemote(Properties props) {
         try {
             Context c = new InitialContext(props);
             String jndiName = "java:global/studentTracker/UserSession!" + "ejb.sessions.UserSessionRemote";
-            return (UserSessionRemote) c.lookup(jndiName);
+            return (old_UserSessionRemote) c.lookup(jndiName);
         } catch (NamingException ne) {
             System.out.print("fuck200");
             throw new RuntimeException(ne);
@@ -83,7 +83,7 @@ System.out.print("fuck5");
         return studentSession;
     }
 
-    public UserSessionRemote userSession()
+    public old_UserSessionRemote userSession()
     {
         return userSession;
     }

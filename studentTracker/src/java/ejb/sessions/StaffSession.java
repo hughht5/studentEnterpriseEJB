@@ -22,12 +22,16 @@ public class StaffSession implements StaffSessionRemote {
     EntityManager manager;
 
     @Override
-    public boolean addStaff(String _emailID, String _name, String _phone) {
+    public boolean addStaff(String _emailID, String _name, String _phone, String _room, String _password, boolean _isAdmin) {
         try {
             Staff staff = new Staff();
             staff.setEmailID(_emailID);
             staff.setName(_name);
             staff.setPhone(_phone);
+            staff.setRoom(_room);
+            staff.setPassword(_password);
+            staff.setIsAdmin(_isAdmin);
+            
             manager.persist(staff);
         } catch (Exception e) {
             return false;
@@ -65,7 +69,28 @@ public class StaffSession implements StaffSessionRemote {
         }
     }
 
+    @Override
+    public boolean checkStaffLogin(String _username, String _password)
+    {
+        List<Staff> staff;
+        try{
+            String query = "SELECT staff FROM Staff as staff";
 
+            staff = manager.createQuery(query).getResultList();
+
+            for(Staff s : staff)
+            {
+               if(s.getEmailID().equals(_username) && s.getPassword().equals(_password))
+                   return true;
+               else
+                   return false;
+            }
+            return false;
+        } catch (Exception e) {
+            System.out.println("checkStaffLogin ERROR: "+e);
+            return false;
+        }
+    }
 
 
 

@@ -7,12 +7,15 @@ package ejb.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -136,7 +139,45 @@ public class Staff implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    private String password;
 
+    /**
+     * Get the value of password
+     *
+     * @return the value of password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @param password new value of password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private boolean isAdmin;
+
+    /**
+     * Get the value of isAdmin
+     *
+     * @return the value of isAdmin
+     */
+    public boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    /**
+     * Set the value of isAdmin
+     *
+     * @param isAdmin new value of isAdmin
+     */
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 
     /////////////////////////claimed///////////////
 

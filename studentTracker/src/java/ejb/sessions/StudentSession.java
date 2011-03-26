@@ -23,7 +23,7 @@ public class StudentSession implements StudentSessionRemote {
     EntityManager manager;
 
     @Override
-    public Boolean addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob) {
+    public Boolean addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob, String password) {
 
         try {
             Student student = new Student();
@@ -32,6 +32,8 @@ public class StudentSession implements StudentSessionRemote {
             student.setEmailID(emailID);
             student.setName(name);
             student.setDateOfBirth(dob);
+            student.setPassword(password);
+            
             manager.persist(student);
         } catch (Exception e) {
             return false;
@@ -78,7 +80,28 @@ public class StudentSession implements StudentSessionRemote {
 
     }
 
-    
+    @Override
+    public boolean checkStudentLogin(String _username, String _password)
+    {
+        List<Student> student;
+        try{
+            String query = "SELECT student FROM Student as student";
+
+            student = manager.createQuery(query).getResultList();
+
+            for(Student s : student)
+            {
+               if(s.getEmailID().equals(_username) && s.getPassword().equals(_password))
+                   return true;
+               else
+                   return false;
+            }
+            return false;
+        } catch (Exception e) {
+            System.out.println("checkStudentLogin ERROR: "+e);
+            return false;
+        }
+    }
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

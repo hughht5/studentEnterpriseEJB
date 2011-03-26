@@ -14,10 +14,12 @@ import javax.ejb.Remote;
 @Remote
 public interface StaffSessionRemote {
 
-    boolean addStaff(String _emailID, String _name, String _phone);
+    boolean addStaff(String _emailID, String _name, String _phone, String _room, String _password, boolean _isAdmin);
 
     boolean removeStaff(Staff _staff);
 
     Staff getStaffByEmailID(String _emailID);
+
+    boolean checkStaffLogin(String _username, String _password);
 
 }

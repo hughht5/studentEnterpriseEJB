@@ -162,6 +162,25 @@ public class Student implements Serializable {
         this.emailID = emailID;
     }
 
+    private String password;
+
+    /**
+     * Get the value of password
+     *
+     * @return the value of password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @param password new value of password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     /////////////////////////claimed///////////////
 

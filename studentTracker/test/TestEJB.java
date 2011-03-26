@@ -3,16 +3,26 @@
  * and open the template in the editor.
  */
 
-
+// SessionBeans:
+/*
+ *
+ * Student (add, delete, getById, login, setTutor, enrollOnModule)
+ * Staff (add, delete, getById, login, addLecture, getListOfTutees)
+ * Assessment (addAss, deleteAss, getAssById, addSub, deleteSub, getSubById,
+        getAssAvgMark, getSubMarkByStudent)
+ * Module (add, delete, getById, addAss, getModuleAvgMark, getModuleMarkByStudent, getStudentsOnModule)
+ * Course (add, delete, getById, addModule)
+ *
+ */
 
 import ejb.entities.Staff;
 import ejb.sessions.StudentSessionRemote;
-import ejb.entities.Users;
+import ejb.entities.old_Users;
 import java.sql.Date;
 import ejb.entities.Student;
 import ejb.sessions.StaffSessionRemote;
 import junit.framework.Assert;
-import ejb.sessions.UserSessionRemote;
+import ejb.sessions.old_UserSessionRemote;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -35,11 +45,6 @@ import javax.persistence.PersistenceContext;
  * @author mm336
  */
 public class TestEJB {
-
-    @PersistenceContext
-    private EntityManager manager;
-
-    private UserSessionRemote userSession;
     private StudentSessionRemote studentSession;
     private StaffSessionRemote staffSession;
 
@@ -69,7 +74,6 @@ public class TestEJB {
         props.put("org.omg.CORBA.ORBInitialHost", host);
         props.put("org.omg.CORBA.ORBInitialPort", port);
 
-        userSession = lookupUserSessionRemote(props);
         studentSession = lookupStudentSessionRemote(props);
         staffSession = lookupStaffSessionRemote(props);
     }
@@ -88,16 +92,6 @@ public class TestEJB {
 
     @After
     public void tearDown() {
-    }
-
-    private UserSessionRemote lookupUserSessionRemote(Properties props) {
-        try {
-            Context c = new InitialContext(props);
-            String jndiName = "java:global/studentTracker/UserSession!" + "ejb.sessions.UserSessionRemote";
-            return (UserSessionRemote) c.lookup(jndiName);
-        } catch (NamingException ne) {
-            throw new RuntimeException(ne);
-        }
     }
 
     private StudentSessionRemote lookupStudentSessionRemote(Properties props) {
@@ -121,15 +115,9 @@ public class TestEJB {
     }
 
     @Test
-    public void testCheckLogin() {
-        if(userSession.checkLogin("user", "pass"))
-        {
-            Assert.assertTrue(true);
-        }
-        else
-        {
-            Assert.assertFalse(false);
-        }
+    public void setUpConnection()
+    {
+        Assert.assertTrue(studentSession!=null && staffSession!=null);
     }
 
     @Test
@@ -137,11 +125,10 @@ public class TestEJB {
     {
         try {
             java.sql.Date dob = java.sql.Date.valueOf("1980-06-28"); //yyyy-mm-dd
-            studentSession.addStudent(10, 20, "abc101", "Micmo1", dob);
-
-            studentSession.addStudent(10, 20, "abc102", "Micmo2", dob);
-            studentSession.addStudent(10, 20, "abc103", "Micmo3", dob);
-            studentSession.addStudent(10, 20, "abc104", "Micmo4", dob);
+            studentSession.addStudent(10, 20, "abc101", "Micmo1", dob, "password");
+            studentSession.addStudent(10, 20, "abc102", "Micmo2", dob, "password");
+            studentSession.addStudent(10, 20, "abc103", "Micmo3", dob, "password");
+            studentSession.addStudent(10, 20, "abc104", "Micmo4", dob, "password");
             Assert.assertTrue(true);
         } catch (Exception e) {
             Assert.assertTrue("testAddStudent() ERROR: "+e, false);
@@ -158,28 +145,15 @@ public class TestEJB {
         if(student!=null)
             Assert.assertTrue(true);
         else
-            Assert.assertTrue(false);
-
-        System.out.println("Student with EmailID "+emailID+" = "+student.getName());
-    }
-
-//    @Test
-    public void testAddStudentUserAccount(){
-        Boolean result = false;
-
-        Student student = studentSession.getStudentByEmailID("abc103"); //Micmo3
-        result = userSession.addStudentUser(student, "password");
-
-        System.out.println("testAddStudentUser: Added student "+student.getName()+" ("+student.getEmailID()+")");
-        Assert.assertTrue(result);
+            Assert.assertTrue("Could not find student with emailID "+emailID, false);
     }
 
     @Test
     public void testAddStaff()
     {
         try {
-            staffSession.addStaff("tut01", "Mr Tutor 1", "01");
-            staffSession.addStaff("tut02", "Mr Tutor 2", "02");
+            staffSession.addStaff("tut01", "Mr Tutor 1", "01", "room1", "password", true);
+            staffSession.addStaff("tut02", "Mr Tutor 2", "02", "room2", "password", false);
             Assert.assertTrue(true);
         } catch (Exception e) {
             Assert.assertTrue("testAddStudent() ERROR: "+e, false);
@@ -196,32 +170,38 @@ public class TestEJB {
         if(staff!=null)
             Assert.assertTrue(true);
         else
-            Assert.assertTrue(false);
-
-        System.out.println("Staff with EmailID "+emailID+" = "+staff.getName());
+            Assert.assertTrue("Could not find staff with emailID "+emailID, false);
     }
 
-//    @Test
-    public void testAddStaffUserAccount(){
-        Boolean result = false;
+    @Test
+    public void testCheckStaffLogin() {
+        if(staffSession.checkStaffLogin("tut02", "password"))
+        {
+            Assert.assertTrue(true);
+        }
+        else
+        {
+            Assert.assertFalse(false);
+        }
+    }
 
-        Staff staff = staffSession.getStaffByEmailID("tut02"); //Mr Tutor 2
-        result = userSession.addStaffUser(staff, "password", false);
-
-        System.out.println("testAddStaffUser: Added staff "+staff.getName()+" ("+staff.getEmailID()+")");
-        Assert.assertTrue(result);
+    @Test
+    public void testCheckStudentLogin()
+    {
+        if(studentSession.checkStudentLogin("abc101", "password"))
+        {
+            Assert.assertTrue(true);
+        }
+        else
+        {
+            Assert.assertFalse(false);
+        }
     }
 
     @Test
     public void testAddTutorToStudent(){
         Student student = studentSession.getStudentByEmailID("abc102"); //Micmo2
         Staff tutor = staffSession.getStaffByEmailID("tut02"); //MrTutor2
-
-        System.out.println("testAddTutorToStudent()");
-        System.out.println("student: "+student.getEmailID());
-        System.out.println("tutor: "+tutor.getEmailID());
-
-
 
         studentSession.addTutor(student, tutor);
     }
