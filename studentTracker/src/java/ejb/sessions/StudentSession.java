@@ -72,6 +72,7 @@ public class StudentSession implements StudentSessionRemote {
     public Boolean addTutor(Student _student, Staff _tutor) {
         System.out.println("++addTutor("+_student.getEmailID()+", "+_tutor.getEmailID()+")");
         _student.setTutor(_tutor);
+        manager.merge(_student);
         System.out.println("++tutor that has been added: "+_student.getTutor().getEmailID());
         return true;
 

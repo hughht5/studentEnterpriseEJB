@@ -138,6 +138,7 @@ public class TestEJB {
         try {
             java.sql.Date dob = java.sql.Date.valueOf("1980-06-28"); //yyyy-mm-dd
             studentSession.addStudent(10, 20, "abc101", "Micmo1", dob);
+
             studentSession.addStudent(10, 20, "abc102", "Micmo2", dob);
             studentSession.addStudent(10, 20, "abc103", "Micmo3", dob);
             studentSession.addStudent(10, 20, "abc104", "Micmo4", dob);
