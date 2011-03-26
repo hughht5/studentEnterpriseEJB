@@ -24,6 +24,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.net.*;
 
 /**
  *
@@ -38,14 +39,34 @@ public class TestEJB {
     String port;
 
     public TestEJB() {
-        host = "blue98.ex.ac.uk";
+
+        //Get the hostname (bluexxx.ex.ac.uk)
+        try {
+            InetAddress addr = InetAddress.getLocalHost();
+            byte[] ipAddr = addr.getAddress();
+            String hostname = addr.getHostName();
+            System.out.println("hostname="+hostname);
+
+            int hostIndex = hostname.indexOf(".");
+
+            host = hostname.substring(0, hostIndex);
+            System.out.println("hostname="+hostname);
+
+        } catch (UnknownHostException e) {
+        }
+
+        //Set the IIOP Listener port for the Glassfish server
+        //Do this by:
+            //In Netbeans click: Services -> Servers -> Glassfish, rightclick 'Admin Console'
+            //On the management console: ORB -> IIOP Listeners -> 'orb-listener-1'
+            //Change port to 20911
         port = "20911";
 
         Properties props = new Properties();
         props.put("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
         props.put("java.naming.factory.url.pkgs", "com.sun.enterprise.naming");
         props.put("java.naming.factory.state", "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-        props.put("org.omg.CORBA.ORBInitialHost", host);
+        props.put("org.omg.CORBA.ORBInitialHost", host+".ex.ac.uk");
         props.put("org.omg.CORBA.ORBInitialPort", port);
 
         userSession = lookupUserSessionRemote(props);
