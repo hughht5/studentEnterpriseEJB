@@ -5,6 +5,7 @@
 
 package ejb.sessions;
 
+import ejb.entities.Student;
 import java.sql.Date;
 import javax.ejb.Remote;
 
@@ -16,5 +17,7 @@ import javax.ejb.Remote;
 public interface StudentSessionRemote {
 
     Boolean addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob);
-    
+
+    boolean removeStudent(Student _student);
+
 }
