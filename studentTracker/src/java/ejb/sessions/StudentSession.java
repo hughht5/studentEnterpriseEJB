@@ -4,6 +4,7 @@
  */
 package ejb.sessions;
 
+import ejb.entities.Staff;
 import java.sql.Date;
 import javax.ejb.Stateless;
 import ejb.entities.Student;
@@ -66,6 +67,14 @@ public class StudentSession implements StudentSessionRemote {
             System.out.println("getStudentByEmailID ERROR: "+e);
             return null;
         }
+    }
+
+    public Boolean addTutor(Student _student, Staff _tutor) {
+
+        _student.setTutor(_tutor);
+
+        return true;
+
     }
 
     

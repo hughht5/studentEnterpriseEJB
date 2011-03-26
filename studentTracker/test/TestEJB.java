@@ -5,10 +5,12 @@
 
 
 
+import ejb.entities.Staff;
 import ejb.sessions.StudentSessionRemote;
 import ejb.entities.Users;
 import java.sql.Date;
 import ejb.entities.Student;
+import ejb.sessions.StaffSessionRemote;
 import junit.framework.Assert;
 import ejb.sessions.UserSessionRemote;
 import java.util.List;
@@ -39,6 +41,7 @@ public class TestEJB {
 
     private UserSessionRemote userSession;
     private StudentSessionRemote studentSession;
+    private StaffSessionRemote staffSession;
 
     private String host;
     private String port;
@@ -68,6 +71,7 @@ public class TestEJB {
 
         userSession = lookupUserSessionRemote(props);
         studentSession = lookupStudentSessionRemote(props);
+        staffSession = lookupStaffSessionRemote(props);
     }
 
     @BeforeClass
@@ -101,6 +105,16 @@ public class TestEJB {
             Context c = new InitialContext(props);
             String jndiName = "java:global/studentTracker/StudentSession!" + "ejb.sessions.StudentSessionRemote";
             return (StudentSessionRemote) c.lookup(jndiName);
+        } catch (NamingException ne) {
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private StaffSessionRemote lookupStaffSessionRemote(Properties props) {
+        try {
+            Context c = new InitialContext(props);
+            String jndiName = "java:global/studentTracker/StaffSession!" + "ejb.sessions.StaffSessionRemote";
+            return (StaffSessionRemote) c.lookup(jndiName);
         } catch (NamingException ne) {
             throw new RuntimeException(ne);
         }
@@ -157,5 +171,52 @@ public class TestEJB {
 
         System.out.println("testAddStudentUser: Added student "+student.getName()+" ("+student.getEmailID()+")");
         Assert.assertTrue(result);
+    }
+
+    @Test
+    public void testAddStaff()
+    {
+        try {
+            staffSession.addStaff("tut01", "Mr Tutor 1", "01");
+            staffSession.addStaff("tut02", "Mr Tutor 2", "02");
+            Assert.assertTrue(true);
+        } catch (Exception e) {
+            Assert.assertTrue("testAddStudent() ERROR: "+e, false);
+        }
+    }
+
+    @Test
+    public void getStaffByID()
+    {
+        String emailID = "tut01";
+
+        Staff staff = staffSession.getStaffByEmailID(emailID);
+
+        if(staff!=null)
+            Assert.assertTrue(true);
+        else
+            Assert.assertTrue(false);
+
+        System.out.println("Staff with EmailID "+emailID+" = "+staff.getName());
+    }
+
+    @Test
+    public void testAddStaffUserAccount(){
+        Boolean result = false;
+
+        Staff staff = staffSession.getStaffByEmailID("tut02"); //Mr Tutor 2
+        result = userSession.addStaffUser(staff, "password", false);
+
+        System.out.println("testAddStaffUser: Added staff "+staff.getName()+" ("+staff.getEmailID()+")");
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void testAddTutorToStudent(){
+        Student student = studentSession.getStudentByEmailID("abc102"); //Micmo2
+        Staff tutor = staffSession.getStaffByEmailID("tut02"); //MrTutor2
+        
+
+        studentSession.addTutor(student, tutor);
     }
 }

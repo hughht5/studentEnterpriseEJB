@@ -168,7 +168,7 @@ public class Student implements Serializable {
     //Micmo relationships 
 
     //Student has one Tutor. Tutor has many Tutees.
-    @JoinColumn(name = "TUTOR_REF", referencedColumnName = "ID")
+    @JoinColumn(name = "STAFF_REF", referencedColumnName = "ID")
     @ManyToOne
     private Staff tutor;
     public Staff getTutor()

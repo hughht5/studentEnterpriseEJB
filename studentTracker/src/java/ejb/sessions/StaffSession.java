@@ -5,6 +5,7 @@
 package ejb.sessions;
 
 import ejb.entities.Staff;
+import ejb.entities.Student;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

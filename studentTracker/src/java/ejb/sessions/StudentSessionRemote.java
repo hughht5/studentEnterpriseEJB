@@ -5,6 +5,7 @@
 
 package ejb.sessions;
 
+import ejb.entities.Staff;
 import ejb.entities.Student;
 import java.sql.Date;
 import javax.ejb.Remote;
@@ -21,5 +22,7 @@ public interface StudentSessionRemote {
     boolean removeStudent(Student _student);
 
     Student getStudentByEmailID(String _emailID);
+
+    Boolean addTutor(Student _student, Staff _tutor);
 
 }

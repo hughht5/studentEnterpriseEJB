@@ -19,4 +19,5 @@ public interface StaffSessionRemote {
     boolean removeStaff(Staff _staff);
 
     Staff getStaffByEmailID(String _emailID);
+
 }
