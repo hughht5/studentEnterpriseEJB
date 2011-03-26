@@ -43,16 +43,9 @@ public class TestEJB {
         //Get the hostname (bluexxx.ex.ac.uk)
         try {
             InetAddress addr = InetAddress.getLocalHost();
-            byte[] ipAddr = addr.getAddress();
-            String hostname = addr.getHostName();
-            System.out.println("hostname="+hostname);
-
-            int hostIndex = hostname.indexOf(".");
-
-            host = hostname.substring(0, hostIndex);
-            System.out.println("hostname="+hostname);
-
+            host = addr.getHostName();
         } catch (UnknownHostException e) {
+            System.out.println("Could not get the host name");
         }
 
         //Set the IIOP Listener port for the Glassfish server
@@ -62,11 +55,13 @@ public class TestEJB {
             //Change port to 20911
         port = "20911";
 
+        System.out.println("Connecting to glassfish on "+host+":"+port);
+
         Properties props = new Properties();
         props.put("java.naming.factory.initial", "com.sun.enterprise.naming.SerialInitContextFactory");
         props.put("java.naming.factory.url.pkgs", "com.sun.enterprise.naming");
         props.put("java.naming.factory.state", "com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl");
-        props.put("org.omg.CORBA.ORBInitialHost", host+".ex.ac.uk");
+        props.put("org.omg.CORBA.ORBInitialHost", host);
         props.put("org.omg.CORBA.ORBInitialPort", port);
 
         userSession = lookupUserSessionRemote(props);
