@@ -85,8 +85,6 @@ public class StaffSession implements StaffSessionRemote {
             {
                if(s.getEmailID().equals(_username) && s.getPassword().equals(_password))
                    return true;
-               else
-                   return false;
             }
             return false;
         } catch (Exception e) {

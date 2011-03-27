@@ -22,12 +22,10 @@ import ejb.sessions.StudentSessionRemote;
 import ejb.entities.old_Users;
 import java.sql.Date;
 import ejb.entities.Student;
-import ejb.sessions.AssessmentSessionRemote;
 import ejb.sessions.CourseSessionRemote;
 import ejb.sessions.ModuleSessionRemote;
 import ejb.sessions.StaffSessionRemote;
 import junit.framework.Assert;
-import ejb.sessions.old_UserSessionRemote;
 import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Properties;
@@ -54,7 +52,6 @@ import javax.persistence.PersistenceContext;
 public class TestEJB {
     private StudentSessionRemote studentSession;
     private StaffSessionRemote staffSession;
-    private AssessmentSessionRemote assessmentSession;
     private CourseSessionRemote courseSession;
     private ModuleSessionRemote moduleSession;
 
@@ -86,7 +83,6 @@ public class TestEJB {
 
         studentSession = lookupStudentSessionRemote(props);
         staffSession = lookupStaffSessionRemote(props);
-        assessmentSession = lookupAssessmentSessionRemote(props);
         courseSession = lookupCourseSessionRemote(props);
         moduleSession = lookupModuleSessionRemote(props);
     }
@@ -127,16 +123,6 @@ public class TestEJB {
         }
     }
 
-    private AssessmentSessionRemote lookupAssessmentSessionRemote(Properties props) {
-        try {
-            Context c = new InitialContext(props);
-            String jndiName = "java:global/studentTracker/AssessmentSession!" + "ejb.sessions.AssessmentSessionRemote";
-            return (AssessmentSessionRemote) c.lookup(jndiName);
-        } catch (NamingException ne) {
-            throw new RuntimeException(ne);
-        }
-    }
-
     private CourseSessionRemote lookupCourseSessionRemote(Properties props) {
         try {
             Context c = new InitialContext(props);
@@ -160,8 +146,8 @@ public class TestEJB {
     @Test
     public void testConnection()
     {
-        Assert.assertTrue(studentSession!=null && staffSession!=null
-                && assessmentSession!=null);
+        Assert.assertTrue(studentSession!=null && staffSession!=null &&
+                courseSession!=null && moduleSession!=null);
     }
 
     @Test
@@ -186,10 +172,7 @@ public class TestEJB {
 
         Student student = studentSession.getStudentByEmailID(emailID);
 
-        if(student!=null)
-            Assert.assertTrue(true);
-        else
-            Assert.assertTrue("Could not find student with emailID "+emailID, false);
+        Assert.assertNotNull("Could not find student with emailID "+emailID, student);
     }
 
     @Test
@@ -216,27 +199,13 @@ public class TestEJB {
 
     @Test
     public void LOGIN_CheckStaffLogin() {
-        if(staffSession.checkStaffLogin("tut02", "password"))
-        {
-            Assert.assertTrue(true);
-        }
-        else
-        {
-            Assert.assertFalse(false);
-        }
+        Assert.assertTrue(staffSession.checkStaffLogin("tut02", "password"));     
     }
 
     @Test
     public void LOGIN_CheckStudentLogin()
     {
-        if(studentSession.checkStudentLogin("abc101", "password"))
-        {
-            Assert.assertTrue(true);
-        }
-        else
-        {
-            Assert.assertFalse(false);
-        }
+        Assert.assertTrue(studentSession.checkStudentLogin("abc101", "password"));
     }
 
     @Test
@@ -266,9 +235,14 @@ public class TestEJB {
     @Test
     public void COURSE_AddCourses()
     {
-        courseSession.addCourse("CS", "COMPUTER SCIENCE");
-        courseSession.addCourse("MAS", "MATHEMATICS");
-        courseSession.addCourse("ENG", "ENGINEERING");
+        try {
+            courseSession.addCourse("CS", "COMPUTER SCIENCE");
+            courseSession.addCourse("MAS", "MATHEMATICS");
+            courseSession.addCourse("ENG", "ENGINEERING");
+            Assert.assertTrue(true);
+        } catch (Exception e) {
+            Assert.assertTrue("Failed to add courses", false);
+        }
     }
 
     @Test
@@ -281,16 +255,21 @@ public class TestEJB {
     public void MODULE_AddModules()
     {
         //Main Modules
-        moduleSession.addModule("ECM3401", "CS Module 1", 15, 0, "3", null);
-        moduleSession.addModule("ECM3102", "ENG Module 2", 15, 0, "3", null);
-        moduleSession.addModule("ECM3103", "ENG Module 3", 15, 0, "3", null);
-        moduleSession.addModule("ECM3404", "CS Module 4", 15, 0, "3", null);
-        moduleSession.addModule("ECM3405", "CS Module 5", 15, 0, "3", null);
-        moduleSession.addModule("ECM3306", "MAS Module 6", 15, 0, "3", null);
-        moduleSession.addModule("ECM3307", "MAS Module 7", 15, 0, "3", null);
-        moduleSession.addModule("ECM3308", "MAS Module 8", 15, 0, "3", null);
-        moduleSession.addModule("ECM3409", "CS Module 9", 15, 0, "3", null);
-        moduleSession.addModule("ECM3410", "CS Module 10", 15, 0, "3", null);
+       try {
+            moduleSession.addModule("ECM3401", "CS Module 1", 15, 0, "3", null);
+            moduleSession.addModule("ECM3102", "ENG Module 2", 15, 0, "3", null);
+            moduleSession.addModule("ECM3103", "ENG Module 3", 15, 0, "3", null);
+            moduleSession.addModule("ECM3404", "CS Module 4", 15, 0, "3", null);
+            moduleSession.addModule("ECM3405", "CS Module 5", 15, 0, "3", null);
+            moduleSession.addModule("ECM3306", "MAS Module 6", 15, 0, "3", null);
+            moduleSession.addModule("ECM3307", "MAS Module 7", 15, 0, "3", null);
+            moduleSession.addModule("ECM3308", "MAS Module 8", 15, 0, "3", null);
+            moduleSession.addModule("ECM3409", "CS Module 9", 15, 0, "3", null);
+            moduleSession.addModule("ECM3410", "CS Module 10", 15, 0, "3", null);
+            Assert.assertTrue(true);
+        } catch (Exception e) {
+            Assert.assertTrue("Failed to add modules", false);
+        }
     }
 
     @Test
@@ -300,21 +279,32 @@ public class TestEJB {
         int numOfModules = moduleSession.getListOfAllModules().size();
         Module modules[] = moduleSession.getListOfAllModules().toArray(new Module[numOfModules]);
 
+        //Make sure we have some modules to add
+        Assert.assertNotNull("No Modules to add", modules);
+
         //Get a list of all of the courses
         int numOfCourses = courseSession.getListOfCourses().size();
-        Course courses[] = courseSession.getListOfCourses().toArray(new Course[numOfCourses]);     
+        Course courses[] = courseSession.getListOfCourses().toArray(new Course[numOfCourses]);
+
+        //Make sure we have some courses to add modules to
+        Assert.assertNotNull("No courses to add Modules to", courses);
 
         //Just add the CompSci Modules
         //addModuleToCourse(module, course, isCompulsary);
-        moduleSession.addModuleToCourse(modules[0], courses[0], true); //CS, ECM3401, Compulsary
-        moduleSession.addModuleToCourse(modules[3], courses[0], true); //CS, ECM3404, Compulsary
-        moduleSession.addModuleToCourse(modules[4], courses[0], true); //CS, ECM3405, Compulsary
-        moduleSession.addModuleToCourse(modules[8], courses[0], true); //CS, ECM3409, Compulsary
-        moduleSession.addModuleToCourse(modules[7], courses[0], true); //MAS, ECM3306, Compulsary
-        moduleSession.addModuleToCourse(modules[1], courses[0], true); //ENG, ECM3102, Compulsary
-        moduleSession.addModuleToCourse(modules[6], courses[0], false); //MAS, ECM3307, Optional
-        moduleSession.addModuleToCourse(modules[2], courses[0], false); //ENG, ECM3103, Optional
-        moduleSession.addModuleToCourse(modules[9], courses[0], false); //CS, ECM3410, Optional
+        try {
+            moduleSession.addModuleToCourse(modules[0], courses[0], true); //CS, ECM3401, Compulsary
+            moduleSession.addModuleToCourse(modules[3], courses[0], true); //CS, ECM3404, Compulsary
+            moduleSession.addModuleToCourse(modules[4], courses[0], true); //CS, ECM3405, Compulsary
+            moduleSession.addModuleToCourse(modules[8], courses[0], true); //CS, ECM3409, Compulsary
+            moduleSession.addModuleToCourse(modules[7], courses[0], true); //MAS, ECM3306, Compulsary
+            moduleSession.addModuleToCourse(modules[1], courses[0], true); //ENG, ECM3102, Compulsary
+            moduleSession.addModuleToCourse(modules[6], courses[0], false); //MAS, ECM3307, Optional
+            moduleSession.addModuleToCourse(modules[2], courses[0], false); //ENG, ECM3103, Optional
+            moduleSession.addModuleToCourse(modules[9], courses[0], false); //CS, ECM3410, Optional
+            Assert.assertTrue(true);
+        } catch (Exception e) {
+            Assert.assertTrue("Failed to add modules to the course", false);
+        }
     }
 
     @Test
@@ -323,7 +313,13 @@ public class TestEJB {
         String studentEmail = "abc102";
         Student student = studentSession.getStudentByEmailID(studentEmail);
 
+        //Make sure we have a student to add
+        Assert.assertNotNull("No Student Found", student);
+
         Course course = courseSession.getCourseByID("CS");
+
+        //Make sure we have a course to add
+        Assert.assertNotNull("No Course Found", course);
 
         //Enroll the student on the course
         studentSession.enrollStudentOnCourse(student, course);
@@ -331,6 +327,9 @@ public class TestEJB {
         //Enroll the student on some modules
         List<Module> modules = new ArrayList();
         modules.add(moduleSession.getModuleByID("ECM3401"));
+
+        //Make sure we are adding some modules
+        Assert.assertNotNull("No modules to be added", modules);
 
         studentSession.enrollStudentOnModule(modules, student);
     }

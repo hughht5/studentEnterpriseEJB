@@ -97,11 +97,8 @@ public class StudentSession implements StudentSessionRemote {
             student = manager.createQuery(query).getResultList();
 
             for (Student s : student) {
-                if (s.getEmailID().equals(_username) && s.getPassword().equals(_password)) {
+                if (s.getEmailID().equals(_username) && s.getPassword().equals(_password))
                     return true;
-                } else {
-                    return false;
-                }
             }
             return false;
         } catch (Exception e) {
