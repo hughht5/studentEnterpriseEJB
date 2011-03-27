@@ -19,8 +19,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
- * @author hmh205
+ * This class implements the business logic for methods described in the
+ * StudentSessionRemote interface.
  */
 @Stateless
 public class StudentSession implements StudentSessionRemote {
@@ -28,6 +28,16 @@ public class StudentSession implements StudentSessionRemote {
     @PersistenceContext
     EntityManager manager;
 
+    /**
+     * Method to add a new student to the system
+     * @param candidateNum
+     * @param studentNum
+     * @param emailID
+     * @param name
+     * @param dob
+     * @param password
+     * @return true for success, false otherwise
+     */
     @Override
     public Boolean addStudent(int candidateNum, int studentNum, String emailID, String name, Date dob, String password) {
 
@@ -47,6 +57,11 @@ public class StudentSession implements StudentSessionRemote {
         return true;
     }
 
+    /**
+     * Method to remove a student from the system
+     * @param _student
+     * @return true for success, false otherwise
+     */
     @Override
     public boolean removeStudent(Student _student) {
         try {
@@ -57,6 +72,11 @@ public class StudentSession implements StudentSessionRemote {
         return true;
     }
 
+    /**
+     * Get a student by their emailID
+     * @param _emailID
+     * @return the Student object if found, false otherwise
+     */
     @Override
     public Student getStudentByEmailID(String _emailID) {
         List<Student> students;
@@ -77,6 +97,12 @@ public class StudentSession implements StudentSessionRemote {
         }
     }
 
+    /**
+     * Add a member of staff as a student's tutor
+     * @param _student
+     * @param _tutor
+     * @return true for success, false otherwise
+     */
     @Override
     public Boolean addTutor(Student _student, Staff _tutor) {
         try {
@@ -88,6 +114,12 @@ public class StudentSession implements StudentSessionRemote {
         return true;
     }
 
+    /**
+     * Ensure that the student's username and password are correct
+     * @param _username
+     * @param _password
+     * @return true if correct, false otherwise
+     */
     @Override
     public boolean checkStudentLogin(String _username, String _password) {
         List<Student> student;
@@ -97,8 +129,9 @@ public class StudentSession implements StudentSessionRemote {
             student = manager.createQuery(query).getResultList();
 
             for (Student s : student) {
-                if (s.getEmailID().equals(_username) && s.getPassword().equals(_password))
+                if (s.getEmailID().equals(_username) && s.getPassword().equals(_password)) {
                     return true;
+                }
             }
             return false;
         } catch (Exception e) {
@@ -107,6 +140,12 @@ public class StudentSession implements StudentSessionRemote {
         }
     }
 
+    /**
+     * Enroll a Student on a Module
+     * @param _modules
+     * @param _student
+     * @return true for success, false otherwise
+     */
     @Override
     public boolean enrollStudentOnModule(Collection<Module> _modules, Student _student) {
         try {
@@ -122,6 +161,12 @@ public class StudentSession implements StudentSessionRemote {
         return true;
     }
 
+    /**
+     * Enroll a Student on a Course
+     * @param _student
+     * @param _course
+     * @return true for success, false otherwise
+     */
     @Override
     public boolean enrollStudentOnCourse(Student _student, Course _course) {
         try {
@@ -133,6 +178,12 @@ public class StudentSession implements StudentSessionRemote {
         return true;
     }
 
+    /**
+     * Submit an Assessment for a particular Student
+     * @param _student
+     * @param _assesment
+     * @return true for success, false otherwise
+     */
     @Override
     public boolean submitAssessment(Student _student, Assessment _assesment) {
         try {
