@@ -16,7 +16,9 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author hmh205
+ * The Course session allows clients to add and remove Courses from the system
+ * and to access details of a Course and a list of all available Courses.
+ *
  */
 @Stateless
 public class CourseSession implements CourseSessionRemote {
@@ -81,6 +83,7 @@ public class CourseSession implements CourseSessionRemote {
         }
     }
 
+    @Override
     public Collection<Student> getListOfStudentsOnCourse(String _courseID) {
         Collection<Student> students;
         Collection<Student> studentsOnCourse = new ArrayList();
