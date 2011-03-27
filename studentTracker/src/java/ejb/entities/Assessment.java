@@ -21,6 +21,10 @@ import javax.persistence.Temporal;
 /**
  *
  * @author hmh205
+ *
+ * The Assessment class contains details of assessments for modules that
+ * students are enrolled in.
+ *
  */
 @Entity
 public class Assessment implements Serializable {
@@ -29,14 +33,29 @@ public class Assessment implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     * Get the ID of assessment
+     *
+     * @return long of ID.
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Sets the ID of the assessment
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Get the hash code.
+     *
+     * @return the hash code
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -44,6 +63,12 @@ public class Assessment implements Serializable {
         return hash;
     }
 
+    /**
+     * Method asserts that assessment is available??
+     *
+     * @param object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -57,6 +82,11 @@ public class Assessment implements Serializable {
         return true;
     }
 
+    /**
+     * Create a string representation of the assessment object.
+     *
+     * @return String assessment object
+     */
     @Override
     public String toString() {
         return "ejb.entities.Assesment[id=" + id + "]";
@@ -249,10 +279,21 @@ public class Assessment implements Serializable {
     @OneToMany(mappedBy = "assessment", fetch=FetchType.EAGER)
     private Collection<Submission> listOfSubmissions;
 
+    /**
+     * Get the list of submissions
+     *
+     * @return Collection<Submission>
+     */
     public Collection<Submission> getListOfSubmissions()
     {
         return listOfSubmissions;
     }
+
+    /**
+     * Set the list of submissions
+     *
+     * @param listOfSubmissions
+     */
     public void setListOfSubmissions(Collection<Submission> listOfSubmissions)
     {
         this.listOfSubmissions = listOfSubmissions;
@@ -262,10 +303,22 @@ public class Assessment implements Serializable {
     @JoinColumn(name = "MODULE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Module module;
+
+    /**
+     * Get the course module
+     *
+     * @return Module
+     */
     public Module getModule()
     {
         return module;
     }
+
+    /**
+     * Set the course module
+     * 
+     * @param module
+     */
     public void setModule(Module module)
     {
         this.module = module;
