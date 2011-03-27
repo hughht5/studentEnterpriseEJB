@@ -6,9 +6,7 @@
 package studenttrackerclient;
 
 import ejb.sessions.StudentSessionRemote;
-import ejb.sessions.UserSessionRemote;
 
-import ejb.entities.Users;
 import ejb.entities.Student;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -31,7 +29,6 @@ import javax.naming.NamingException;
  */
 public class Sessions {
 
-    private static UserSessionRemote userSession;
     private static StudentSessionRemote studentSession;
 
     String host;
@@ -63,18 +60,7 @@ public class Sessions {
         props.put("org.omg.CORBA.ORBInitialHost", host);
         props.put("org.omg.CORBA.ORBInitialPort", port);
 
-        userSession = lookupUserSessionRemote(props);
         studentSession = lookupStudentSessionRemote(props);
-    }
-
-    private UserSessionRemote lookupUserSessionRemote(Properties props) {
-        try {
-            Context c = new InitialContext(props);
-            String jndiName = "java:global/studentTracker/UserSession!" + "ejb.sessions.UserSessionRemote";
-            return (UserSessionRemote) c.lookup(jndiName);
-        } catch (NamingException ne) {
-            throw new RuntimeException(ne);
-        }
     }
 
     private StudentSessionRemote lookupStudentSessionRemote(Properties props) {
@@ -92,9 +78,5 @@ public class Sessions {
         return studentSession;
     }
 
-    public static UserSessionRemote userSession()
-    {
-        return userSession;
-    }
 
 }

@@ -20,18 +20,13 @@ import ejb.entities.Course;
 import ejb.entities.Module;
 import ejb.entities.Staff;
 import ejb.sessions.StudentSessionRemote;
-import ejb.entities.old_Users;
-import java.sql.Date;
 import ejb.entities.Student;
 import ejb.sessions.CourseSessionRemote;
 import ejb.sessions.ModuleSessionRemote;
 import ejb.sessions.StaffSessionRemote;
 import junit.framework.Assert;
-import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -40,12 +35,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.Collection;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -370,6 +361,23 @@ public class TestEJB {
     public void ASSESSMENT_GetAssessmentsForModule()
     {
         Assert.assertEquals(2, moduleSession.getAssessmentsForModule("ECM3401").size());
+    }
+
+    @Test
+    public void SUBMISSION_AddSubmission()
+    {
+        String studentEmail = "abc102";
+        Student student = studentSession.getStudentByEmailID(studentEmail);
+
+        //Make sure we have a student to add
+        Assert.assertNotNull("No Student Found", student);
+
+        Assessment ass = new Assessment();
+
+        //Make sure we have a student to add
+        Assert.assertNotNull("No Student Found", ass);
+
+        studentSession.submitAssessment(null, null);
     }
 
     @Test

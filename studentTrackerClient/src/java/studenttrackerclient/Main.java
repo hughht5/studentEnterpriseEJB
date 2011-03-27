@@ -23,7 +23,7 @@ public class Main {
     private static String username = null;
     private static String password = null;
 
-    private static void getUserPass() {
+    /*private static void getUserPass() {
         try {
             if(username != null && password != null)
             {
@@ -70,7 +70,7 @@ public class Main {
             System.out.println("Incorrect Login Details. Please try again");
             getUserPass();
         }
-    }
+    }*/
 
 
     public static void main(String[] args) {
@@ -78,11 +78,11 @@ public class Main {
             username = args[0];
             password = args[1];
 
-            logIn();
+            //logIn();
         } else {
-            getUserPass();
+            //getUserPass();
         }
-
+        System.out.println("TEST");
 
     }
 }
