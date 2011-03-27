@@ -14,7 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
- * 
+ * The prerequisites class details previous module completion needed by students
+ * to progress to desired course module.
  */
 @Entity
 public class Prerequisites implements Serializable {
@@ -23,14 +24,29 @@ public class Prerequisites implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     * Auto generated code
+     *
+     * @return Long
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Auto generated code
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Auto generated code
+     *
+     * @return int hash code
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -38,6 +54,12 @@ public class Prerequisites implements Serializable {
         return hash;
     }
 
+    /**
+     * Auto generated code
+     *
+     * @param object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -51,14 +73,19 @@ public class Prerequisites implements Serializable {
         return true;
     }
 
+    /**
+     * Auto generated code
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         return "ejb.entities.Prerequisites[id=" + id + "]";
     }
 
-
-     ///////////////////////////hughs code/////////////////
-
+    /**
+     * Unique identifier for prerequisite ID
+     */
     private int prerequisiteID;
 
     /**
@@ -79,6 +106,9 @@ public class Prerequisites implements Serializable {
         this.prerequisiteID = prerequisiteID;
     }
 
+    /**
+     * Unique identifier String for module ID
+     */
     private String moduleID;
 
     /**
@@ -98,6 +128,10 @@ public class Prerequisites implements Serializable {
     public void setModuleID(String moduleID) {
         this.moduleID = moduleID;
     }
+
+    /**
+     * unique identifier String for prerequisite module ID
+     */
     private String prerequisiteModuleID;
 
     /**
@@ -118,23 +152,32 @@ public class Prerequisites implements Serializable {
         this.prerequisiteModuleID = prerequisiteModuleID;
     }
 
-    
 
-    /////////////////////////claimed///////////////
-
-    //micmo relationships
-    //Modules have many prereqs (other modules). A prereq may belong to many modules
+    /**
+     * Modules have many prereqs (other modules). A prereq may belong to many modules
+     */
     @JoinColumn(name = "MODULE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Module prereq;
+
+    /**
+     * Get method to return pre-requisite module
+     *
+     * @return Module
+     */
     public Module getPreReq()
     {
         return prereq;
     }
+
+    /**
+     * Set method to set the prerequisite key
+     *
+     * @param prereq
+     */
     public void setPreReq(Module prereq)
     {
         this.prereq = prereq;
     }
-    //micmo end
 
 }
