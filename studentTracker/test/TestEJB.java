@@ -328,6 +328,13 @@ public class TestEJB {
     }
 
     @Test
+    public void STUDENT_GetEnrolledModulesForStudent()
+    {
+        //Student has only enrolled on one module
+        Assert.assertEquals(1, studentSession.getModulesEnrolledOn("abc102").size());
+    }
+
+    @Test
     public void COURSE_GetStudentsOnCourse()
     {
         //Only one student has been added to the CS course
@@ -392,6 +399,6 @@ public class TestEJB {
     @Test
     public void ASSESSMENT_GetAverageMarksForAssessment()
     {
-        Assert.assertEquals(20, moduleSession.getAverageAssessmentMark("ECM3401", 1));
+        Assert.assertEquals(0F, moduleSession.getAverageAssessmentMark("ECM3401", 1));
     }
 }

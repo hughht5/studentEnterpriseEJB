@@ -41,4 +41,6 @@ public interface StudentSessionRemote {
     boolean enrollStudentOnCourse(Student _student, Course _course);
 
     boolean submitAssessment(Student _student, Assessment _assesment);
+
+    Collection<Module> getModulesEnrolledOn(String _emailID);
 }

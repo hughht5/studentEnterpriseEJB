@@ -6,6 +6,7 @@ package ejb.sessions;
 
 import ejb.entities.Module;
 import ejb.entities.Staff;
+import ejb.entities.Submission;
 import javax.ejb.Remote;
 
 /**
@@ -31,5 +32,7 @@ public interface StaffSessionRemote {
     boolean checkStaffLogin(String _username, String _password);
 
     boolean addStaffToModule(Staff _staff, Module _module);
+
+    Boolean markSubmission(Submission _submission);
 
 }

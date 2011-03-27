@@ -7,6 +7,7 @@ package ejb.sessions;
 import ejb.entities.Lecture;
 import ejb.entities.Module;
 import ejb.entities.Staff;
+import ejb.entities.Submission;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -135,6 +136,12 @@ public class StaffSession implements StaffSessionRemote {
         }
         return true;
     }
+
+    public Boolean markSubmission(Submission _submission) {
+        return null;
+    }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+
+
 }

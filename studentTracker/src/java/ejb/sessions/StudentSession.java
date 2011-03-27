@@ -13,6 +13,7 @@ import java.sql.Date;
 import javax.ejb.Stateless;
 import ejb.entities.Student;
 import ejb.entities.Submission;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -200,6 +201,43 @@ public class StudentSession implements StudentSessionRemote {
         }
         return true;
     }
+
+    public Collection<Module> getModulesEnrolledOn(String _emailID) {
+        Collection<Student> students;
+        Collection<EnrolledModules> modules = null;
+        Collection<Module> enrolledModules = new ArrayList();
+        try{
+            String query = "SELECT student FROM Student as student";
+
+            students = manager.createQuery(query).getResultList();
+
+            for(Student s : students)
+            {
+                if(s.getEmailID().equals(_emailID))
+                    modules = s.getListOfEnrolledModules();
+            }
+
+            if(modules!=null)
+            {
+                System.out.println("modules size: "+modules.size());
+                for(EnrolledModules m : modules)
+                {
+                    System.out.println("module: "+m.getCourseModule().getName());
+                    enrolledModules.add(m.getCourseModule());
+                }
+                System.out.println("size: "+enrolledModules.size());
+                return enrolledModules;
+                
+            }else
+                return null;
+
+        } catch (Exception e) {
+            System.out.println("getListOfAllModules ERROR: "+e);
+            return null;
+        }
+    }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+
+
 }
