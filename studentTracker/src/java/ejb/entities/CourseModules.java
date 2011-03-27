@@ -143,18 +143,7 @@ public class CourseModules implements Serializable {
     /////////////////////////claimed///////////////
 
     //hugh
-    //CourseModules have many enrollments. An enrolled module only has one course module
-    @OneToMany(mappedBy = "courseModule", fetch=FetchType.EAGER)
-    private Collection<EnrolledModules> listOfEnrolledModules;
-
-    public Collection<EnrolledModules> getListOfEnrolledModules()
-    {
-        return listOfEnrolledModules;
-    }
-    public void setListEnrolledModules(Collection<EnrolledModules> listOfEnrolledModules)
-    {
-        this.listOfEnrolledModules = listOfEnrolledModules;
-    }
+    
 
     //Student has many submissions. A Submission has one student
     @JoinColumn(name = "COURSE_REF", referencedColumnName = "ID")

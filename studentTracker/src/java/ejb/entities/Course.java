@@ -115,5 +115,21 @@ public class Course implements Serializable {
     {
         this.listOfCourseModules = listOfCourseModules;
     }
+
     //hugh end
+
+    //micmo
+    //Student has one course. A course has many students.
+    @OneToMany(mappedBy = "course", fetch=FetchType.EAGER)
+    private Collection<Student> listOfStudents;
+
+    public Collection<Student> getListOfStudents()
+    {
+        return listOfStudents;
+    }
+    public void setListOfStudents(Collection<Student> listOfStudents)
+    {
+        this.listOfStudents = listOfStudents;
+    }
+    //micmo end
 }

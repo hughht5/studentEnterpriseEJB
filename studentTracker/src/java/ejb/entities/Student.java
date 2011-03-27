@@ -211,6 +211,19 @@ public class Student implements Serializable {
     {
         this.listOfSubmissions = listOfSubmissions;
     }
+
+    //Student has one course. A course has many students.
+    @JoinColumn(name = "COURSE_REF", referencedColumnName = "ID")
+    @ManyToOne
+    private Course course;
+    public Course getCourse()
+    {
+        return course;
+    }
+    public void setCourse(Course course)
+    {
+        this.course = course;
+    }
     //micmo end
 
     //hugh and alex
