@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejb.entities;
 
 import java.io.Serializable;
@@ -24,6 +23,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Module implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -87,7 +87,7 @@ public class Module implements Serializable {
     public String toString() {
         return "ejb.entities.Module[id=" + id + "]";
     }
- ///////////////////////////hughs code/////////////////
+    ///////////////////////////hughs code/////////////////
     private String moduleID;
 
     /**
@@ -164,12 +164,10 @@ public class Module implements Serializable {
     public void setAvgMark(float avgMark) {
         this.avgMark = avgMark;
     }
-
     /////////////////////////claimed///////////////
-
     //micmo relationships
     //Modules have many Assessments. An assessment has only one module
-    @OneToMany(mappedBy = "module", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "module", fetch = FetchType.EAGER)
     private Collection<Assessment> listOfAssessments;
 
     /**
@@ -177,8 +175,7 @@ public class Module implements Serializable {
      *
      * @return Collection<Assessments>
      */
-    public Collection<Assessment> getListOfAssessments()
-    {
+    public Collection<Assessment> getListOfAssessments() {
         return listOfAssessments;
     }
 
@@ -187,13 +184,11 @@ public class Module implements Serializable {
      *
      * @param listOfAssessments
      */
-    public void setListOfAssessments(Collection<Assessment> listOfAssessments)
-    {
+    public void setListOfAssessments(Collection<Assessment> listOfAssessments) {
         this.listOfAssessments = listOfAssessments;
     }
-
     //Modules have many prereqs (other modules). A prereq may belong to many modules
-    @OneToMany(/*mappedBy = "module", */fetch=FetchType.EAGER)
+    @OneToMany(/*mappedBy = "module", */fetch = FetchType.EAGER)
     private Collection<Module> listOfPrereqs;
 
     /**
@@ -201,8 +196,7 @@ public class Module implements Serializable {
      *
      * @return Collection<Module>
      */
-    public Collection<Module> getListOfPrereqs()
-    {
+    public Collection<Module> getListOfPrereqs() {
         return listOfPrereqs;
     }
 
@@ -211,14 +205,11 @@ public class Module implements Serializable {
      *
      * @param listOfPrereqs
      */
-    public void setListOfPrereqs(Collection<Module> listOfPrereqs)
-    {
+    public void setListOfPrereqs(Collection<Module> listOfPrereqs) {
         this.listOfPrereqs = listOfPrereqs;
     }
-
-
     //CourseModules have many enrollments. An enrolled module only has one course module
-    @OneToMany(mappedBy = "courseModule", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "courseModule", fetch = FetchType.EAGER)
     private Collection<EnrolledModules> listOfEnrolledModules;
 
     /**
@@ -226,8 +217,7 @@ public class Module implements Serializable {
      *
      * @return Collection<EnrolledModules>
      */
-    public Collection<EnrolledModules> getListOfEnrolledModules()
-    {
+    public Collection<EnrolledModules> getListOfEnrolledModules() {
         return listOfEnrolledModules;
     }
 
@@ -236,39 +226,32 @@ public class Module implements Serializable {
      *
      * @param listOfEnrolledModules
      */
-    public void setListEnrolledModules(Collection<EnrolledModules> listOfEnrolledModules)
-    {
+    public void setListEnrolledModules(Collection<EnrolledModules> listOfEnrolledModules) {
         this.listOfEnrolledModules = listOfEnrolledModules;
     }
-    //micmo end
-
-
-    // alex start
-
-    // A module consists of many lectures. A lecturer is only part of one module.
-    @OneToMany(mappedBy = "module", fetch=FetchType.EAGER)
+    /**
+     * A module consists of many lectures. A lecturer is only part of one module.
+     */
+    @OneToMany(mappedBy = "module", fetch = FetchType.EAGER)
     private Collection<Lecture> listOfLecturers;
 
     /**
-     * Get method to return list of lectures
+     * Get method to return list of lecturers for the module
      *
      * return Collection<Lecture>
      */
-    public Collection<Lecture> getListOfLecturers()
-    {
+    public Collection<Lecture> getListOfLecturers() {
         return listOfLecturers;
     }
 
     /**
-     * Set method to set list of lectures
+     * Set method to set list lectures for the module
      * 
      * @param listOfLecturers
      */
-    public void setListLecturers(Collection<Lecture> listOfLecturers)
-    {
+    public void setListLecturers(Collection<Lecture> listOfLecturers) {
         this.listOfLecturers = listOfLecturers;
     }
-
     private String stage;
 
     /**
@@ -288,20 +271,17 @@ public class Module implements Serializable {
     public void setStage(String stage) {
         this.stage = stage;
     }
-
-
     /*// A module consists of many lectures. A lecturer is only part of one module.
     @OneToMany(mappedBy = "module", fetch=FetchType.EAGER)
     private Collection<Module> listOfModules;
 
     public Collection<Module> getlistOfModules()
     {
-        return listOfModules;
+    return listOfModules;
     }
     public void setlistOfModules(Collection<Module> listOfModules)
     {
-        this.listOfModules = listOfModules;
+    this.listOfModules = listOfModules;
     }*/
-
     // alex end
 }

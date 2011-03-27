@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejb.entities;
 
 import java.io.Serializable;
@@ -24,6 +23,7 @@ import javax.persistence.OneToOne;
  */
 @Entity
 public class Staff implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -87,7 +87,6 @@ public class Staff implements Serializable {
     public String toString() {
         return "ejb.entities.Staff[id=" + id + "]";
     }
-
     /**
      * Unique identifier for email ID
      */
@@ -167,7 +166,6 @@ public class Staff implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
     /**
      * unique identifier String password
      */
@@ -190,7 +188,6 @@ public class Staff implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
     private boolean isAdmin;
 
     /**
@@ -210,40 +207,34 @@ public class Staff implements Serializable {
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
-
-
     /**
      * Student has one Tutor. Tutor has many Tutees.
      *
      */
-    @OneToMany(mappedBy = "tutor", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "tutor", fetch = FetchType.EAGER)
     private Collection<Student> listOfTutees;
 
     /**
-     * Get method to return list of tutees
+     * Get method to return list of tutees for the member of staff
      *
      * @return Collection<Student>
      */
-    public Collection<Student> getListOfTutees()
-    {
+    public Collection<Student> getListOfTutees() {
         return listOfTutees;
     }
 
     /**
-     * Set method to set list of tutees
+     * Set method to set list of tutees for the member of staff
      *
      * @param listOfTutees
      */
-    public void setListOfTutees(Collection<Student> listOfTutees)
-    {
+    public void setListOfTutees(Collection<Student> listOfTutees) {
         this.listOfTutees = listOfTutees;
     }
-
-
     /**
      * The staff has many lecturers. A lecturer is only part of one staff.
      */
-    @OneToMany(mappedBy = "staff", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "staff", fetch = FetchType.EAGER)
     private Collection<Lecture> listOfLecturers;
 
     /**
@@ -251,8 +242,7 @@ public class Staff implements Serializable {
      *
      * @return Collection<Lecture>
      */
-    public Collection<Lecture> getListOfLecturers()
-    {
+    public Collection<Lecture> getListOfLecturers() {
         return listOfLecturers;
     }
 
@@ -261,9 +251,7 @@ public class Staff implements Serializable {
      *
      * @param listOfLecturers
      */
-    public void setListLecturers(Collection<Lecture> listOfLecturers)
-    {
+    public void setListLecturers(Collection<Lecture> listOfLecturers) {
         this.listOfLecturers = listOfLecturers;
     }
-
 }

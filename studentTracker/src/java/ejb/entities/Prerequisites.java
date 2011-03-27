@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejb.entities;
 
 import java.io.Serializable;
@@ -19,6 +18,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Prerequisites implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -82,7 +82,6 @@ public class Prerequisites implements Serializable {
     public String toString() {
         return "ejb.entities.Prerequisites[id=" + id + "]";
     }
-
     /**
      * Unique identifier for prerequisite ID
      */
@@ -105,7 +104,6 @@ public class Prerequisites implements Serializable {
     public void setPrerequisiteID(int prerequisiteID) {
         this.prerequisiteID = prerequisiteID;
     }
-
     /**
      * Unique identifier String for module ID
      */
@@ -128,7 +126,6 @@ public class Prerequisites implements Serializable {
     public void setModuleID(String moduleID) {
         this.moduleID = moduleID;
     }
-
     /**
      * unique identifier String for prerequisite module ID
      */
@@ -151,8 +148,6 @@ public class Prerequisites implements Serializable {
     public void setPrerequisiteModuleID(String prerequisiteModuleID) {
         this.prerequisiteModuleID = prerequisiteModuleID;
     }
-
-
     /**
      * Modules have many prereqs (other modules). A prereq may belong to many modules
      */
@@ -161,23 +156,20 @@ public class Prerequisites implements Serializable {
     private Module prereq;
 
     /**
-     * Get method to return pre-requisite module
+     * Get method to return pre-requisite for a modules admittance
      *
      * @return Module
      */
-    public Module getPreReq()
-    {
+    public Module getPreReq() {
         return prereq;
     }
 
     /**
-     * Set method to set the prerequisite key
+     * Set method to set the prerequisites for a modules entrance
      *
      * @param prereq
      */
-    public void setPreReq(Module prereq)
-    {
+    public void setPreReq(Module prereq) {
         this.prereq = prereq;
     }
-
 }

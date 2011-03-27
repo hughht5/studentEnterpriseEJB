@@ -18,8 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
- *
- * @author hmh205
+ * The Student class details all students enrolled on the studentTrackerEJB,
+ * provides methods to add students, and details list of enrolled modules
  */
 @Entity
 public class Student implements Serializable {
@@ -29,14 +29,29 @@ public class Student implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     * Auto generated method
+     *
+     * @return Long
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return int hash code
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -44,6 +59,12 @@ public class Student implements Serializable {
         return hash;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -57,11 +78,18 @@ public class Student implements Serializable {
         return true;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         return "ejb.entities.Student[id=" + id + "]";
     }
-    ///////////////////////////hughs code/////////////////
+    /**
+     * Unique string identifier name
+     */
     private String name;
 
     /**
@@ -81,7 +109,9 @@ public class Student implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
+    /**
+     * Import DATE to allow date of birth for student
+     */
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
 
@@ -102,6 +132,9 @@ public class Student implements Serializable {
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+    /**
+     * Unique identifier candidate number
+     */
     private int candidateNumber;
 
     /**
@@ -121,6 +154,9 @@ public class Student implements Serializable {
     public void setCandidateNumber(int candidateNumber) {
         this.candidateNumber = candidateNumber;
     }
+    /**
+     * Unique identifier student number
+     */
     private int studentNumber;
 
     /**
@@ -140,8 +176,9 @@ public class Student implements Serializable {
     public void setStudentNumber(int studentNumber) {
         this.studentNumber = studentNumber;
     }
-
-
+    /**
+     * Unique identifier email address
+     */
     private String emailID;
 
     /**
@@ -161,7 +198,6 @@ public class Student implements Serializable {
     public void setEmailID(String emailID) {
         this.emailID = emailID;
     }
-
     private String password;
 
     /**
@@ -181,64 +217,100 @@ public class Student implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    /////////////////////////claimed///////////////
-
-    //Micmo relationships 
-
-    //Student has one Tutor. Tutor has many Tutees.
+    /**
+     * Student has one Tutor. Tutor has many Tutees.
+     */
     @JoinColumn(name = "STAFF_REF", referencedColumnName = "ID")
     @ManyToOne
     private Staff tutor;
-    public Staff getTutor()
-    {
+
+    /**
+     * Get method to return student's tutor
+     *
+     * @return Staff
+     */
+    public Staff getTutor() {
         return tutor;
     }
-    public void setTutor(Staff tutor)
-    {
+
+    /**
+     * Set method to set student's tutor
+     *
+     * @param tutor
+     */
+    public void setTutor(Staff tutor) {
         this.tutor = tutor;
     }
-
-    //Student has many submissions. A Submission only has one student
-    @OneToMany(mappedBy = "student", fetch=FetchType.EAGER)
+    /**
+     * Student has many submissions. A Submission only has one student
+     */
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     private Collection<Submission> listOfSubmissions;
 
-    public Collection<Submission> getListOfSubmissions()
-    {
+    /**
+     * Get method to return list of student's submissions
+     *
+     * @return Collection<Submission>
+     *
+     */
+    public Collection<Submission> getListOfSubmissions() {
         return listOfSubmissions;
     }
-    public void setListOfSubmissions(Collection<Submission> listOfSubmissions)
-    {
+
+    /**
+     * Set method to set the student's list of submissions
+     *
+     * @param listOfSubmissions
+     */
+    public void setListOfSubmissions(Collection<Submission> listOfSubmissions) {
         this.listOfSubmissions = listOfSubmissions;
     }
-
-    //Student has one course. A course has many students.
+    /**
+     * Student has one course. A course has many students.
+     */
     @JoinColumn(name = "COURSE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Course course;
-    public Course getCourse()
-    {
+
+    /**
+     * Get method to get the students course
+     *
+     * @return Course
+     */
+    public Course getCourse() {
         return course;
     }
-    public void setCourse(Course course)
-    {
+
+    /**
+     * Set method to set the students course
+     *
+     * @param course
+     */
+    public void setCourse(Course course) {
         this.course = course;
     }
-    //micmo end
-
-    //hugh and alex
-    //Student is enrolled to many modules. An enrolled module only has one student
-    @OneToMany(mappedBy = "student", fetch=FetchType.EAGER)
+    /**
+     * Student is enrolled to many modules. An enrolled module only has one student
+     */
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     private Collection<EnrolledModules> listOfEnrolledModules;
 
-    public Collection<EnrolledModules> getListOfEnrolledModules()
-    {
+    /**
+     * Get method to get list of student's enrolled modules
+     *
+     * @return Collection<EnrolledModules>
+     */
+    public Collection<EnrolledModules> getListOfEnrolledModules() {
         return listOfEnrolledModules;
     }
-    public void setListEnrolledModules(Collection<EnrolledModules> listOfEnrolledModules)
-    {
+
+    /**
+     * Set method to set the student's list of enrolled modules
+     * 
+     * @param listOfEnrolledModules
+     */
+    public void setListEnrolledModules(Collection<EnrolledModules> listOfEnrolledModules) {
         this.listOfEnrolledModules = listOfEnrolledModules;
     }
-    
     ///hugh and alex end
 }
