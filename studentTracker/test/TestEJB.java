@@ -343,13 +343,6 @@ public class TestEJB {
     }
 
     @Test
-    public void MODULE_GetStudentsOnModule()
-    {
-        //Only one student has beena dded to the ECM3401 module
-        Assert.assertEquals(1, moduleSession.getListOfEnrolledStudents("ECM3401").size());
-    }
-
-    @Test
     public void LECTURE_AddStaffToModule()
     {
         Module module = moduleSession.getModuleByID("ECM3401");
@@ -358,6 +351,13 @@ public class TestEJB {
         staffSession.addStaffToModule(staff, module, true);
     }
 
+    @Test
+    public void MODULE_GetStudentsOnModule()
+    {
+        //Only one student has beena dded to the ECM3401 module
+        Assert.assertEquals(1, moduleSession.getListOfEnrolledStudents("ECM3401", "tut02").size());
+    }
+    
     @Test
     public void ASSESSMENT_AddAssessment()
     {
@@ -412,8 +412,8 @@ public class TestEJB {
     @Test
     public void ASSESSMENT_GetAverageMarksForAssessment()
     {
-        //Only one assessment marked. (72+0) / 2 = 36
-        Assert.assertEquals(36F, moduleSession.getAverageAssessmentMark("ECM3401", 1));
+        //Only one assessment marked. (72.0)
+        Assert.assertEquals(72F, moduleSession.getAverageAssessmentMark("ECM3401", 1));
     }
 
     @Test

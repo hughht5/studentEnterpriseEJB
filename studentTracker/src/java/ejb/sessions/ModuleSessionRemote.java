@@ -37,7 +37,7 @@ public interface ModuleSessionRemote {
     boolean addAssessmentToModule(int _seq, String _type,
             Date _handout, Date _handin, int _duration, float _weighting, Module _module, String _staffEmailID);
 
-    Collection<Student> getListOfEnrolledStudents(String _moduleID);
+    Collection<Student> getListOfEnrolledStudents(String _moduleID, String _staffEmailID);
 
     Collection<Assessment> getAssessmentsForModule(String _moduleID);
 
@@ -47,4 +47,8 @@ public interface ModuleSessionRemote {
 
 
     boolean checkIfCoordinator(String _staffEmailID, String _moduleID);
+
+    float getAverageModuleMark(String _moduleID);
+
+    float getModuleMark(String _moduleID, String _studentEmailID);
 }

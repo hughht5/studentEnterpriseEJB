@@ -140,6 +140,27 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
+    public boolean checkIfLecturer(String _staffEmailID, String _moduleID) {
+        List<Staff> staff;
+        List<Lecture> lectures;
+        try {
+            String query = "SELECT staff FROM Lecture as staff";
+
+            lectures = manager.createQuery(query).getResultList();
+
+            for (Lecture l : lectures) {
+                if (l.getStaff().getEmailID().equals(_staffEmailID)
+                        && l.getModule().getModuleID().equals(_moduleID)) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            System.out.println("checkIfCoordinator ERROR: " + e);
+            return false;
+        }
+    }
+
     @Override
     public boolean addAssessmentToModule(int _seq, String _type,
             Date _handout, Date _handin, int _duration, float _weighting, Module _module, String _staffEmailID) {
@@ -180,21 +201,27 @@ public class ModuleSession implements ModuleSessionRemote {
 
     }
 
-    public Collection<Student> getListOfEnrolledStudents(String _moduleID) {
+    public Collection<Student> getListOfEnrolledStudents(String _moduleID, String _staffEmailID) {
         Collection<EnrolledModules> modules;
         Collection<Student> enrolledStudents = new ArrayList();
         try {
-            String query = "SELECT modules FROM EnrolledModules as modules";
 
-            modules = manager.createQuery(query).getResultList();
+            if(checkIfLecturer(_staffEmailID, _moduleID))
+            {
+                String query = "SELECT modules FROM EnrolledModules as modules";
 
-            for (EnrolledModules m : modules) {
-                if (m.getCourseModule().getModuleID().equals(_moduleID)) {
-                    enrolledStudents.add(m.getStudent());
+                modules = manager.createQuery(query).getResultList();
+
+                for (EnrolledModules m : modules) {
+                    if (m.getCourseModule().getModuleID().equals(_moduleID)) {
+                        enrolledStudents.add(m.getStudent());
+                    }
                 }
-            }
 
-            return enrolledStudents;
+                return enrolledStudents;
+            }
+            else
+                return null;
         } catch (Exception e) {
             System.out.println("getListOfEnrolledStudents ERROR: " + e);
             return null;
@@ -230,7 +257,8 @@ public class ModuleSession implements ModuleSessionRemote {
             assessments = manager.createQuery(query).getResultList();
 
             for (Assessment a : assessments) {
-                if (a.getModule().getModuleID().equals(_moduleID)) {
+                if (a.getModule().getModuleID().equals(_moduleID)
+                        && a.getSequence() == _sequence) {
                     return a;
                 }
             }
@@ -253,11 +281,13 @@ public class ModuleSession implements ModuleSessionRemote {
             float averageMark = 0;
 
             for (Submission s : submissions) {
+                
                 if (s.getAssessment().getModule().getModuleID().equals(_moduleID)
                         && (s.getAssessment().getSequence() == _assessmentSequence)) {
                     totalMarks += s.getMark();
                     numOfSubmissions++;
                 }
+                
             }
 
             if (numOfSubmissions > 0) {
@@ -277,4 +307,64 @@ public class ModuleSession implements ModuleSessionRemote {
             return 0F;
         }
     }
+
+    public float getAverageModuleMark(String _moduleID) {
+        Collection<Submission> submissions;
+        try {
+            String query = "SELECT submission FROM Submission as submission";
+
+            submissions = manager.createQuery(query).getResultList();
+            int totalMarks = 0;
+            int numOfSubmissions = 0;
+            float averageMark = 0;
+
+            for (Submission s : submissions) {
+                if (s.getAssessment().getModule().getModuleID().equals(_moduleID)) {
+                    totalMarks += s.getMark();
+                    numOfSubmissions++;
+                }
+            }
+
+            if (numOfSubmissions > 0) {
+                averageMark = totalMarks / numOfSubmissions;
+            } else {
+                averageMark = 0;
+            }
+            return averageMark;
+        } catch (Exception e) {
+            System.out.println("getAverageModuleMark ERROR: " + e);
+            return 0F;
+        }
+    }
+
+    public float getModuleMark(String _moduleID, String _studentEmailID) {
+        Collection<Submission> submissions;
+        try {
+            String query = "SELECT submission FROM Submission as submission";
+
+            submissions = manager.createQuery(query).getResultList();
+            int totalMarks = 0;
+            int numOfSubmissions = 0;
+            float averageMark = 0;
+
+            for (Submission s : submissions) {
+                if (s.getAssessment().getModule().getModuleID().equals(_moduleID)
+                        && s.getStudent().getEmailID().equals(_studentEmailID)) {
+                    totalMarks += s.getMark();
+                    numOfSubmissions++;
+                }
+            }
+
+            if (numOfSubmissions > 0) {
+                averageMark = totalMarks / numOfSubmissions;
+            } else {
+                averageMark = 0;
+            }
+            return averageMark;
+        } catch (Exception e) {
+            System.out.println("getModuleMark ERROR: " + e);
+            return 0F;
+        }
+    }
+
 }
