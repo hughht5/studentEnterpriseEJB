@@ -12,6 +12,7 @@ import ejb.entities.Staff;
 import java.sql.Date;
 import javax.ejb.Stateless;
 import ejb.entities.Student;
+import ejb.entities.Submission;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -137,9 +138,17 @@ public class StudentSession implements StudentSessionRemote {
 
     @Override
     public boolean submitAssessment(Student _student, Assessment _assesment) {
-        return false;
-    }
+        try {
 
+            Submission submission = new Submission();
+            submission.setStudent(_student);
+            submission.setAssessment(_assesment);
+            manager.persist(submission);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 }
