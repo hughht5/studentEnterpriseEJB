@@ -17,6 +17,10 @@ import javax.persistence.OneToMany;
 /**
  *
  * @author hmh205
+ *
+ * The Module class details the modules, students enrolled, assessments and lectures
+ * for each module.  It also details the pre-requisites necessary for module
+ * completion.
  */
 @Entity
 public class Module implements Serializable {
@@ -25,14 +29,29 @@ public class Module implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     * Auto generated method
+     *
+     * @return Long
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return int
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -40,6 +59,12 @@ public class Module implements Serializable {
         return hash;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -53,6 +78,11 @@ public class Module implements Serializable {
         return true;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         return "ejb.entities.Module[id=" + id + "]";
@@ -142,10 +172,21 @@ public class Module implements Serializable {
     @OneToMany(mappedBy = "module", fetch=FetchType.EAGER)
     private Collection<Assessment> listOfAssessments;
 
+    /**
+     * Get method to return list of assessments
+     *
+     * @return Collection<Assessments>
+     */
     public Collection<Assessment> getListOfAssessments()
     {
         return listOfAssessments;
     }
+
+    /**
+     * Set method to set list of assessments
+     *
+     * @param listOfAssessments
+     */
     public void setListOfAssessments(Collection<Assessment> listOfAssessments)
     {
         this.listOfAssessments = listOfAssessments;
@@ -155,23 +196,46 @@ public class Module implements Serializable {
     @OneToMany(/*mappedBy = "module", */fetch=FetchType.EAGER)
     private Collection<Module> listOfPrereqs;
 
+    /**
+     * Get method to return list of pre-requisites
+     *
+     * @return Collection<Module>
+     */
     public Collection<Module> getListOfPrereqs()
     {
         return listOfPrereqs;
     }
+
+    /**
+     * Set method to set list of pre-requisites
+     *
+     * @param listOfPrereqs
+     */
     public void setListOfPrereqs(Collection<Module> listOfPrereqs)
     {
         this.listOfPrereqs = listOfPrereqs;
     }
 
+
     //CourseModules have many enrollments. An enrolled module only has one course module
     @OneToMany(mappedBy = "courseModule", fetch=FetchType.EAGER)
     private Collection<EnrolledModules> listOfEnrolledModules;
 
+    /**
+     * Get method to return list of enrolled modules
+     *
+     * @return Collection<EnrolledModules>
+     */
     public Collection<EnrolledModules> getListOfEnrolledModules()
     {
         return listOfEnrolledModules;
     }
+
+    /**
+     * Set method to set list of enrolled modules
+     *
+     * @param listOfEnrolledModules
+     */
     public void setListEnrolledModules(Collection<EnrolledModules> listOfEnrolledModules)
     {
         this.listOfEnrolledModules = listOfEnrolledModules;
@@ -185,10 +249,21 @@ public class Module implements Serializable {
     @OneToMany(mappedBy = "module", fetch=FetchType.EAGER)
     private Collection<Lecture> listOfLecturers;
 
+    /**
+     * Get method to return list of lectures
+     *
+     * return Collection<Lecture>
+     */
     public Collection<Lecture> getListOfLecturers()
     {
         return listOfLecturers;
     }
+
+    /**
+     * Set method to set list of lectures
+     * 
+     * @param listOfLecturers
+     */
     public void setListLecturers(Collection<Lecture> listOfLecturers)
     {
         this.listOfLecturers = listOfLecturers;

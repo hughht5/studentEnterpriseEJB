@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejb.entities;
 
 import java.io.Serializable;
@@ -17,13 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
- *
- * @author hmh205
- *
  * The EnrolledModules details the students enrolled on courses
  */
 @Entity
 public class EnrolledModules implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -87,11 +84,9 @@ public class EnrolledModules implements Serializable {
     public String toString() {
         return "ejb.entities.EnrolledModules[id=" + id + "]";
     }
-
-
-    ///////////////////////////hughs code/////////////////
-
-
+    /**
+     * Unique Identifier for enrollment ID
+     */
     private int enrollmentID;
 
     /**
@@ -149,11 +144,9 @@ public class EnrolledModules implements Serializable {
     public void setCoureseModuleID(int coureseModuleID) {
         this.coureseModuleID = coureseModuleID;
     }
-
-
-    /////////////////////////claimed///////////////
-
-    //Student has many enrolled modules. An enrolled module has one student
+    /**
+     * Student has many enrolled modules. An enrolled module has one student
+     */
     @JoinColumn(name = "STUDENT_ENROLLED_MODULES_REF", referencedColumnName = "ID")
     @ManyToOne
     private Student student;
@@ -163,8 +156,7 @@ public class EnrolledModules implements Serializable {
      *
      * @return Student
      */
-    public Student getStudent()
-    {
+    public Student getStudent() {
         return student;
     }
 
@@ -173,12 +165,12 @@ public class EnrolledModules implements Serializable {
      *
      * @param student
      */
-    public void setStudent(Student student)
-    {
+    public void setStudent(Student student) {
         this.student = student;
     }
-
-     //A courseModule has many enrollments. Each enrollment has one course module
+    /**
+     * A courseModule has many enrollments. Each enrollment has one course module
+     */
     @JoinColumn(name = "MODULE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Module courseModule;
@@ -188,8 +180,7 @@ public class EnrolledModules implements Serializable {
      *
      * @return Module
      */
-    public Module getCourseModule()
-    {
+    public Module getCourseModule() {
         return courseModule;
     }
 
@@ -198,9 +189,7 @@ public class EnrolledModules implements Serializable {
      * 
      * @param courseModule
      */
-    public void setCourseModule(Module courseModule)
-    {
+    public void setCourseModule(Module courseModule) {
         this.courseModule = courseModule;
     }
-
 }

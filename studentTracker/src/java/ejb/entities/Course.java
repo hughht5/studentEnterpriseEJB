@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejb.entities;
 
 import java.io.Serializable;
@@ -16,12 +15,11 @@ import javax.persistence.OneToMany;
 
 /**
  *
- * @author hmh205
- *
  * The Course class provides details of courses
  */
 @Entity
 public class Course implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -85,10 +83,9 @@ public class Course implements Serializable {
     public String toString() {
         return "ejb.entities.Course[id=" + id + "]";
     }
-
-
-     ///////////////////////////hughs code/////////////////
-
+    /**
+     * Unique identifier for course
+     */
     private String courseID;
 
     /**
@@ -127,12 +124,10 @@ public class Course implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-
-    /////////////////////////claimed///////////////
-    //hugh
-    //Course has many course modules - course modules each have one course.
-    @OneToMany(mappedBy = "course", fetch=FetchType.EAGER)
+    /**
+     * Course has many course modules - course modules each have one course.
+     */
+    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
     private Collection<CourseModules> listOfCourseModules;
 
     /**
@@ -140,8 +135,7 @@ public class Course implements Serializable {
      *
      * @return Collection<CourseModules>
      */
-    public Collection<CourseModules> getListOfCourseModules()
-    {
+    public Collection<CourseModules> getListOfCourseModules() {
         return listOfCourseModules;
     }
 
@@ -150,16 +144,13 @@ public class Course implements Serializable {
      *
      * @param listOfCourseModules
      */
-    public void setListCourseModules(Collection<CourseModules> listOfCourseModules)
-    {
+    public void setListCourseModules(Collection<CourseModules> listOfCourseModules) {
         this.listOfCourseModules = listOfCourseModules;
     }
-
-    //hugh end
-
-    //micmo
-    //Student has one course. A course has many students.
-    @OneToMany(mappedBy = "course", fetch=FetchType.EAGER)
+    /**
+     * Student has one course. A course has many students.
+     */
+    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
     private Collection<Student> listOfStudents;
 
     /**
@@ -167,8 +158,7 @@ public class Course implements Serializable {
      *
      * @return Collection<Student>
      */
-    public Collection<Student> getListOfStudents()
-    {
+    public Collection<Student> getListOfStudents() {
         return listOfStudents;
     }
 
@@ -177,9 +167,7 @@ public class Course implements Serializable {
      * 
      * @param listOfStudents
      */
-    public void setListOfStudents(Collection<Student> listOfStudents)
-    {
+    public void setListOfStudents(Collection<Student> listOfStudents) {
         this.listOfStudents = listOfStudents;
     }
-    //micmo end
 }

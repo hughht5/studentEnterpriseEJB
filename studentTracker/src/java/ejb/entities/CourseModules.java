@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejb.entities;
 
 import java.io.Serializable;
@@ -17,13 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
- *
- * @author hmh205
- *
  * The CourseModules class contains the details for the modules
  */
 @Entity
 public class CourseModules implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -87,9 +84,9 @@ public class CourseModules implements Serializable {
     public String toString() {
         return "ejb.entities.CourseModules[id=" + id + "]";
     }
-
-     ///////////////////////////hughs code/////////////////
-
+    /**
+     * Unique identifier for courseModuleID
+     */
     private int courseModuleID;
 
     /**
@@ -128,7 +125,6 @@ public class CourseModules implements Serializable {
     public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
-
     private String moduleID;
 
     /**
@@ -167,11 +163,10 @@ public class CourseModules implements Serializable {
     public void setIsCompulsary(boolean isCompulsary) {
         this.isCompulsary = isCompulsary;
     }
-
-    /////////////////////////claimed///////////////
-
-    //hugh
-    //Student has many submissions. A Submission has one student
+    /**
+     *
+     * Student has many submissions. A Submission has one student
+     */
     @JoinColumn(name = "COURSE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Course course;
@@ -181,8 +176,7 @@ public class CourseModules implements Serializable {
      *
      * @return Course
      */
-    public Course getCourse()
-    {
+    public Course getCourse() {
         return course;
     }
 
@@ -191,12 +185,12 @@ public class CourseModules implements Serializable {
      *
      * @param course
      */
-    public void setCourse(Course course)
-    {
+    public void setCourse(Course course) {
         this.course = course;
     }
-
-    //Student has many submissions. A Submission has one student
+    /**
+     * Student has many submissions. A Submission has one student
+     */
     @JoinColumn(name = "MODULE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Module module;
@@ -206,8 +200,7 @@ public class CourseModules implements Serializable {
      *
      * @return Module
      */
-    public Module getModule()
-    {
+    public Module getModule() {
         return module;
     }
 
@@ -216,10 +209,7 @@ public class CourseModules implements Serializable {
      *
      * @param module
      */
-    public void setModule(Module module)
-    {
+    public void setModule(Module module) {
         this.module = module;
     }
-    ///hugh end
-
 }

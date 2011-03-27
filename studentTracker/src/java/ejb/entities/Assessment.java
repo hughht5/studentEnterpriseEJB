@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejb.entities;
 
 import java.io.Serializable;
@@ -20,14 +19,13 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author hmh205
- *
  * The Assessment class contains details of assessments for modules that
  * students are enrolled in.
  *
  */
 @Entity
 public class Assessment implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -91,9 +89,9 @@ public class Assessment implements Serializable {
     public String toString() {
         return "ejb.entities.Assesment[id=" + id + "]";
     }
-
-     ///////////////////////////hughs code/////////////////
-
+    /**
+     * Unique identifier for assessment
+     */
     private int assesmentID;
 
     /**
@@ -190,28 +188,26 @@ public class Assessment implements Serializable {
     public void setHandout(Date handout) {
         this.handout = handout;
     }
-
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date handin;
 
     /**
-     * Get the value of handin
+     * Get the value of hand in
      *
-     * @return the value of handin
+     * @return the value of hand in
      */
     public Date getHandin() {
         return handin;
     }
 
     /**
-     * Set the value of handin
+     * Set the value of hand in
      *
-     * @param handin new value of handin
+     * @param handin new value of hand in
      */
     public void setHandin(Date handin) {
         this.handin = handin;
     }
-
     private int duration;
 
     /**
@@ -234,18 +230,18 @@ public class Assessment implements Serializable {
     private float avgMark;
 
     /**
-     * Get the value of avgMark
+     * Get the value of the average mark
      *
-     * @return the value of avgMark
+     * @return the value of average mark
      */
     public float getAvgMark() {
         return avgMark;
     }
 
     /**
-     * Set the value of avgMark
+     * Set the value of average mark
      *
-     * @param avgMark new value of avgMark
+     * @param avgMark new value of average mark
      */
     public void setAvgMark(float avgMark) {
         this.avgMark = avgMark;
@@ -269,14 +265,10 @@ public class Assessment implements Serializable {
     public void setWeighting(float weighting) {
         this.weighting = weighting;
     }
-
-
-    /////////////////////////claimed///////////////
-
-
-    //micmo relationships
-    //Assessments have many submissions. A submission has one assessment
-    @OneToMany(mappedBy = "assessment", fetch=FetchType.EAGER)
+    /**
+     * Assessments have many submissions. A submission has one assessment
+     */
+    @OneToMany(mappedBy = "assessment", fetch = FetchType.EAGER)
     private Collection<Submission> listOfSubmissions;
 
     /**
@@ -284,8 +276,7 @@ public class Assessment implements Serializable {
      *
      * @return Collection<Submission>
      */
-    public Collection<Submission> getListOfSubmissions()
-    {
+    public Collection<Submission> getListOfSubmissions() {
         return listOfSubmissions;
     }
 
@@ -294,12 +285,12 @@ public class Assessment implements Serializable {
      *
      * @param listOfSubmissions
      */
-    public void setListOfSubmissions(Collection<Submission> listOfSubmissions)
-    {
+    public void setListOfSubmissions(Collection<Submission> listOfSubmissions) {
         this.listOfSubmissions = listOfSubmissions;
     }
-
-    //Modules have many Assessments. An assessment has only one module
+    /**
+     * Modules have many Assessments. An assessment has only one module
+     */
     @JoinColumn(name = "MODULE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Module module;
@@ -309,8 +300,7 @@ public class Assessment implements Serializable {
      *
      * @return Module
      */
-    public Module getModule()
-    {
+    public Module getModule() {
         return module;
     }
 
@@ -319,9 +309,7 @@ public class Assessment implements Serializable {
      * 
      * @param module
      */
-    public void setModule(Module module)
-    {
+    public void setModule(Module module) {
         this.module = module;
     }
-    //micmo end
 }

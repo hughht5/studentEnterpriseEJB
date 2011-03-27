@@ -14,8 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
- *
- * @author hmh205
+ * 
  */
 @Entity
 public class Prerequisites implements Serializable {
