@@ -9,6 +9,7 @@ import ejb.entities.Course;
 import ejb.entities.Module;
 import ejb.entities.Staff;
 import ejb.entities.Student;
+import ejb.entities.Submission;
 import java.sql.Date;
 import java.util.Collection;
 import javax.ejb.Remote;
@@ -43,4 +44,10 @@ public interface StudentSessionRemote {
     boolean submitAssessment(Student _student, Assessment _assesment);
 
     Collection<Module> getModulesEnrolledOn(String _emailID);
+
+    Collection<Submission> getSubmissions(String _moduleID, int _sequence);
+
+    Submission getSpecificSubmission(String _moduleID, int _sequence, String _studentEmailID);
+
+    float getSubmissionMark(Submission _submission);
 }

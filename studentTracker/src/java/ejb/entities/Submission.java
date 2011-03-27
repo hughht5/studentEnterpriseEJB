@@ -180,6 +180,27 @@ public class Submission implements Serializable {
     public void setStudentID(String studentID) {
         this.studentID = studentID;
     }
+
+    private String feedback;
+
+    /**
+     * Get the value of feedback
+     *
+     * @return the value of feedback
+     */
+    public String getFeedback() {
+        return feedback;
+    }
+
+    /**
+     * Set the value of feedback
+     *
+     * @param feedback new value of feedback
+     */
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
+    }
+
     /**
      * Student has many submissions. A Submission has one student
      */

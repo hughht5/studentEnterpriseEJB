@@ -14,6 +14,7 @@ import javax.ejb.Stateless;
 import ejb.entities.Student;
 import ejb.entities.Submission;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -186,22 +187,33 @@ public class StudentSession implements StudentSessionRemote {
      * @return true for success, false otherwise
      */
     @Override
-    public boolean submitAssessment(Student _student, Assessment _assesment) {
+    public boolean submitAssessment(Student _student, Assessment _assessment) {
         try {
+            Calendar calendar = Calendar.getInstance();
+            java.util.Date currentDate = calendar.getTime();
+            java.sql.Date date = new java.sql.Date(currentDate.getTime());
 
             Submission submission = new Submission();
             submission.setStudent(_student);
-            submission.setAssessment(_assesment);
+            submission.setAssessment(_assessment);
             submission.setMark(0);
-            submission.setIsLate(false);
+            submission.setFeedback("");
+            
+            if(date.after(_assessment.getHandin()))
+                submission.setIsLate(true);
+            else
+                submission.setIsLate(false);
             
             manager.persist(submission);
         } catch (Exception e) {
+            System.out.println("submitAssessment error : "+e);
             return false;
         }
         return true;
     }
 
+    
+    @Override
     public Collection<Module> getModulesEnrolledOn(String _emailID) {
         Student student = getStudentByEmailID(_emailID);
         Collection<Student> students;
@@ -219,22 +231,78 @@ public class StudentSession implements StudentSessionRemote {
                     modules.add(m.getCourseModule());
             }
 
-            if(modules!=null)
-            {
-                System.out.println("modules size: "+modules.size());
-              
-                return modules;
-                
-            }else
-                return null;
+            return modules;
 
         } catch (Exception e) {
-            System.out.println("getListOfAllModules ERROR: "+e);
+            System.out.println("getModulesEnrolledOn ERROR: "+e);
             return null;
         }
     }
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
 
+    @Override
+    public Collection<Submission> getSubmissions(String _moduleID, int _sequence) {
+        Collection<Submission> allSubmissions;
+        Collection<Submission> submissions = new ArrayList();
+        try{
+            String query = "SELECT submission FROM Submission as submission";
+
+            allSubmissions = manager.createQuery(query).getResultList();
+
+            for(Submission s : allSubmissions)
+            {
+                if(s.getAssessment().getModule().getModuleID().equals(_moduleID)
+                        && s.getAssessment().getSequence()==_sequence)
+                    submissions.add(s);
+            }
+
+            return submissions;
+        } catch (Exception e) {
+            System.out.println("getSubmissions ERROR: "+e);
+            return null;
+        }
+    }
+
+
+
+    public Submission getSpecificSubmission(String _moduleID, int _sequence, String _studentEmailID) {
+        Collection<Submission> allSubmissions;
+        try{
+            String query = "SELECT submission FROM Submission as submission";
+
+            allSubmissions = manager.createQuery(query).getResultList();
+
+            for(Submission s : allSubmissions)
+            {
+                if(s.getAssessment().getModule().getModuleID().equals(_moduleID)
+                        && s.getAssessment().getSequence()==_sequence)
+                    return s;
+            }
+
+            return null;
+        } catch (Exception e) {
+            System.out.println("getSpecificSubmission ERROR: "+e);
+            return null;
+        }
+    }
+
+    public float getSubmissionMark(Submission _submission) {
+        float mark = _submission.getMark();
+        if(_submission.getIsLate())
+        {
+            if(_submission.getAssessment().getModule().getStage().equals("M"))
+            {
+                if(mark>=50)
+                    mark=50;
+            }else{
+                if(mark>=40)
+                    mark=40;
+            }
+        }
+        return mark;
+    }
+
+    
+
+    
 
 }

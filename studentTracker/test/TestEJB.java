@@ -21,6 +21,7 @@ import ejb.entities.Module;
 import ejb.entities.Staff;
 import ejb.sessions.StudentSessionRemote;
 import ejb.entities.Student;
+import ejb.entities.Submission;
 import ejb.sessions.CourseSessionRemote;
 import ejb.sessions.ModuleSessionRemote;
 import ejb.sessions.StaffSessionRemote;
@@ -349,6 +350,15 @@ public class TestEJB {
     }
 
     @Test
+    public void LECTURE_AddStaffToModule()
+    {
+        Module module = moduleSession.getModuleByID("ECM3401");
+        Staff staff = staffSession.getStaffByEmailID("tut02");
+
+        staffSession.addStaffToModule(staff, module, true);
+    }
+
+    @Test
     public void ASSESSMENT_AddAssessment()
     {
         java.sql.Date handOut = java.sql.Date.valueOf("2011-03-20"); //yyyy-mm-dd
@@ -356,8 +366,8 @@ public class TestEJB {
         Module module = moduleSession.getModuleByID("ECM3401");
 
         try {
-            moduleSession.addAssessmentToModule(1, "Practical", handOut, handIn, 10, 0.3f, module);
-            moduleSession.addAssessmentToModule(2, "Examination", handOut, handIn, 2, 0.7f, module);
+            moduleSession.addAssessmentToModule(1, "Practical", handOut, handIn, 10, 0.3f, module, "tut02");
+            moduleSession.addAssessmentToModule(2, "Examination", handOut, handIn, 2, 0.7f, module, "tut02");
             Assert.assertTrue(true);
         } catch (Exception e) {
             Assert.assertTrue("Could not add assessments", false);
@@ -393,12 +403,24 @@ public class TestEJB {
     @Test
     public void STAFF_MarkSubmission()
     {
-        
+        Submission submission = studentSession.getSpecificSubmission("ECM3401", 1, "abc102");
+
+        Assert.assertNotNull("No submission found", submission);
+        staffSession.markSubmission(submission, 72, "feedback");
     }
 
     @Test
     public void ASSESSMENT_GetAverageMarksForAssessment()
     {
-        Assert.assertEquals(0F, moduleSession.getAverageAssessmentMark("ECM3401", 1));
+        //Only one assessment marked. (72+0) / 2 = 36
+        Assert.assertEquals(36F, moduleSession.getAverageAssessmentMark("ECM3401", 1));
+    }
+
+    @Test
+    public void SUBMISSION_GetSubmissionMark()
+    {
+        Submission submission = studentSession.getSpecificSubmission("ECM3401", 1, "abc102");
+
+        Assert.assertEquals(72F, studentSession.getSubmissionMark(submission));
     }
 }

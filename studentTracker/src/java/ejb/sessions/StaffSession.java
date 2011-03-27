@@ -118,6 +118,8 @@ public class StaffSession implements StaffSessionRemote {
         }
     }
 
+
+
     /**
      * Method adds a member of staff as a lecture for a module
      * @param _staff
@@ -125,11 +127,12 @@ public class StaffSession implements StaffSessionRemote {
      * @return true for success, false otherwise
      */
     @Override
-    public boolean addStaffToModule(Staff _staff, Module _module) {
+    public boolean addStaffToModule(Staff _staff, Module _module, boolean _isCoordinator) {
         try {
             Lecture lecture = new Lecture();
             lecture.setStaff(manager.find(Staff.class, _staff.getId()));
             lecture.setModule(manager.find(Module.class, _module.getId()));
+            lecture.setIsCoordinator(_isCoordinator);
             manager.persist(lecture);
         } catch (Exception e) {
             return false;
@@ -137,9 +140,20 @@ public class StaffSession implements StaffSessionRemote {
         return true;
     }
 
-    public Boolean markSubmission(Submission _submission) {
-        return null;
+    public Boolean markSubmission(Submission _submission, float _mark, String _feedback) {
+        try {
+            _submission.setMark(_mark);
+            _submission.setFeedback(_feedback);
+            manager.merge(_submission);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
+
+    
+
+    
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 

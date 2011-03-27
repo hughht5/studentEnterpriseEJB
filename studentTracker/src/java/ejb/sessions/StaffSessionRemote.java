@@ -31,8 +31,10 @@ public interface StaffSessionRemote {
 
     boolean checkStaffLogin(String _username, String _password);
 
-    boolean addStaffToModule(Staff _staff, Module _module);
+    boolean addStaffToModule(Staff _staff, Module _module, boolean _isCoordinator);
 
-    Boolean markSubmission(Submission _submission);
+    Boolean markSubmission(Submission _submission, float _mark, String _feedback);
+
+
 
 }
