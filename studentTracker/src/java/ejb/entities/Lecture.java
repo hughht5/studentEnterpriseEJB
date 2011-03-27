@@ -194,7 +194,8 @@ public class Lecture implements Serializable {
     private Module module;
 
     /**
-     * Get course module method
+     * Get module method to get modules for lectures
+     *
      *
      * @return Module
      */
@@ -203,7 +204,7 @@ public class Lecture implements Serializable {
     }
 
     /**
-     * Set course module method
+     * Set course module
      *
      * @param module
      */

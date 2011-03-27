@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejb.entities;
 
 import java.io.Serializable;
@@ -19,19 +18,35 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 public class Submission implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     * Auto generated method
+     *
+     * @return Long
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return int
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -39,6 +54,12 @@ public class Submission implements Serializable {
         return hash;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -52,14 +73,18 @@ public class Submission implements Serializable {
         return true;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         return "ejb.entities.submission[id=" + id + "]";
     }
-
-
-    ///////////////////////////hughs code/////////////////
-
+    /**
+     * Unique identifier for submission ID
+     */
     private int submissionID;
 
     /**
@@ -155,36 +180,52 @@ public class Submission implements Serializable {
     public void setStudentID(String studentID) {
         this.studentID = studentID;
     }
-
-
-    /////////////////////////claimed///////////////
-
-
-    //micmo relationships
-
-    //Student has many submissions. A Submission has one student
+    /**
+     * Student has many submissions. A Submission has one student
+     */
     @JoinColumn(name = "STUDENTSUBMISSION_REF", referencedColumnName = "ID")
     @ManyToOne
     private Student student;
-    public Student getStudent()
-    {
+
+    /**
+     * Get method to get a student's that has submitted
+     *
+     * @return Student
+     */
+    public Student getStudent() {
         return student;
     }
-    public void setStudent(Student student)
-    {
+
+    /**
+     * Set method to set student's that have submitted an assignment
+     *
+     * @param student
+     */
+    public void setStudent(Student student) {
         this.student = student;
     }
-
-    //Assessments have many submissions. A submission has one assessment
+    /**
+     * Assessments have many submissions. A submission has one assessment
+     */
     @JoinColumn(name = "ASSESSMENTSUBMISSION_REF", referencedColumnName = "ID")
     @ManyToOne
     private Assessment assessment;
-    public Assessment getAssessment()
-    {
+
+    /**
+     * Get method to get a students assessment
+     *
+     * @return Assessment
+     */
+    public Assessment getAssessment() {
         return assessment;
     }
-    public void setAssessment(Assessment assessment)
-    {
+
+    /**
+     * Set method to set the assessment for a module
+     *
+     * @param assessment
+     */
+    public void setAssessment(Assessment assessment) {
         this.assessment = assessment;
     }
 }
