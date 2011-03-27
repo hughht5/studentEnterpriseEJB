@@ -45,8 +45,6 @@ public interface StudentSessionRemote {
 
     Collection<Module> getModulesEnrolledOn(String _emailID);
 
-    Collection<Submission> getSubmissions(String _moduleID, int _sequence);
-
     Submission getSpecificSubmission(String _moduleID, int _sequence, String _studentEmailID);
 
     float getSubmissionMark(Submission _submission);

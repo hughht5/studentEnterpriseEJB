@@ -239,31 +239,6 @@ public class StudentSession implements StudentSessionRemote {
         }
     }
 
-    @Override
-    public Collection<Submission> getSubmissions(String _moduleID, int _sequence) {
-        Collection<Submission> allSubmissions;
-        Collection<Submission> submissions = new ArrayList();
-        try{
-            String query = "SELECT submission FROM Submission as submission";
-
-            allSubmissions = manager.createQuery(query).getResultList();
-
-            for(Submission s : allSubmissions)
-            {
-                if(s.getAssessment().getModule().getModuleID().equals(_moduleID)
-                        && s.getAssessment().getSequence()==_sequence)
-                    submissions.add(s);
-            }
-
-            return submissions;
-        } catch (Exception e) {
-            System.out.println("getSubmissions ERROR: "+e);
-            return null;
-        }
-    }
-
-
-
     public Submission getSpecificSubmission(String _moduleID, int _sequence, String _studentEmailID) {
         Collection<Submission> allSubmissions;
         try{

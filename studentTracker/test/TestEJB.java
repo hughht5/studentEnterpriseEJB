@@ -267,7 +267,21 @@ public class TestEJB {
     }
 
     @Test
-    public void COURSEMODULES_AddModulesToCourse()
+    public void MODULE_GetModuleByID()
+    {
+        Module module = moduleSession.getModuleByID("ECM3409");
+        
+        Assert.assertEquals("ECM3409", module.getModuleID());
+    }
+
+    @Test
+    public void MODULE_ListAllModules()
+    {
+        Assert.assertEquals(10, moduleSession.getListOfAllModules().size());
+    }
+
+    @Test
+    public void MODULE_AddModulesToCourse()
     {
         //Get a list of all of the modules
         int numOfModules = moduleSession.getListOfAllModules().size();
@@ -343,12 +357,30 @@ public class TestEJB {
     }
 
     @Test
+    public void COURSE_ListAllCourses()
+    {
+        Assert.assertEquals(3, courseSession.getListOfCourses().size());
+    }
+
+    @Test
     public void LECTURE_AddStaffToModule()
     {
         Module module = moduleSession.getModuleByID("ECM3401");
         Staff staff = staffSession.getStaffByEmailID("tut02");
 
         staffSession.addStaffToModule(staff, module, true);
+    }
+
+    @Test
+    public void STAFF_CheckIfLecturer()
+    {
+        Assert.assertTrue(moduleSession.checkIfLecturer("tut02", "ECM3401"));
+    }
+    
+    @Test
+    public void STAFF_CheckIfCoordinator()
+    {
+        Assert.assertTrue(moduleSession.checkIfCoordinator("tut02", "ECM3401"));
     }
 
     @Test
@@ -410,7 +442,7 @@ public class TestEJB {
     }
 
     @Test
-    public void ASSESSMENT_GetAverageMarksForAssessment()
+    public void ASSESSMENT_GetAverageMarkForAssessment()
     {
         //Only one assessment marked. (72.0)
         Assert.assertEquals(72F, moduleSession.getAverageAssessmentMark("ECM3401", 1));
@@ -423,4 +455,15 @@ public class TestEJB {
 
         Assert.assertEquals(72F, studentSession.getSubmissionMark(submission));
     }
+    
+
+    @Test
+    public void MODULE_GetAverageMarkForModule()
+    {
+        float moduleMark = moduleSession.getAverageModuleMark("ECM3401");
+
+        //Two submissions (72 and 0) ==> (72+0)/2 = 36
+        Assert.assertEquals(36F, moduleMark);
+    }
+
 }

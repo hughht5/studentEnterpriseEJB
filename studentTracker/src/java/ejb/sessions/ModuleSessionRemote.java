@@ -10,6 +10,7 @@ import ejb.entities.CourseModules;
 import ejb.entities.Module;
 import ejb.entities.Prerequisites;
 import ejb.entities.Student;
+import ejb.entities.Submission;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
@@ -48,7 +49,11 @@ public interface ModuleSessionRemote {
 
     boolean checkIfCoordinator(String _staffEmailID, String _moduleID);
 
+    boolean checkIfLecturer(String _staffEmailID, String _moduleID);
+
     float getAverageModuleMark(String _moduleID);
 
     float getModuleMark(String _moduleID, String _studentEmailID);
+
+    Collection<Submission> getSubmissions(String _moduleID, int _sequence);
 }
