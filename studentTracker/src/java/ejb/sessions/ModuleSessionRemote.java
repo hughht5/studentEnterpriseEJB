@@ -30,4 +30,6 @@ public interface ModuleSessionRemote {
     boolean removeModuleFromCourse(CourseModules _courseModule);
 
     List<Module> getListOfAllModules();
+
+    boolean addAssessmentToModule(Assessment _assessment, Module _module);
 }

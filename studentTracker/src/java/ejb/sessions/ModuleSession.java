@@ -4,6 +4,7 @@
  */
 package ejb.sessions;
 
+import ejb.entities.Assessment;
 import ejb.entities.Course;
 import ejb.entities.CourseModules;
 import ejb.entities.Module;
@@ -110,5 +111,20 @@ public class ModuleSession implements ModuleSessionRemote {
             return null;
         }
     }
+
+    @Override
+    public boolean addAssessmentToModule(Assessment _ass, Module _module) {
+        try {
+            _ass.setModule(_module);
+            manager.merge(_ass);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+
+    }
+
+
+    
 
 }
