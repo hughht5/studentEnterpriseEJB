@@ -163,6 +163,19 @@ public class Module implements Serializable {
     {
         this.listOfPrereqs = listOfPrereqs;
     }
+
+    //CourseModules have many enrollments. An enrolled module only has one course module
+    @OneToMany(mappedBy = "courseModule", fetch=FetchType.EAGER)
+    private Collection<EnrolledModules> listOfEnrolledModules;
+
+    public Collection<EnrolledModules> getListOfEnrolledModules()
+    {
+        return listOfEnrolledModules;
+    }
+    public void setListEnrolledModules(Collection<EnrolledModules> listOfEnrolledModules)
+    {
+        this.listOfEnrolledModules = listOfEnrolledModules;
+    }
     //micmo end
 
 
