@@ -16,6 +16,9 @@ import javax.persistence.ManyToOne;
 /**
  *
  * @author hmh205
+ *
+ * The Lecture class is a linking class between staff and module,
+ * detailing which members of staff lecture for each module.
  */
 @Entity
 public class Lecture implements Serializable {
@@ -24,14 +27,29 @@ public class Lecture implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     * Auto generated method
+     *
+     * @return Long
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return int
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -39,6 +57,12 @@ public class Lecture implements Serializable {
         return hash;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -52,6 +76,11 @@ public class Lecture implements Serializable {
         return true;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         return "ejb.entities.Lecture[id=" + id + "]";
@@ -148,12 +177,23 @@ public class Lecture implements Serializable {
     @JoinColumn(name = "LECTURES-REF", referencedColumnName = "ID")
     @ManyToOne
     private Staff staff;
+
+    /**
+     * Get method to get staff object
+     *
+     * @return Staff
+     */
     public Staff getStaff()
     {
         return staff;
     }
-    public void setStaff(Staff staff)
-    {
+
+    /**
+     * Set method to set staff
+     *
+     * @param staff
+     */
+    public void setStaff(Staff staff){
         this.staff = staff;
     }
 
@@ -161,15 +201,26 @@ public class Lecture implements Serializable {
     @JoinColumn(name = "MODULE-REF", referencedColumnName = "ID")
     @ManyToOne
     private Module module;
+
+    /**
+     * Get course module method
+     *
+     * @return Module
+     */
     public Module getModule()
     {
         return module;
     }
+
+    /**
+     * Set course module method
+     *
+     * @param module
+     */
     public void setModule(Module module)
     {
         this.module = module;
     }
-
     //alex end
 
 }
