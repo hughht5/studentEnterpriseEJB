@@ -193,7 +193,28 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
-    public Double getAverageAssessmentMark(String _moduleID, int _assessmentSequence) {
+    public Assessment getAssessmentForModule(String _moduleID, int _sequence)
+    {
+        Collection<Assessment> assessments;
+        try{
+            String query = "SELECT assessment FROM Assessment as assessment";
+
+            assessments = manager.createQuery(query).getResultList();
+
+            for(Assessment a : assessments)
+            {
+                if(a.getModule().getModuleID().equals(_moduleID))
+                    return a;
+            }
+
+            return null;
+        } catch (Exception e) {
+            System.out.println("getAssessmentForModule ERROR: "+e);
+            return null;
+        }
+    }
+
+    public Float getAverageAssessmentMark(String _moduleID, int _assessmentSequence) {
         Collection<Submission> submissions;
         try{
             String query = "SELECT submission FROM Submission as submission";
@@ -201,7 +222,7 @@ public class ModuleSession implements ModuleSessionRemote {
             submissions = manager.createQuery(query).getResultList();
             int totalMarks = 0;
             int numOfSubmissions = 0;
-            double averageMark = 0;
+            float averageMark = 0;
 
             for(Submission s : submissions)
             {
@@ -218,10 +239,15 @@ public class ModuleSession implements ModuleSessionRemote {
             else
                 averageMark = 0;
 
+            Assessment assessment = getAssessmentForModule(_moduleID, _assessmentSequence);
+
+            assessment.setAvgMark(averageMark);
+            manager.merge(assessment);
+
             return averageMark;
         } catch (Exception e) {
-            System.out.println("getListOfAllModules ERROR: "+e);
-            return 0.0;
+            System.out.println("getAverageAssessmentMark ERROR: "+e);
+            return 0F;
         }
     }
 

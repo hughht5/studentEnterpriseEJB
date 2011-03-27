@@ -372,17 +372,26 @@ public class TestEJB {
         //Make sure we have a student to add
         Assert.assertNotNull("No Student Found", student);
 
-        Assessment ass = new Assessment();
+        Assessment ass = moduleSession.getAssessmentForModule("ECM3401", 1);
+        Assessment ass2 = moduleSession.getAssessmentForModule("ECM3401", 2);
 
-        //Make sure we have a student to add
-        Assert.assertNotNull("No Student Found", ass);
+        //Make sure we have an assessment to submit to
+        Assert.assertNotNull("No Assessment Found", ass);
+        Assert.assertNotNull("No Assessment Found", ass2);
 
-        studentSession.submitAssessment(null, null);
+        studentSession.submitAssessment(student, ass);
+        studentSession.submitAssessment(student, ass2);
+    }
+
+    @Test
+    public void STAFF_MarkSubmission()
+    {
+        
     }
 
     @Test
     public void ASSESSMENT_GetAverageMarksForAssessment()
     {
-        //moduleSession.getAverageAssessmentMark("ECM3401", _assessmentSequence)
+        Assert.assertEquals(20, moduleSession.getAverageAssessmentMark("ECM3401", 1));
     }
 }

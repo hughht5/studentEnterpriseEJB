@@ -142,14 +142,14 @@ public class Submission implements Serializable {
     public void setMark(float mark) {
         this.mark = mark;
     }
-    private String isLate;
+    private boolean isLate;
 
     /**
      * Get the value of isLate
      *
      * @return the value of isLate
      */
-    public String getIsLate() {
+    public boolean getIsLate() {
         return isLate;
     }
 
@@ -158,7 +158,7 @@ public class Submission implements Serializable {
      *
      * @param isLate new value of isLate
      */
-    public void setIsLate(String isLate) {
+    public void setIsLate(boolean isLate) {
         this.isLate = isLate;
     }
     private String studentID;

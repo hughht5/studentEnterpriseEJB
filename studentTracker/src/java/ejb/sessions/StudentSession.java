@@ -191,6 +191,9 @@ public class StudentSession implements StudentSessionRemote {
             Submission submission = new Submission();
             submission.setStudent(_student);
             submission.setAssessment(_assesment);
+            submission.setMark(0);
+            submission.setIsLate(false);
+            
             manager.persist(submission);
         } catch (Exception e) {
             return false;

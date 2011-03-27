@@ -84,5 +84,12 @@ public class Main {
         }
         System.out.println("TEST");
 
+        Sessions session = new Sessions();
+
+        if(session.studentSession().checkStudentLogin("abc101", "password"))
+            System.out.println("logged in");
+        else
+            System.out.println("incorrect login");
+
     }
 }

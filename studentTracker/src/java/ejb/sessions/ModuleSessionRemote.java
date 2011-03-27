@@ -41,5 +41,7 @@ public interface ModuleSessionRemote {
 
     Collection<Assessment> getAssessmentsForModule(String _moduleID);
 
-    Double getAverageAssessmentMark(String _moduleID, int _assessmentSequence);
+    Float getAverageAssessmentMark(String _moduleID, int _assessmentSequence);
+
+    Assessment getAssessmentForModule(String _moduleID, int _sequence);
 }
