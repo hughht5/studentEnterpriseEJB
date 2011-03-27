@@ -5,6 +5,7 @@
 
 package ejb.sessions;
 
+import ejb.entities.Course;
 import ejb.entities.Module;
 import ejb.entities.Staff;
 import ejb.entities.Student;
@@ -30,4 +31,6 @@ public interface StudentSessionRemote {
     boolean checkStudentLogin(String _username, String _password);
 
     boolean enrollStudentOnModule(Collection<Module> _modules, Student _student);
+
+    boolean enrollStudentOnCourse(Student _student, Course _course);
 }

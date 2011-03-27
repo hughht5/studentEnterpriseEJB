@@ -5,7 +5,6 @@
 package ejb.sessions;
 
 import ejb.entities.Course;
-import ejb.entities.CourseModules;
 import ejb.entities.EnrolledModules;
 import ejb.entities.Module;
 import ejb.entities.Staff;
@@ -13,7 +12,6 @@ import java.sql.Date;
 import javax.ejb.Stateless;
 import ejb.entities.Student;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -79,12 +77,13 @@ public class StudentSession implements StudentSessionRemote {
 
     @Override
     public Boolean addTutor(Student _student, Staff _tutor) {
-        System.out.println("++addTutor(" + _student.getEmailID() + ", " + _tutor.getEmailID() + ")");
-        _student.setTutor(_tutor);
-        manager.merge(_student);
-        System.out.println("++tutor that has been added: " + _student.getTutor().getEmailID());
+        try {
+            _student.setTutor(_tutor);
+            manager.merge(_student);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
-
     }
 
     @Override
@@ -118,6 +117,17 @@ public class StudentSession implements StudentSessionRemote {
                 enrollement.setCourseModule(m);
                 manager.persist(enrollement);
             }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean enrollStudentOnCourse(Student _student, Course _course) {
+        try {
+            _student.setCourse(_course);
+            manager.merge(_student);
         } catch (Exception e) {
             return false;
         }
