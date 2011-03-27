@@ -9,6 +9,7 @@ import ejb.entities.Course;
 import ejb.entities.CourseModules;
 import ejb.entities.Module;
 import ejb.entities.Prerequisites;
+import ejb.entities.Student;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Remote;
@@ -33,4 +34,6 @@ public interface ModuleSessionRemote {
     List<Module> getListOfAllModules();
 
     boolean addAssessmentToModule(Assessment _assessment, Module _module);
+
+    Collection<Student> getListOfEnrolledStudents(String _moduleID);
 }

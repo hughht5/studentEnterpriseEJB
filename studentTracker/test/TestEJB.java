@@ -339,4 +339,10 @@ public class TestEJB {
     {
         Assert.assertEquals(1, courseSession.getListOfStudentsOnCourse("CS").size());
     }
+
+    @Test
+    public void MODULE_GetStudentsOnModule()
+    {
+        Assert.assertEquals(1, moduleSession.getListOfEnrolledStudents("ECM3401"));
+    }
 }

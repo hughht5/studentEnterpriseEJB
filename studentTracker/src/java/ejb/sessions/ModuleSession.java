@@ -7,8 +7,11 @@ package ejb.sessions;
 import ejb.entities.Assessment;
 import ejb.entities.Course;
 import ejb.entities.CourseModules;
+import ejb.entities.EnrolledModules;
 import ejb.entities.Module;
 import ejb.entities.Prerequisites;
+import ejb.entities.Student;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -122,6 +125,27 @@ public class ModuleSession implements ModuleSessionRemote {
         }
         return true;
 
+    }
+
+    public Collection<Student> getListOfEnrolledStudents(String _moduleID) {
+        Collection<EnrolledModules> modules;
+        Collection<Student> enrolledStudents = new ArrayList();
+        try{
+            String query = "SELECT modules FROM ENROLLEDMODULES as modules";
+
+            modules = manager.createQuery(query).getResultList();
+
+            for(EnrolledModules m : modules)
+            {
+                if(m.getCourseModule().getModuleID().equals(_moduleID))
+                        enrolledStudents.add(m.getStudent());
+            }
+
+            return enrolledStudents;
+        } catch (Exception e) {
+            System.out.println("getListOfEnrolledStudents ERROR: "+e);
+            return null;
+        }
     }
 
 
