@@ -259,7 +259,7 @@ public class TestEJB {
         Assert.assertNotNull("Could not find tutor for student emailID "+studentEmail, tutor);
 
         //Make sure it's the right tutor
-        Assert.assertEquals(tutor.getEmailID(), "tut02");
+        Assert.assertEquals("tut02", tutor.getEmailID());
 
     }
 
@@ -274,7 +274,7 @@ public class TestEJB {
     @Test
     public void COURSE_GetCourseByID()
     {
-        Assert.assertEquals(courseSession.getCourseByID("ENG").getName(), "ENGINEERING");
+        Assert.assertEquals("ENGINEERING", courseSession.getCourseByID("ENG").getName());
     }
 
     @Test
@@ -320,7 +320,7 @@ public class TestEJB {
     @Test
     public void STUDENT_EnrollStudent()
     {
-        String studentEmail = "abc101";
+        String studentEmail = "abc102";
         Student student = studentSession.getStudentByEmailID(studentEmail);
 
         Course course = courseSession.getCourseByID("CS");
@@ -338,6 +338,6 @@ public class TestEJB {
     @Test
     public void COURSE_GetStudentsOnCourse()
     {
-        
+        Assert.assertEquals(1, courseSession.getListOfStudentsOnCourse("CS").size());
     }
 }

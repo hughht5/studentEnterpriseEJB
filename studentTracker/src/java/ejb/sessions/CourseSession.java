@@ -6,6 +6,9 @@
 package ejb.sessions;
 
 import ejb.entities.Course;
+import ejb.entities.Student;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -76,6 +79,29 @@ public class CourseSession implements CourseSessionRemote {
             System.out.println("getListOfCourses ERROR: "+e);
             return null;
         }
+    }
+
+    public Collection<Student> getListOfStudentsOnCourse(String _courseID) {
+        Collection<Student> students;
+        Collection<Student> studentsOnCourse = new ArrayList();
+        try{
+            String query = "SELECT student FROM Student as student";
+
+            students = manager.createQuery(query).getResultList();
+
+            for(Student s : students)
+            {
+                if(s.getCourse() != null)
+                    if(s.getCourse().getCourseID().equals(_courseID))
+                        studentsOnCourse.add(s);
+            }
+
+            return studentsOnCourse;
+        } catch (Exception e) {
+            System.out.println("getListOfStudentsOnCourse ERROR: "+e);
+            return null;
+        }
+
     }
 
     // Add business logic below. (Right-click in editor and choose

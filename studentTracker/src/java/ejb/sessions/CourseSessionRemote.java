@@ -6,6 +6,8 @@
 package ejb.sessions;
 
 import ejb.entities.Course;
+import ejb.entities.Student;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -23,4 +25,6 @@ public interface CourseSessionRemote {
     Course getCourseByID(String _ID);
 
     List<Course> getListOfCourses();
+
+    Collection<Student> getListOfStudentsOnCourse(String _courseID);
 }
