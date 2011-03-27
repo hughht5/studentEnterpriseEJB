@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 /**
  *
  * @author hmh205
+ *
+ * The Course class provides details of
  */
 @Entity
 public class Course implements Serializable {
