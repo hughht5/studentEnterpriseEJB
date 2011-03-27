@@ -4,6 +4,7 @@
  */
 package ejb.sessions;
 
+import ejb.entities.Module;
 import ejb.entities.Staff;
 import javax.ejb.Remote;
 

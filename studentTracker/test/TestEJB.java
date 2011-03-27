@@ -289,6 +289,7 @@ public class TestEJB {
         moduleSession.addModule("ECM3307", "MAS Module 7", 15, 0, "3", null);
         moduleSession.addModule("ECM3308", "MAS Module 8", 15, 0, "3", null);
         moduleSession.addModule("ECM3409", "CS Module 9", 15, 0, "3", null);
+        moduleSession.addModule("ECM3410", "CS Module 10", 15, 0, "3", null);
     }
 
     @Test
@@ -298,20 +299,38 @@ public class TestEJB {
         int numOfModules = moduleSession.getListOfAllModules().size();
         Module modules[] = moduleSession.getListOfAllModules().toArray(new Module[numOfModules]);
 
-        //Get a list of all fot he courses
+        //Get a list of all of the courses
         int numOfCourses = courseSession.getListOfCourses().size();
-        Course courses[] = courseSession.getListOfCourses().toArray(new Course[numOfCourses]);
+        Course courses[] = courseSession.getListOfCourses().toArray(new Course[numOfCourses]);     
 
+        //Just add the CompSci Modules
         //addModuleToCourse(module, course, isCompulsary);
-
-        //CompSci Modules
         moduleSession.addModuleToCourse(modules[0], courses[0], true); //CS, ECM3401, Compulsary
         moduleSession.addModuleToCourse(modules[3], courses[0], true); //CS, ECM3404, Compulsary
         moduleSession.addModuleToCourse(modules[4], courses[0], true); //CS, ECM3405, Compulsary
         moduleSession.addModuleToCourse(modules[8], courses[0], true); //CS, ECM3409, Compulsary
         moduleSession.addModuleToCourse(modules[7], courses[0], true); //MAS, ECM3306, Compulsary
-        moduleSession.addModuleToCourse(modules[1], courses[0], true); //MAS, ECM3302, Compulsary
+        moduleSession.addModuleToCourse(modules[1], courses[0], true); //ENG, ECM3102, Compulsary
         moduleSession.addModuleToCourse(modules[6], courses[0], false); //MAS, ECM3307, Optional
         moduleSession.addModuleToCourse(modules[2], courses[0], false); //ENG, ECM3103, Optional
+        moduleSession.addModuleToCourse(modules[9], courses[0], false); //CS, ECM3410, Optional
+    }
+
+    @Test
+    public void STUDENT_EnrollStudent()
+    {
+        String studentEmail = "abc101";
+        Student student = studentSession.getStudentByEmailID(studentEmail);
+
+        Course course = courseSession.getCourseByID("CS");
+
+        //Enroll the student on the course
+        studentSession.enrollStudentOnCourse(student, course);
+
+        //Enroll the student on some modules
+        List<Module> modules = null;
+        modules.add(moduleSession.getModuleByID("ECM3401"));
+
+        studentSession.enrollStudentOnModule(modules, student);
     }
 }
