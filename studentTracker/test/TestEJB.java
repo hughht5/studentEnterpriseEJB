@@ -20,6 +20,7 @@ import ejb.sessions.StudentSessionRemote;
 import ejb.entities.old_Users;
 import java.sql.Date;
 import ejb.entities.Student;
+import ejb.sessions.AssessmentSessionRemote;
 import ejb.sessions.StaffSessionRemote;
 import junit.framework.Assert;
 import ejb.sessions.old_UserSessionRemote;
@@ -47,6 +48,7 @@ import javax.persistence.PersistenceContext;
 public class TestEJB {
     private StudentSessionRemote studentSession;
     private StaffSessionRemote staffSession;
+    private AssessmentSessionRemote assessmentSession;
 
     private String host;
     private String port;
@@ -76,6 +78,7 @@ public class TestEJB {
 
         studentSession = lookupStudentSessionRemote(props);
         staffSession = lookupStaffSessionRemote(props);
+        assessmentSession = lookupAssessmentSessionRemote(props);
     }
 
     @BeforeClass
@@ -114,14 +117,25 @@ public class TestEJB {
         }
     }
 
-    @Test
-    public void setUpConnection()
-    {
-        Assert.assertTrue(studentSession!=null && staffSession!=null);
+    private AssessmentSessionRemote lookupAssessmentSessionRemote(Properties props) {
+        try {
+            Context c = new InitialContext(props);
+            String jndiName = "java:global/studentTracker/AssessmentSession!" + "ejb.sessions.AssessmentSessionRemote";
+            return (AssessmentSessionRemote) c.lookup(jndiName);
+        } catch (NamingException ne) {
+            throw new RuntimeException(ne);
+        }
     }
 
     @Test
-    public void testAddStudent()
+    public void testConnection()
+    {
+        Assert.assertTrue(studentSession!=null && staffSession!=null
+                && assessmentSession!=null);
+    }
+
+    @Test
+    public void STUDENT_AddStudent()
     {
         try {
             java.sql.Date dob = java.sql.Date.valueOf("1980-06-28"); //yyyy-mm-dd
@@ -136,7 +150,7 @@ public class TestEJB {
     }
 
     @Test
-    public void getStudentByID()
+    public void STUDENT_GetStudentByID()
     {
         String emailID = "abc103";
 
@@ -149,7 +163,7 @@ public class TestEJB {
     }
 
     @Test
-    public void testAddStaff()
+    public void STAFF_AddStaff()
     {
         try {
             staffSession.addStaff("tut01", "Mr Tutor 1", "01", "room1", "password", true);
@@ -161,20 +175,17 @@ public class TestEJB {
     }
 
     @Test
-    public void getStaffByID()
+    public void STAFF_GetStaffByID()
     {
         String emailID = "tut01";
 
         Staff staff = staffSession.getStaffByEmailID(emailID);
 
-        if(staff!=null)
-            Assert.assertTrue(true);
-        else
-            Assert.assertTrue("Could not find staff with emailID "+emailID, false);
+        Assert.assertNotNull("Could not find staff with emailID "+emailID, staff);
     }
 
     @Test
-    public void testCheckStaffLogin() {
+    public void LOGIN_CheckStaffLogin() {
         if(staffSession.checkStaffLogin("tut02", "password"))
         {
             Assert.assertTrue(true);
@@ -186,7 +197,7 @@ public class TestEJB {
     }
 
     @Test
-    public void testCheckStudentLogin()
+    public void LOGIN_CheckStudentLogin()
     {
         if(studentSession.checkStudentLogin("abc101", "password"))
         {
@@ -199,10 +210,32 @@ public class TestEJB {
     }
 
     @Test
-    public void testAddTutorToStudent(){
+    public void STUDENT_AddTutorToStudent(){
         Student student = studentSession.getStudentByEmailID("abc102"); //Micmo2
         Staff tutor = staffSession.getStaffByEmailID("tut02"); //MrTutor2
 
         studentSession.addTutor(student, tutor);
+    }
+
+    @Test
+    public void STUDENT_GetTutorForStudent()
+    {
+        String studentEmail = "abc102";
+        
+        Student student = studentSession.getStudentByEmailID(studentEmail); //Micmo2
+        Staff tutor = student.getTutor(); //MrTutor2
+
+        //Check not null
+        Assert.assertNotNull("Could not find tutor for student emailID "+studentEmail, tutor);
+
+        //Make sure it's the right tutor
+        Assert.assertEquals(tutor.getEmailID(), "tut02");
+
+    }
+
+    @Test
+    public void COURSE_AddCourse()
+    {
+        
     }
 }
