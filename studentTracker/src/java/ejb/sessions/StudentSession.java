@@ -4,10 +4,15 @@
  */
 package ejb.sessions;
 
+import ejb.entities.Course;
+import ejb.entities.CourseModules;
+import ejb.entities.EnrolledModules;
+import ejb.entities.Module;
 import ejb.entities.Staff;
 import java.sql.Date;
 import javax.ejb.Stateless;
 import ejb.entities.Student;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -101,6 +106,32 @@ public class StudentSession implements StudentSessionRemote {
             System.out.println("checkStudentLogin ERROR: "+e);
             return false;
         }
+    }
+
+
+
+
+
+
+    @Override
+    public boolean enrollStudentOnModule(Collection<Module> _modules, Student _student) {
+        try {
+
+
+            for (int i =0;i<_modules.size();i++){
+                EnrolledModules enrollement = new EnrolledModules();
+                enrollement.setStudent(_student);
+                enrollement.se
+            }
+            
+
+            _student.setListEnrolledModules(_modules);
+
+            manager.persist(_student);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     // Add business logic below. (Right-click in editor and choose

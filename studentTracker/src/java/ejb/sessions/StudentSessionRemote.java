@@ -5,9 +5,11 @@
 
 package ejb.sessions;
 
+import ejb.entities.Module;
 import ejb.entities.Staff;
 import ejb.entities.Student;
 import java.sql.Date;
+import java.util.Collection;
 import javax.ejb.Remote;
 
 /**
@@ -26,4 +28,6 @@ public interface StudentSessionRemote {
     Boolean addTutor(Student _student, Staff _tutor);
 
     boolean checkStudentLogin(String _username, String _password);
+
+    boolean enrollStudentOnModule(Collection<Module> _modules, Student _student);
 }
