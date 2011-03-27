@@ -54,16 +54,37 @@ public class ModuleSession implements ModuleSessionRemote {
     }
 
     @Override
-    public boolean addModuleToCourse(Module _module, Course _course) {
+    public boolean addModuleToCourse(Module _module, Course _course, boolean _isCompulsary) {
         try {
             CourseModules courseModule = new CourseModules();
             courseModule.setCourse(manager.find(Course.class, _course.getId()));
             courseModule.setModule(manager.find(Module.class, _module.getId()));
+            courseModule.setIsCompulsary(_isCompulsary);
             manager.persist(courseModule);
         } catch (Exception e) {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Module getModuleByID(String _ID) {
+         List<Module> modules;
+        try{
+            String query = "SELECT module FROM Module as module";
+
+            modules = manager.createQuery(query).getResultList();
+
+            for(Module m : modules)
+            {
+               if(m.getModuleID().equals(_ID))
+                   return m;
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("getCourseByID ERROR: "+e);
+            return null;
+        }
     }
 
     @Override
@@ -75,4 +96,19 @@ public class ModuleSession implements ModuleSessionRemote {
         }
         return true;
     }
+
+    @Override
+    public List<Module> getListOfAllModules() {
+         List<Module> modules;
+        try{
+            String query = "SELECT module FROM Module as module";
+
+            modules = manager.createQuery(query).getResultList();
+            return modules;
+        } catch (Exception e) {
+            System.out.println("getListOfAllModules ERROR: "+e);
+            return null;
+        }
+    }
+
 }

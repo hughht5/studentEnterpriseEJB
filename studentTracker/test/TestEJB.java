@@ -15,15 +15,20 @@
  *
  */
 
+import ejb.entities.Course;
+import ejb.entities.Module;
 import ejb.entities.Staff;
 import ejb.sessions.StudentSessionRemote;
 import ejb.entities.old_Users;
 import java.sql.Date;
 import ejb.entities.Student;
 import ejb.sessions.AssessmentSessionRemote;
+import ejb.sessions.CourseSessionRemote;
+import ejb.sessions.ModuleSessionRemote;
 import ejb.sessions.StaffSessionRemote;
 import junit.framework.Assert;
 import ejb.sessions.old_UserSessionRemote;
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -49,6 +54,8 @@ public class TestEJB {
     private StudentSessionRemote studentSession;
     private StaffSessionRemote staffSession;
     private AssessmentSessionRemote assessmentSession;
+    private CourseSessionRemote courseSession;
+    private ModuleSessionRemote moduleSession;
 
     private String host;
     private String port;
@@ -79,6 +86,8 @@ public class TestEJB {
         studentSession = lookupStudentSessionRemote(props);
         staffSession = lookupStaffSessionRemote(props);
         assessmentSession = lookupAssessmentSessionRemote(props);
+        courseSession = lookupCourseSessionRemote(props);
+        moduleSession = lookupModuleSessionRemote(props);
     }
 
     @BeforeClass
@@ -127,6 +136,26 @@ public class TestEJB {
         }
     }
 
+    private CourseSessionRemote lookupCourseSessionRemote(Properties props) {
+        try {
+            Context c = new InitialContext(props);
+            String jndiName = "java:global/studentTracker/CourseSession!" + "ejb.sessions.CourseSessionRemote";
+            return (CourseSessionRemote) c.lookup(jndiName);
+        } catch (NamingException ne) {
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private ModuleSessionRemote lookupModuleSessionRemote(Properties props) {
+        try {
+            Context c = new InitialContext(props);
+            String jndiName = "java:global/studentTracker/ModuleSession!" + "ejb.sessions.ModuleSessionRemote";
+            return (ModuleSessionRemote) c.lookup(jndiName);
+        } catch (NamingException ne) {
+            throw new RuntimeException(ne);
+        }
+    }
+
     @Test
     public void testConnection()
     {
@@ -135,7 +164,7 @@ public class TestEJB {
     }
 
     @Test
-    public void STUDENT_AddStudent()
+    public void STUDENT_AddStudents()
     {
         try {
             java.sql.Date dob = java.sql.Date.valueOf("1980-06-28"); //yyyy-mm-dd
@@ -234,8 +263,55 @@ public class TestEJB {
     }
 
     @Test
-    public void COURSE_AddCourse()
+    public void COURSE_AddCourses()
     {
-        
+        courseSession.addCourse("CS", "COMPUTER SCIENCE");
+        courseSession.addCourse("MAS", "MATHEMATICS");
+        courseSession.addCourse("ENG", "ENGINEERING");
+    }
+
+    @Test
+    public void COURSE_GetCourseByID()
+    {
+        Assert.assertEquals(courseSession.getCourseByID("ENG").getName(), "ENGINEERING");
+    }
+
+    @Test
+    public void MODULE_AddModules()
+    {
+        //Main Modules
+        moduleSession.addModule("ECM3401", "CS Module 1", 15, 0, "3", null);
+        moduleSession.addModule("ECM3102", "ENG Module 2", 15, 0, "3", null);
+        moduleSession.addModule("ECM3103", "ENG Module 3", 15, 0, "3", null);
+        moduleSession.addModule("ECM3404", "CS Module 4", 15, 0, "3", null);
+        moduleSession.addModule("ECM3405", "CS Module 5", 15, 0, "3", null);
+        moduleSession.addModule("ECM3306", "MAS Module 6", 15, 0, "3", null);
+        moduleSession.addModule("ECM3307", "MAS Module 7", 15, 0, "3", null);
+        moduleSession.addModule("ECM3308", "MAS Module 8", 15, 0, "3", null);
+        moduleSession.addModule("ECM3409", "CS Module 9", 15, 0, "3", null);
+    }
+
+    @Test
+    public void COURSEMODULES_AddModulesToCourse()
+    {
+        //Get a list of all of the modules
+        int numOfModules = moduleSession.getListOfAllModules().size();
+        Module modules[] = moduleSession.getListOfAllModules().toArray(new Module[numOfModules]);
+
+        //Get a list of all fot he courses
+        int numOfCourses = courseSession.getListOfCourses().size();
+        Course courses[] = courseSession.getListOfCourses().toArray(new Course[numOfCourses]);
+
+        //addModuleToCourse(module, course, isCompulsary);
+
+        //CompSci Modules
+        moduleSession.addModuleToCourse(modules[0], courses[0], true); //CS, ECM3401, Compulsary
+        moduleSession.addModuleToCourse(modules[3], courses[0], true); //CS, ECM3404, Compulsary
+        moduleSession.addModuleToCourse(modules[4], courses[0], true); //CS, ECM3405, Compulsary
+        moduleSession.addModuleToCourse(modules[8], courses[0], true); //CS, ECM3409, Compulsary
+        moduleSession.addModuleToCourse(modules[7], courses[0], true); //MAS, ECM3306, Compulsary
+        moduleSession.addModuleToCourse(modules[1], courses[0], true); //MAS, ECM3302, Compulsary
+        moduleSession.addModuleToCourse(modules[6], courses[0], false); //MAS, ECM3307, Optional
+        moduleSession.addModuleToCourse(modules[2], courses[0], false); //ENG, ECM3103, Optional
     }
 }

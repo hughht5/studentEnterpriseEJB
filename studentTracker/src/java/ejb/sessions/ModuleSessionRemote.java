@@ -23,7 +23,11 @@ public interface ModuleSessionRemote {
 
     boolean removeModule(Module module);
 
-    public boolean addModuleToCourse(Module _module, Course _course);
+    boolean addModuleToCourse(Module _module, Course _course, boolean _isCompulsary);
 
-    public boolean removeModuleFromCourse(CourseModules _courseModule);
+    Module getModuleByID(String _ID);
+
+    boolean removeModuleFromCourse(CourseModules _courseModule);
+
+    List<Module> getListOfAllModules();
 }
