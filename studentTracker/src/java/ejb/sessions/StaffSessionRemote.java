@@ -16,6 +16,8 @@ import javax.ejb.Remote;
  * Staff object, login a member of staff, and add a member of staff as a
  * lecturer to a module.
  *
+ * It encapsulates all methods that are directly related to a member of staff
+ *
  */
 @Remote
 public interface StaffSessionRemote {

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ejb.sessions;
 
 import ejb.entities.Assessment;
@@ -15,8 +14,14 @@ import java.util.Collection;
 import javax.ejb.Remote;
 
 /**
+ * This is the remote interface for the student Session.
  *
- * @author hmh205
+ * The Staff session contains methods to add/remove students, get a
+ * Student object, login a student, add a member of staff as the student's
+ * tutor, enroll a student on a course/module, and submit assessments
+ *
+ * It encapsulates all methods that are directly related to a student
+ *
  */
 @Remote
 public interface StudentSessionRemote {
