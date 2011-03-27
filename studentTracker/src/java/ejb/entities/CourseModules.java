@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 /**
  *
  * @author hmh205
+ *
+ * The CourseModules class contains the details for the modules
  */
 @Entity
 public class CourseModules implements Serializable {
@@ -27,14 +29,29 @@ public class CourseModules implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     * Auto generated code get ID
+     *
+     * @return long
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Auto generated code set ID
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Auto generated code get hash code
+     *
+     * @return int
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -42,6 +59,12 @@ public class CourseModules implements Serializable {
         return hash;
     }
 
+    /**
+     * Auto generated code
+     *
+     * @param object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -55,6 +78,11 @@ public class CourseModules implements Serializable {
         return true;
     }
 
+    /**
+     * Auto generated code get ID
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         return "ejb.entities.CourseModules[id=" + id + "]";
@@ -143,16 +171,26 @@ public class CourseModules implements Serializable {
     /////////////////////////claimed///////////////
 
     //hugh
-    
-
     //Student has many submissions. A Submission has one student
     @JoinColumn(name = "COURSE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Course course;
+
+    /**
+     * Get course method
+     *
+     * @return Course
+     */
     public Course getCourse()
     {
         return course;
     }
+
+    /**
+     * Set the course
+     *
+     * @param course
+     */
     public void setCourse(Course course)
     {
         this.course = course;
@@ -162,15 +200,26 @@ public class CourseModules implements Serializable {
     @JoinColumn(name = "MODULE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Module module;
+
+    /**
+     * Get course module method
+     *
+     * @return Module
+     */
     public Module getModule()
     {
         return module;
     }
+
+    /**
+     * Set method to set the course module
+     *
+     * @param module
+     */
     public void setModule(Module module)
     {
         this.module = module;
     }
-
     ///hugh end
 
 }
