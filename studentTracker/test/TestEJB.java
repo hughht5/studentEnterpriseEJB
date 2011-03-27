@@ -15,6 +15,7 @@
  *
  */
 
+import ejb.entities.Assessment;
 import ejb.entities.Course;
 import ejb.entities.Module;
 import ejb.entities.Staff;
@@ -42,6 +43,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -351,12 +353,28 @@ public class TestEJB {
     @Test
     public void ASSESSMENT_AddAssessment()
     {
-        
+        java.sql.Date handOut = java.sql.Date.valueOf("2011-03-20"); //yyyy-mm-dd
+        java.sql.Date handIn = java.sql.Date.valueOf("2011-03-28"); //yyyy-mm-dd
+        Module module = moduleSession.getModuleByID("ECM3401");
+
+        try {
+            moduleSession.addAssessmentToModule(1, "Practical", handOut, handIn, 10, 0.3f, module);
+            moduleSession.addAssessmentToModule(2, "Examination", handOut, handIn, 2, 0.7f, module);
+            Assert.assertTrue(true);
+        } catch (Exception e) {
+            Assert.assertTrue("Could not add assessments", false);
+        }
     }
 
     @Test
-    public void MODULE_AddAssessmentToModule()
+    public void ASSESSMENT_GetAssessmentsForModule()
     {
+        Assert.assertEquals(2, moduleSession.getAssessmentsForModule("ECM3401").size());
+    }
 
+    @Test
+    public void ASSESSMENT_GetAverageMarksForAssessment()
+    {
+        //moduleSession.getAverageAssessmentMark("ECM3401", _assessmentSequence)
     }
 }

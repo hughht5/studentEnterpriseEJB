@@ -11,6 +11,7 @@ import ejb.entities.EnrolledModules;
 import ejb.entities.Module;
 import ejb.entities.Prerequisites;
 import ejb.entities.Student;
+import ejb.entities.Submission;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -116,20 +117,39 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
+
     @Override
     public boolean addAssessmentToModule(int _seq, String _type,
-            Date _handout, Date _handin, int duration, float _weighting, Module _module) {
+            Date _handout, Date _handin, int _duration, float _weighting, Module _module) {
         try {
             Assessment ass = new Assessment();
-            ass.setSequence(_seq)
+
+            if(_handin.before(_handout))
+                throw new Exception("Handin cannot be before the handout date");
+
+            if(_duration < 0)
+                throw new Exception("Duration time must be > 0");
+
+            if(_weighting < 0 || _weighting > 1)
+                throw new Exception("Weighting must be between 0.00 and 1.00");
             
-            manager.merge(_ass);
+            ass.setSequence(_seq);
+            ass.setType(_type);
+            ass.setHandout(_handout);
+            ass.setHandin(_handin);
+            ass.setDuration(_duration);
+            ass.setAvgMark(0);
+            ass.setWeighting(_weighting);
+            ass.setModule(_module);
+            
+            manager.persist(ass);
         } catch (Exception e) {
             return false;
         }
         return true;
-
     }
+
+
 
     public Collection<Student> getListOfEnrolledStudents(String _moduleID) {
         Collection<EnrolledModules> modules;
@@ -149,6 +169,59 @@ public class ModuleSession implements ModuleSessionRemote {
         } catch (Exception e) {
             System.out.println("getListOfEnrolledStudents ERROR: "+e);
             return null;
+        }
+    }
+
+    public Collection<Assessment> getAssessmentsForModule(String _moduleID) {
+         Collection<Assessment> allAssessments;
+         Collection<Assessment> assessments = new ArrayList();
+        try{
+            String query = "SELECT assessment FROM Assessment as assessment";
+
+            allAssessments = manager.createQuery(query).getResultList();
+
+            for(Assessment a : allAssessments)
+            {
+                if(a.getModule().getModuleID().equals(_moduleID))
+                    assessments.add(a);
+            }
+
+            return assessments;
+        } catch (Exception e) {
+            System.out.println("getListOfAllModules ERROR: "+e);
+            return null;
+        }
+    }
+
+    public Double getAverageAssessmentMark(String _moduleID, int _assessmentSequence) {
+        Collection<Submission> submissions;
+        try{
+            String query = "SELECT submission FROM Submission as submission";
+
+            submissions = manager.createQuery(query).getResultList();
+            int totalMarks = 0;
+            int numOfSubmissions = 0;
+            double averageMark = 0;
+
+            for(Submission s : submissions)
+            {
+                if(s.getAssessment().getModule().getModuleID().equals(_moduleID)
+                        && (s.getAssessment().getSequence() == _assessmentSequence))
+                {
+                    totalMarks += s.getMark();
+                    numOfSubmissions ++;
+                }
+            }
+
+            if(numOfSubmissions>0)
+                averageMark = totalMarks / numOfSubmissions;
+            else
+                averageMark = 0;
+
+            return averageMark;
+        } catch (Exception e) {
+            System.out.println("getListOfAllModules ERROR: "+e);
+            return 0.0;
         }
     }
 
