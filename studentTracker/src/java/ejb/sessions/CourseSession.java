@@ -60,7 +60,7 @@ public class CourseSession implements CourseSessionRemote {
     }
 
     /**
-     * Get a Course object by it's ID
+     * Get a Course object by its ID
      * @param _ID
      * @return the course if found, null otherwise
      */

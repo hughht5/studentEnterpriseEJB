@@ -10,7 +10,12 @@ import javax.ejb.Remote;
 
 /**
  *
- * @author hmh205
+ * This is the remote interface for the Staff Session.
+ *
+ * The Staff session contains methods to add/remove members of staff, get a
+ * Staff object, login a member of staff, and add a member of staff as a
+ * lecturer to a module.
+ *
  */
 @Remote
 public interface StaffSessionRemote {
