@@ -17,9 +17,5 @@ import javax.ejb.Remote;
 @Remote
 public interface CourseModuleSessionRemote {
 
-    public boolean addModuleToCourse(Module _module, Course _course);
-
-    boolean removeModuleFromCourse(CourseModules _courseModule);
-
     
 }

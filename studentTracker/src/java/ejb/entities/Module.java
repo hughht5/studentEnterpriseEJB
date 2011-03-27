@@ -181,6 +181,27 @@ public class Module implements Serializable {
         this.listOfLecturers = listOfLecturers;
     }
 
+    private String stage;
+
+    /**
+     * Get the value of stage
+     *
+     * @return the value of stage
+     */
+    public String getStage() {
+        return stage;
+    }
+
+    /**
+     * Set the value of stage
+     *
+     * @param stage new value of stage
+     */
+    public void setStage(String stage) {
+        this.stage = stage;
+    }
+
+
     /*// A module consists of many lectures. A lecturer is only part of one module.
     @OneToMany(mappedBy = "module", fetch=FetchType.EAGER)
     private Collection<Module> listOfModules;
