@@ -337,12 +337,26 @@ public class TestEJB {
     @Test
     public void COURSE_GetStudentsOnCourse()
     {
+        //Only one student has been added to the CS course
         Assert.assertEquals(1, courseSession.getListOfStudentsOnCourse("CS").size());
     }
 
     @Test
     public void MODULE_GetStudentsOnModule()
     {
-        Assert.assertEquals(1, moduleSession.getListOfEnrolledStudents("ECM3401"));
+        //Only one student has beena dded to the ECM3401 module
+        Assert.assertEquals(1, moduleSession.getListOfEnrolledStudents("ECM3401").size());
+    }
+
+    @Test
+    public void ASSESSMENT_AddAssessment()
+    {
+        
+    }
+
+    @Test
+    public void MODULE_AddAssessmentToModule()
+    {
+
     }
 }

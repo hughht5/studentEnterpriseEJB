@@ -11,6 +11,7 @@ import ejb.entities.EnrolledModules;
 import ejb.entities.Module;
 import ejb.entities.Prerequisites;
 import ejb.entities.Student;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -116,9 +117,12 @@ public class ModuleSession implements ModuleSessionRemote {
     }
 
     @Override
-    public boolean addAssessmentToModule(Assessment _ass, Module _module) {
+    public boolean addAssessmentToModule(int _seq, String _type,
+            Date _handout, Date _handin, int duration, float _weighting, Module _module) {
         try {
-            _ass.setModule(_module);
+            Assessment ass = new Assessment();
+            ass.setSequence(_seq)
+            
             manager.merge(_ass);
         } catch (Exception e) {
             return false;
@@ -131,7 +135,7 @@ public class ModuleSession implements ModuleSessionRemote {
         Collection<EnrolledModules> modules;
         Collection<Student> enrolledStudents = new ArrayList();
         try{
-            String query = "SELECT modules FROM ENROLLEDMODULES as modules";
+            String query = "SELECT modules FROM EnrolledModules as modules";
 
             modules = manager.createQuery(query).getResultList();
 
