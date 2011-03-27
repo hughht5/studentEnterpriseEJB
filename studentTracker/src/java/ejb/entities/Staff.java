@@ -18,8 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
- *
- * @author hmh205
+ * The Staff class details the methods to find lecturers lectures
+ * and corresponding tutees for said lectures.  It also
+ * contains all personal and contact details.
  */
 @Entity
 public class Staff implements Serializable {
@@ -28,14 +29,29 @@ public class Staff implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     * Auto generated method
+     *
+     * @return Long
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return int hash code
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -43,6 +59,12 @@ public class Staff implements Serializable {
         return hash;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -56,13 +78,19 @@ public class Staff implements Serializable {
         return true;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         return "ejb.entities.Staff[id=" + id + "]";
     }
 
-
-     ///////////////////////////hughs code/////////////////
+    /**
+     * Unique identifier for email ID
+     */
     private String emailID;
 
     /**
@@ -139,6 +167,10 @@ public class Staff implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    /**
+     * unique identifier String password
+     */
     private String password;
 
     /**
@@ -179,40 +211,59 @@ public class Staff implements Serializable {
         this.isAdmin = isAdmin;
     }
 
-    /////////////////////////claimed///////////////
 
-    //micmo relationships
-
-    //Student has one Tutor. Tutor has many Tutees.
+    /**
+     * Student has one Tutor. Tutor has many Tutees.
+     *
+     */
     @OneToMany(mappedBy = "tutor", fetch=FetchType.EAGER)
     private Collection<Student> listOfTutees;
 
+    /**
+     * Get method to return list of tutees
+     *
+     * @return Collection<Student>
+     */
     public Collection<Student> getListOfTutees()
     {
         return listOfTutees;
     }
+
+    /**
+     * Set method to set list of tutees
+     *
+     * @param listOfTutees
+     */
     public void setListOfTutees(Collection<Student> listOfTutees)
     {
         this.listOfTutees = listOfTutees;
     }
-    //micmo end
 
 
-    // alex start
-
-    //The staff has many lecturers. A lecturer is only part of one staff.
+    /**
+     * The staff has many lecturers. A lecturer is only part of one staff.
+     */
     @OneToMany(mappedBy = "staff", fetch=FetchType.EAGER)
     private Collection<Lecture> listOfLecturers;
 
+    /**
+     * Get method to return list of lectures
+     *
+     * @return Collection<Lecture>
+     */
     public Collection<Lecture> getListOfLecturers()
     {
         return listOfLecturers;
     }
+
+    /**
+     * Set method to set the list of lecturers
+     *
+     * @param listOfLecturers
+     */
     public void setListLecturers(Collection<Lecture> listOfLecturers)
     {
         this.listOfLecturers = listOfLecturers;
     }
-
-    // alex end
 
 }
