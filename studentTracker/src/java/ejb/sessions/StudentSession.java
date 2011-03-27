@@ -203,30 +203,27 @@ public class StudentSession implements StudentSessionRemote {
     }
 
     public Collection<Module> getModulesEnrolledOn(String _emailID) {
+        Student student = getStudentByEmailID(_emailID);
         Collection<Student> students;
-        Collection<EnrolledModules> modules = null;
-        Collection<Module> enrolledModules = new ArrayList();
+
+        Collection<EnrolledModules> enrolledModules = null;
+        Collection<Module> modules = new ArrayList();
         try{
-            String query = "SELECT student FROM Student as student";
+            String query = "SELECT modules FROM EnrolledModules as modules";
 
-            students = manager.createQuery(query).getResultList();
+            enrolledModules = manager.createQuery(query).getResultList();
 
-            for(Student s : students)
+            for(EnrolledModules m : enrolledModules)
             {
-                if(s.getEmailID().equals(_emailID))
-                    modules = s.getListOfEnrolledModules();
+                if(m.getStudent().equals(student))
+                    modules.add(m.getCourseModule());
             }
 
             if(modules!=null)
             {
                 System.out.println("modules size: "+modules.size());
-                for(EnrolledModules m : modules)
-                {
-                    System.out.println("module: "+m.getCourseModule().getName());
-                    enrolledModules.add(m.getCourseModule());
-                }
-                System.out.println("size: "+enrolledModules.size());
-                return enrolledModules;
+              
+                return modules;
                 
             }else
                 return null;
