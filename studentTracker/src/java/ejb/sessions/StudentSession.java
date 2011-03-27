@@ -4,6 +4,7 @@
  */
 package ejb.sessions;
 
+import ejb.entities.Assessment;
 import ejb.entities.Course;
 import ejb.entities.EnrolledModules;
 import ejb.entities.Module;
@@ -133,6 +134,12 @@ public class StudentSession implements StudentSessionRemote {
         }
         return true;
     }
+
+    @Override
+    public boolean submitAssessment(Student _student, Assessment _assesment) {
+        return false;
+    }
+
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 }

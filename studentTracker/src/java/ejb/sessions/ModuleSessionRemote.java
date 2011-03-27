@@ -4,6 +4,7 @@
  */
 package ejb.sessions;
 
+import ejb.entities.Assessment;
 import ejb.entities.Course;
 import ejb.entities.CourseModules;
 import ejb.entities.Module;
