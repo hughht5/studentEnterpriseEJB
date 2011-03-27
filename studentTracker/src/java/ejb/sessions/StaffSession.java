@@ -4,6 +4,8 @@
  */
 package ejb.sessions;
 
+import ejb.entities.Lecture;
+import ejb.entities.Module;
 import ejb.entities.Staff;
 import ejb.entities.Student;
 import java.util.List;
@@ -38,6 +40,7 @@ public class StaffSession implements StaffSessionRemote {
         }
         return true;
     }
+
 
     @Override
     public boolean removeStaff(Staff _staff) {
@@ -90,6 +93,19 @@ public class StaffSession implements StaffSessionRemote {
             System.out.println("checkStaffLogin ERROR: "+e);
             return false;
         }
+    }
+
+    @Override
+    public boolean addStaffToModule(Staff _staff, Module _module) {
+        try {
+            Lecture lecture = new Lecture();
+            lecture.setStaff(manager.find(Staff.class, _staff.getId()));
+            lecture.setModule(manager.find(Module.class, _module.getId()));
+            manager.persist(lecture);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
 

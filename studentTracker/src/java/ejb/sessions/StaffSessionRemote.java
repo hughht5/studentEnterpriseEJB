@@ -22,4 +22,6 @@ public interface StaffSessionRemote {
 
     boolean checkStaffLogin(String _username, String _password);
 
+    boolean addStaffToModule(Staff _staff, Module _module);
+
 }
