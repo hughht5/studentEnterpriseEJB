@@ -43,6 +43,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.net.*;
+import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -328,9 +329,15 @@ public class TestEJB {
         studentSession.enrollStudentOnCourse(student, course);
 
         //Enroll the student on some modules
-        List<Module> modules = null;
+        List<Module> modules = new ArrayList();
         modules.add(moduleSession.getModuleByID("ECM3401"));
 
         studentSession.enrollStudentOnModule(modules, student);
+    }
+
+    @Test
+    public void COURSE_GetStudentsOnCourse()
+    {
+        
     }
 }

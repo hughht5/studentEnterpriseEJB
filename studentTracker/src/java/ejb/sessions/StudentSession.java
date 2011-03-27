@@ -115,8 +115,8 @@ public class StudentSession implements StudentSessionRemote {
         try {
             for (Module m : _modules) {
                 EnrolledModules enrollement = new EnrolledModules();
-                enrollement.setStudent(_student);
-                enrollement.setCourseModule(m);
+                enrollement.setStudent(manager.find(Student.class, _student.getId()));
+                enrollement.setCourseModule(manager.find(Module.class, m.getId()));
                 manager.persist(enrollement);
             }
         } catch (Exception e) {
