@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 /**
  *
  * @author hmh205
+ *
+ * The EnrolledModules details the students enrolled on courses
  */
 @Entity
 public class EnrolledModules implements Serializable {
@@ -27,14 +29,29 @@ public class EnrolledModules implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     * Auto generated method
+     *
+     * @return Long
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return int
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -42,6 +59,12 @@ public class EnrolledModules implements Serializable {
         return hash;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -55,6 +78,11 @@ public class EnrolledModules implements Serializable {
         return true;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         return "ejb.entities.EnrolledModules[id=" + id + "]";
@@ -129,10 +157,22 @@ public class EnrolledModules implements Serializable {
     @JoinColumn(name = "STUDENT_ENROLLED_MODULES_REF", referencedColumnName = "ID")
     @ManyToOne
     private Student student;
+
+    /**
+     * Get the student
+     *
+     * @return Student
+     */
     public Student getStudent()
     {
         return student;
     }
+
+    /**
+     * Set the value of the student
+     *
+     * @param student
+     */
     public void setStudent(Student student)
     {
         this.student = student;
@@ -142,10 +182,22 @@ public class EnrolledModules implements Serializable {
     @JoinColumn(name = "MODULE_REF", referencedColumnName = "ID")
     @ManyToOne
     private Module courseModule;
+
+    /**
+     * Get the course module
+     *
+     * @return Module
+     */
     public Module getCourseModule()
     {
         return courseModule;
     }
+
+    /**
+     * Set the Course Module
+     * 
+     * @param courseModule
+     */
     public void setCourseModule(Module courseModule)
     {
         this.courseModule = courseModule;
