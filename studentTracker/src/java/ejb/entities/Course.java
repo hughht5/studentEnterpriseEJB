@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
  *
  * @author hmh205
  *
- * The Course class provides details of
+ * The Course class provides details of courses
  */
 @Entity
 public class Course implements Serializable {
@@ -27,14 +27,29 @@ public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /**
+     * Auto generated method
+     *
+     * @return long
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param id
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return int
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -42,6 +57,12 @@ public class Course implements Serializable {
         return hash;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @param object
+     * @return boolean
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -55,6 +76,11 @@ public class Course implements Serializable {
         return true;
     }
 
+    /**
+     * Auto generated method
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         return "ejb.entities.Course[id=" + id + "]";
@@ -109,10 +135,21 @@ public class Course implements Serializable {
     @OneToMany(mappedBy = "course", fetch=FetchType.EAGER)
     private Collection<CourseModules> listOfCourseModules;
 
+    /**
+     * Get the list of course modules
+     *
+     * @return Collection<CourseModules>
+     */
     public Collection<CourseModules> getListOfCourseModules()
     {
         return listOfCourseModules;
     }
+
+    /**
+     * Set the list of course modules
+     *
+     * @param listOfCourseModules
+     */
     public void setListCourseModules(Collection<CourseModules> listOfCourseModules)
     {
         this.listOfCourseModules = listOfCourseModules;
@@ -125,10 +162,21 @@ public class Course implements Serializable {
     @OneToMany(mappedBy = "course", fetch=FetchType.EAGER)
     private Collection<Student> listOfStudents;
 
+    /**
+     * Get the list of students
+     *
+     * @return Collection<Student>
+     */
     public Collection<Student> getListOfStudents()
     {
         return listOfStudents;
     }
+
+    /**
+     * Set the list of students
+     * 
+     * @param listOfStudents
+     */
     public void setListOfStudents(Collection<Student> listOfStudents)
     {
         this.listOfStudents = listOfStudents;
