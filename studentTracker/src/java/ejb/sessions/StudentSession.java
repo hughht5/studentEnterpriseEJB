@@ -13,6 +13,7 @@ import java.sql.Date;
 import javax.ejb.Stateless;
 import ejb.entities.Student;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,7 +39,7 @@ public class StudentSession implements StudentSessionRemote {
             student.setName(name);
             student.setDateOfBirth(dob);
             student.setPassword(password);
-            
+
             manager.persist(student);
         } catch (Exception e) {
             return false;
@@ -46,10 +47,9 @@ public class StudentSession implements StudentSessionRemote {
         return true;
     }
 
-
     @Override
     public boolean removeStudent(Student _student) {
-        try{
+        try {
             manager.remove(manager.find(Student.class, _student.getEmailID()));
         } catch (Exception e) {
             return false;
@@ -57,85 +57,72 @@ public class StudentSession implements StudentSessionRemote {
         return true;
     }
 
+    @Override
     public Student getStudentByEmailID(String _emailID) {
         List<Student> students;
-        try{
+        try {
             String query = "SELECT student FROM Student as student";
 
             students = manager.createQuery(query).getResultList();
 
-            for(Student s : students)
-            {
-               if(s.getEmailID().equals(_emailID))
-                   return s;
+            for (Student s : students) {
+                if (s.getEmailID().equals(_emailID)) {
+                    return s;
+                }
             }
             return null;
         } catch (Exception e) {
-            System.out.println("++getStudentByEmailID ERROR: "+e);
+            System.out.println("++getStudentByEmailID ERROR: " + e);
             return null;
         }
     }
 
+    @Override
     public Boolean addTutor(Student _student, Staff _tutor) {
-        System.out.println("++addTutor("+_student.getEmailID()+", "+_tutor.getEmailID()+")");
+        System.out.println("++addTutor(" + _student.getEmailID() + ", " + _tutor.getEmailID() + ")");
         _student.setTutor(_tutor);
         manager.merge(_student);
-        System.out.println("++tutor that has been added: "+_student.getTutor().getEmailID());
+        System.out.println("++tutor that has been added: " + _student.getTutor().getEmailID());
         return true;
 
     }
 
     @Override
-    public boolean checkStudentLogin(String _username, String _password)
-    {
+    public boolean checkStudentLogin(String _username, String _password) {
         List<Student> student;
-        try{
+        try {
             String query = "SELECT student FROM Student as student";
 
             student = manager.createQuery(query).getResultList();
 
-            for(Student s : student)
-            {
-               if(s.getEmailID().equals(_username) && s.getPassword().equals(_password))
-                   return true;
-               else
-                   return false;
+            for (Student s : student) {
+                if (s.getEmailID().equals(_username) && s.getPassword().equals(_password)) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
             return false;
         } catch (Exception e) {
-            System.out.println("checkStudentLogin ERROR: "+e);
+            System.out.println("checkStudentLogin ERROR: " + e);
             return false;
         }
     }
 
-
-
-
-
-
     @Override
     public boolean enrollStudentOnModule(Collection<Module> _modules, Student _student) {
         try {
-
-
-            for (int i =0;i<_modules.size();i++){
+            for (Module m : _modules) {
                 EnrolledModules enrollement = new EnrolledModules();
                 enrollement.setStudent(_student);
-                enrollement.se
+                enrollement.setCourseModule(m);
+                manager.persist(enrollement);
             }
-            
-
-            _student.setListEnrolledModules(_modules);
-
-            manager.persist(_student);
         } catch (Exception e) {
             return false;
         }
         return true;
     }
-
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-
-
 }
