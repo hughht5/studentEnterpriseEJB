@@ -13,7 +13,13 @@ import javax.ejb.Remote;
 
 /**
  *
- * @author hmh205
+ * The Course session allows clients to add and remove Courses from the system
+ * and to access details of a Course and a list of all available Courses. Users
+ * can also view a list of all users on a particular course.
+ *
+ * These methods are directly related to courses allowing users to access all
+ * course information in one  place.
+ * 
  */
 @Remote
 public interface CourseSessionRemote {

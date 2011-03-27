@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author hmh205
+ * 
  */
 @Stateless
 public class StaffSession implements StaffSessionRemote {
