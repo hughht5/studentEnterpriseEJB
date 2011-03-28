@@ -428,10 +428,10 @@ public class ModuleSession implements ModuleSessionRemote {
     }
 
     /**
-     * 
+     * Method to get a Student's marks for a Module
      * @param _moduleID
      * @param _studentEmailID
-     * @return
+     * @return The student's mark for that module, 0 if not found
      */
     @Override
     public float getModuleMark(String _moduleID, String _studentEmailID) {
@@ -464,6 +464,12 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
+    /**
+     * Method to get a Collection of all submissions for an assessment
+     * @param _moduleID
+     * @param _sequence
+     * @return A Collection of submissions, or null if no submissions are found for that assessment
+     */
     @Override
     public Collection<Submission> getSubmissions(String _moduleID, int _sequence) {
         Collection<Submission> allSubmissions;
