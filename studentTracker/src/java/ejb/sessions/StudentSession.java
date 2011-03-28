@@ -94,7 +94,7 @@ public class StudentSession implements StudentSessionRemote {
             }
             return null;
         } catch (Exception e) {
-            System.out.println("++getStudentByEmailID ERROR: " + e);
+            System.out.println("getStudentByEmailID ERROR: " + e);
             return null;
         }
     }

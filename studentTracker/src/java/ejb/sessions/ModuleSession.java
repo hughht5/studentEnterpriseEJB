@@ -156,7 +156,7 @@ public class ModuleSession implements ModuleSessionRemote {
             }
             return false;
         } catch (Exception e) {
-            System.out.println("checkIfCoordinator ERROR: " + e);
+            System.out.println("checkIfLecturer ERROR: " + e);
             return false;
         }
     }

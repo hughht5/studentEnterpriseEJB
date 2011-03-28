@@ -394,12 +394,14 @@ public class TestEJB {
     public void ASSESSMENT_AddAssessment()
     {
         java.sql.Date handOut = java.sql.Date.valueOf("2011-03-20"); //yyyy-mm-dd
-        java.sql.Date handIn = java.sql.Date.valueOf("2011-03-28"); //yyyy-mm-dd
+        java.sql.Date handIn = java.sql.Date.valueOf("2011-05-28"); //yyyy-mm-dd
+        java.sql.Date lateHandIn = java.sql.Date.valueOf("2011-03-21"); //yyyy-mm-dd
+
         Module module = moduleSession.getModuleByID("ECM3401");
 
         try {
             moduleSession.addAssessmentToModule(1, "Practical", handOut, handIn, 10, 0.3f, module, "tut02");
-            moduleSession.addAssessmentToModule(2, "Examination", handOut, handIn, 2, 0.7f, module, "tut02");
+            moduleSession.addAssessmentToModule(2, "Examination", handOut, lateHandIn, 2, 0.7f, module, "tut02");
             Assert.assertTrue(true);
         } catch (Exception e) {
             Assert.assertTrue("Could not add assessments", false);
@@ -436,9 +438,12 @@ public class TestEJB {
     public void STAFF_MarkSubmission()
     {
         Submission submission = studentSession.getSpecificSubmission("ECM3401", 1, "abc102");
+        Submission submission2 = studentSession.getSpecificSubmission("ECM3401", 2, "abc102");
 
         Assert.assertNotNull("No submission found", submission);
+        Assert.assertNotNull("No submission2 found", submission2);
         staffSession.markSubmission(submission, 72, "feedback");
+        staffSession.markSubmission(submission2, 90, "feedback"); //This was submitted late so will be capped at 40%
     }
 
     @Test
@@ -455,6 +460,14 @@ public class TestEJB {
 
         Assert.assertEquals(72F, studentSession.getSubmissionMark(submission));
     }
+
+    @Test
+    public void SUBMISSION_GetLateSubmissionMark()
+    {
+        Submission submission = studentSession.getSpecificSubmission("ECM3401", 2, "abc102");
+
+        Assert.assertEquals(40F, studentSession.getSubmissionMark(submission));
+    }
     
 
     @Test
@@ -462,8 +475,8 @@ public class TestEJB {
     {
         float moduleMark = moduleSession.getAverageModuleMark("ECM3401");
 
-        //Two submissions (72 and 0) ==> (72+0)/2 = 36
-        Assert.assertEquals(36F, moduleMark);
+        //Two submissions (72 and 90) ==> (72+90)/2 = 81
+        Assert.assertEquals(81F, moduleMark);
     }
 
 }
