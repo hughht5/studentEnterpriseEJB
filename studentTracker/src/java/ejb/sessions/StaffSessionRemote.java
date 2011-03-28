@@ -34,7 +34,4 @@ public interface StaffSessionRemote {
     boolean addStaffToModule(Staff _staff, Module _module, boolean _isCoordinator);
 
     Boolean markSubmission(Submission _submission, float _mark, String _feedback);
-
-
-
 }

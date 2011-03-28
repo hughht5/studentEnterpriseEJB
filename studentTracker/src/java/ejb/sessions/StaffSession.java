@@ -118,10 +118,8 @@ public class StaffSession implements StaffSessionRemote {
         }
     }
 
-
-
     /**
-     * Method adds a member of staff as a lecture for a module
+     * Method adds a member of staff as a lecturer for a module
      * @param _staff
      * @param _module
      * @return true for success, false otherwise
@@ -140,6 +138,8 @@ public class StaffSession implements StaffSessionRemote {
         return true;
     }
 
+
+    @Override
     public Boolean markSubmission(Submission _submission, float _mark, String _feedback) {
         try {
             _submission.setMark(_mark);
@@ -150,12 +150,6 @@ public class StaffSession implements StaffSessionRemote {
             return false;
         }
     }
-
-    
-
-    
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-
-
 }
