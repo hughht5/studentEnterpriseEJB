@@ -81,8 +81,6 @@ public class CourseModules implements Serializable {
     public String toString() {
         return "ejb.entities.CourseModules[id=" + id + "]";
     }
-
-    
     private boolean isCompulsary;
 
     /**
