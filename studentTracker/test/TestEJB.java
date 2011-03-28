@@ -366,17 +366,17 @@ public class TestEJB {
     {
        //Add a selection of modules to the system
        try {
-           //addModule(moduleID, moduleName, credits, averageMark, stage, prereqs)
-            moduleSession.addModule("ECM3401", "CS Module 1", 15, 0, "3", null);
-            moduleSession.addModule("ECM3102", "ENG Module 2", 15, 0, "3", null);
-            moduleSession.addModule("ECM3103", "ENG Module 3", 15, 0, "3", null);
-            moduleSession.addModule("ECM3404", "CS Module 4", 15, 0, "3", null);
-            moduleSession.addModule("ECM3405", "CS Module 5", 15, 0, "3", null);
-            moduleSession.addModule("ECM3306", "MAS Module 6", 15, 0, "3", null);
-            moduleSession.addModule("ECM3307", "MAS Module 7", 15, 0, "3", null);
-            moduleSession.addModule("ECM3308", "MAS Module 8", 15, 0, "3", null);
-            moduleSession.addModule("ECM3409", "CS Module 9", 15, 0, "3", null);
-            moduleSession.addModule("ECM3410", "CS Module 10", 15, 0, "3", null);
+           //addModule(moduleID, moduleName, credits, stage, prereqs)
+            moduleSession.addModule("ECM3401", "CS Module 1", 15, "3", null);
+            moduleSession.addModule("ECM3102", "ENG Module 2", 15, "3", null);
+            moduleSession.addModule("ECM3103", "ENG Module 3", 15, "3", null);
+            moduleSession.addModule("ECM3404", "CS Module 4", 15, "3", null);
+            moduleSession.addModule("ECM3405", "CS Module 5", 15, "3", null);
+            moduleSession.addModule("ECM3306", "MAS Module 6", 15, "3", null);
+            moduleSession.addModule("ECM3307", "MAS Module 7", 15, "3", null);
+            moduleSession.addModule("ECM3308", "MAS Module 8", 15, "3", null);
+            moduleSession.addModule("ECM3409", "CS Module 9", 15, "3", null);
+            moduleSession.addModule("ECM3410", "CS Module 10", 15, "3", null);
             Assert.assertTrue(true);
         } catch (Exception e) {
             Assert.assertTrue("Failed to add modules", false);
