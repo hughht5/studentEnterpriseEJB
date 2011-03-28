@@ -239,6 +239,7 @@ public class StudentSession implements StudentSessionRemote {
         }
     }
 
+    @Override
     public Submission getSpecificSubmission(String _moduleID, int _sequence, String _studentEmailID) {
         Collection<Submission> allSubmissions;
         try{
@@ -260,6 +261,7 @@ public class StudentSession implements StudentSessionRemote {
         }
     }
 
+    @Override
     public float getSubmissionMark(Submission _submission) {
         float mark = _submission.getMark();
         if(_submission.getIsLate())
