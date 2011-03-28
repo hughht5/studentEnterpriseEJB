@@ -82,47 +82,6 @@ public class EnrolledModules implements Serializable {
         return "ejb.entities.EnrolledModules[id=" + id + "]";
     }
     /**
-     * Unique Identifier for enrollment ID
-     */
-    private int enrollmentID;
-
-    /**
-     * Get the value of enrollmentID
-     *
-     * @return the value of enrollmentID
-     */
-    public int getEnrollmentID() {
-        return enrollmentID;
-    }
-
-    /**
-     * Set the value of enrollmentID
-     *
-     * @param enrollmentID new value of enrollmentID
-     */
-    public void setEnrollmentID(int enrollmentID) {
-        this.enrollmentID = enrollmentID;
-    }
-    private int coureseModuleID;
-
-    /**
-     * Get the value of coureseModuleID
-     *
-     * @return the value of coureseModuleID
-     */
-    public int getCoureseModuleID() {
-        return coureseModuleID;
-    }
-
-    /**
-     * Set the value of coureseModuleID
-     *
-     * @param coureseModuleID new value of coureseModuleID
-     */
-    public void setCoureseModuleID(int coureseModuleID) {
-        this.coureseModuleID = coureseModuleID;
-    }
-    /**
      * Student has many enrolled modules. An enrolled module has one student
      */
     @JoinColumn(name = "STUDENT_ENROLLED_MODULES_REF", referencedColumnName = "ID")

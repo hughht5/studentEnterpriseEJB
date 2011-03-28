@@ -82,47 +82,6 @@ public class Submission implements Serializable {
     public String toString() {
         return "ejb.entities.submission[id=" + id + "]";
     }
-    /**
-     * Unique identifier for submission ID
-     */
-    private int submissionID;
-
-    /**
-     * Get the value of submissionID
-     *
-     * @return the value of submissionID
-     */
-    public int getSubmissionID() {
-        return submissionID;
-    }
-
-    /**
-     * Set the value of submissionID
-     *
-     * @param submissionID new value of submissionID
-     */
-    public void setSubmissionID(int submissionID) {
-        this.submissionID = submissionID;
-    }
-    private int assesmentID;
-
-    /**
-     * Get the value of assesmentID
-     *
-     * @return the value of assesmentID
-     */
-    public int getAssesmentID() {
-        return assesmentID;
-    }
-
-    /**
-     * Set the value of assesmentID
-     *
-     * @param assesmentID new value of assesmentID
-     */
-    public void setAssesmentID(int assesmentID) {
-        this.assesmentID = assesmentID;
-    }
     private float mark;
 
     /**
@@ -161,26 +120,6 @@ public class Submission implements Serializable {
     public void setIsLate(boolean isLate) {
         this.isLate = isLate;
     }
-    private String studentID;
-
-    /**
-     * Get the value of studentID
-     *
-     * @return the value of studentID
-     */
-    public String getStudentID() {
-        return studentID;
-    }
-
-    /**
-     * Set the value of studentID
-     *
-     * @param studentID new value of studentID
-     */
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
-    }
-
     private String feedback;
 
     /**
@@ -200,7 +139,6 @@ public class Submission implements Serializable {
     public void setFeedback(String feedback) {
         this.feedback = feedback;
     }
-
     /**
      * Student has many submissions. A Submission has one student
      */
