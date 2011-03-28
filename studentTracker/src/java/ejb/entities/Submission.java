@@ -204,7 +204,7 @@ public class Submission implements Serializable {
     /**
      * Student has many submissions. A Submission has one student
      */
-    @JoinColumn(name = "STUDENTSUBMISSION_REF", referencedColumnName = "ID")
+    @JoinColumn(name = "SUBMITTEDBYSTUDENT_REF", referencedColumnName = "ID")
     @ManyToOne
     private Student student;
 
@@ -228,7 +228,7 @@ public class Submission implements Serializable {
     /**
      * Assessments have many submissions. A submission has one assessment
      */
-    @JoinColumn(name = "ASSESSMENTSUBMISSION_REF", referencedColumnName = "ID")
+    @JoinColumn(name = "SUBMITTEDFORASSESSMENT_REF", referencedColumnName = "ID")
     @ManyToOne
     private Assessment assessment;
 

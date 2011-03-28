@@ -220,7 +220,7 @@ public class Student implements Serializable {
     /**
      * Student has one Tutor. Tutor has many Tutees.
      */
-    @JoinColumn(name = "STAFF_REF", referencedColumnName = "ID")
+    @JoinColumn(name = "TUTOR_REF", referencedColumnName = "ID")
     @ManyToOne
     private Staff tutor;
 
