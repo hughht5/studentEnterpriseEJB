@@ -17,7 +17,7 @@ import javax.ejb.Remote;
 /**
  * This is the remote interface for the student Session.
  *
- * The Staff session contains methods to add/remove students, get a
+ * The Student session contains methods to add/remove students, get a
  * Student object, login a student, add a member of staff as the student's
  * tutor, enroll a student on a course/module, and submit assessments
  *
