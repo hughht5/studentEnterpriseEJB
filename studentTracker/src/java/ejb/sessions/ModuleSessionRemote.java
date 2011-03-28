@@ -25,7 +25,7 @@ import javax.ejb.Remote;
 @Remote
 public interface ModuleSessionRemote {
 
-    boolean addModule(String moduleID, String name, int credits, float AVGMark,
+    boolean addModule(String moduleID, String name, int credits,
             String stage, Collection<Module> prerequisites);
 
     boolean removeModule(Module module);

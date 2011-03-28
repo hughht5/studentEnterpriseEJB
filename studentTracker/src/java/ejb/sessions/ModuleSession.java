@@ -22,8 +22,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- *
- * @author hmh205
+ * This class implements the business logic for methods described in the
+ * ModuleSessionRemote interface.
  */
 @Stateless
 public class ModuleSession implements ModuleSessionRemote {
@@ -33,15 +33,24 @@ public class ModuleSession implements ModuleSessionRemote {
     @PersistenceContext
     EntityManager manager;
 
+    /**
+     * Method to
+     * @param moduleID
+     * @param name
+     * @param credits
+     * @param stage
+     * @param prerequisites
+     * @return
+     */
     @Override
-    public boolean addModule(String moduleID, String name, int credits, float avgMark, String stage, Collection<Module> prerequisites) {
+    public boolean addModule(String moduleID, String name, int credits, String stage, Collection<Module> prerequisites) {
         try {
             Module module = new Module();
             module.setModuleID(moduleID);
             module.setStage(stage);
             module.setName(name);
             module.setCredits(credits);
-            module.setAvgMark(avgMark);
+            module.setAvgMark(0F);
             module.setListOfPrereqs(prerequisites);
             manager.persist(module);
         } catch (Exception e) {
