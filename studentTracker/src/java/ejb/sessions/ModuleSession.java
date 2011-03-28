@@ -34,13 +34,13 @@ public class ModuleSession implements ModuleSessionRemote {
     EntityManager manager;
 
     /**
-     * Method to
+     * Method to add a new module to the system
      * @param moduleID
      * @param name
      * @param credits
      * @param stage
-     * @param prerequisites
-     * @return
+     * @param prerequisites - a Collection of modules require to take this module
+     * @return true for success, false otherwise
      */
     @Override
     public boolean addModule(String moduleID, String name, int credits, String stage, Collection<Module> prerequisites) {
@@ -59,6 +59,11 @@ public class ModuleSession implements ModuleSessionRemote {
         return true;
     }
 
+    /**
+     * Method to remove a module from the system
+     * @param module
+     * @return true for success, false otherwise
+     */
     @Override
     public boolean removeModule(Module module) {
         try {
@@ -69,6 +74,13 @@ public class ModuleSession implements ModuleSessionRemote {
         return true;
     }
 
+    /**
+     * Method to add a module to a course
+     * @param _module
+     * @param _course
+     * @param _isCompulsary - true if module is compulsory on specified course
+     * @return true for success, false otherwise
+     */
     @Override
     public boolean addModuleToCourse(Module _module, Course _course, boolean _isCompulsary) {
         try {
@@ -83,6 +95,11 @@ public class ModuleSession implements ModuleSessionRemote {
         return true;
     }
 
+    /**
+     * Method to get a module
+     * @param _ID - the module's ID
+     * @return The specified module, or null if not found
+     */
     @Override
     public Module getModuleByID(String _ID) {
         List<Module> modules;
@@ -103,6 +120,11 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
+    /**
+     * Method to remove a module from a course
+     * @param _courseModule
+     * @return true for success, false otherwise
+     */
     @Override
     public boolean removeModuleFromCourse(CourseModules _courseModule) {
         try {
@@ -113,6 +135,10 @@ public class ModuleSession implements ModuleSessionRemote {
         return true;
     }
 
+    /**
+     * Method to get a list of all modules in the system
+     * @return a List of Module objects, or null if no module are in the system
+     */
     @Override
     public List<Module> getListOfAllModules() {
         List<Module> modules;
@@ -127,9 +153,14 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
+    /**
+     * Check if a member of staff is the module coordinator of a particular module
+     * @param _staffEmailID
+     * @param _moduleID
+     * @return true if coordinator, false otherwise
+     */
     @Override
     public boolean checkIfCoordinator(String _staffEmailID, String _moduleID) {
-        List<Staff> staff;
         List<Lecture> lectures;
         try {
             String query = "SELECT staff FROM Lecture as staff";
@@ -149,9 +180,14 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
+    /**
+     * Check if a member of staff is a lecturer for a particular module
+     * @param _staffEmailID
+     * @param _moduleID
+     * @return true if lecturer, false otherwise
+     */
     @Override
     public boolean checkIfLecturer(String _staffEmailID, String _moduleID) {
-        List<Staff> staff;
         List<Lecture> lectures;
         try {
             String query = "SELECT staff FROM Lecture as staff";
@@ -171,6 +207,18 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
+    /**
+     * Method to add an assessment to a module. Only module coordinators can do this.
+     * @param _seq - an integer representing the order of the assignments. 1 for first, 2 for second...
+     * @param _type - Practical, Class test, Presentation, Examination
+     * @param _handout - handout date
+     * @param _handin - handin date
+     * @param _duration - estimated time for completion
+     * @param _weighting - weighting of the assessment
+     * @param _module - module that the assessment is being added to
+     * @param _staffEmailID - the email id of the staff member adding the assessment. Must be a coordinator
+     * @return true for success, false otherwise
+     */
     @Override
     public boolean addAssessmentToModule(int _seq, String _type,
             Date _handout, Date _handin, int _duration, float _weighting, Module _module, String _staffEmailID) {
@@ -211,6 +259,12 @@ public class ModuleSession implements ModuleSessionRemote {
 
     }
 
+    /**
+     * Method to get a Collection of all the students enrolled on a module.
+     * @param _moduleID - ID of the module
+     * @param _staffEmailID - ID of the Staff. Must be a lecturer for specified module
+     * @return A Collection of Student objects, or null if no students in the system
+     */
     @Override
     public Collection<Student> getListOfEnrolledStudents(String _moduleID, String _staffEmailID) {
         Collection<EnrolledModules> modules;
@@ -238,6 +292,11 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
+    /**
+     * Method to get all the assessments on a specified Module
+     * @param _moduleID
+     * @return A Collection of Module objects, or null if no modules are in the system
+     */
     @Override
     public Collection<Assessment> getAssessmentsForModule(String _moduleID) {
         Collection<Assessment> allAssessments;
@@ -260,6 +319,12 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
+    /**
+     * Method to get an assessment in a specified sequence on a specified Module
+     * @param _moduleID
+     * @param _sequence
+     * @return The Assessment object, or null if not found
+     */
     @Override
     public Assessment getAssessmentForModule(String _moduleID, int _sequence) {
         Collection<Assessment> assessments;
@@ -282,6 +347,12 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
+    /**
+     * Method to get the average mark for an assessment
+     * @param _moduleID
+     * @param _assessmentSequence
+     * @return The average mark, or 0 if not found
+     */
     @Override
     public Float getAverageAssessmentMark(String _moduleID, int _assessmentSequence) {
         Collection<Submission> submissions;
@@ -321,6 +392,11 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
+    /**
+     * Method to get the average mark for a Module
+     * @param _moduleID
+     * @return The average mark, or 0 if not found
+     */
     @Override
     public float getAverageModuleMark(String _moduleID) {
         Collection<Submission> submissions;
@@ -351,6 +427,12 @@ public class ModuleSession implements ModuleSessionRemote {
         }
     }
 
+    /**
+     * 
+     * @param _moduleID
+     * @param _studentEmailID
+     * @return
+     */
     @Override
     public float getModuleMark(String _moduleID, String _studentEmailID) {
         Collection<Submission> submissions;
