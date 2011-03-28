@@ -92,25 +92,7 @@ public class Assessment implements Serializable {
     /**
      * Unique identifier for assessment
      */
-    private int assesmentID;
 
-    /**
-     * Get the value of assesmentID
-     *
-     * @return the value of assesmentID
-     */
-    public int getAssesmentID() {
-        return assesmentID;
-    }
-
-    /**
-     * Set the value of assesmentID
-     *
-     * @param assesmentID new value of assesmentID
-     */
-    public void setAssesmentID(int assesmentID) {
-        this.assesmentID = assesmentID;
-    }
     private int sequence;
 
     /**
@@ -130,25 +112,8 @@ public class Assessment implements Serializable {
     public void setSequence(int sequence) {
         this.sequence = sequence;
     }
-    private String moduleID;
 
-    /**
-     * Get the value of moduleID
-     *
-     * @return the value of moduleID
-     */
-    public String getModuleID() {
-        return moduleID;
-    }
 
-    /**
-     * Set the value of moduleID
-     *
-     * @param moduleID new value of moduleID
-     */
-    public void setModuleID(String moduleID) {
-        this.moduleID = moduleID;
-    }
     private String type;
 
     /**
