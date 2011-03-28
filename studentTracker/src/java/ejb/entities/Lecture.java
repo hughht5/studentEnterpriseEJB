@@ -83,66 +83,6 @@ public class Lecture implements Serializable {
     public String toString() {
         return "ejb.entities.Lecture[id=" + id + "]";
     }
-    private int lectureID;
-
-    /**
-     * Get the value of lectureID
-     *
-     * @return the value of lectureID
-     */
-    public int getLectureID() {
-        return lectureID;
-    }
-
-    /**
-     * Set the value of lectureID
-     *
-     * @param lectureID new value of lectureID
-     */
-    public void setLectureID(int lectureID) {
-        this.lectureID = lectureID;
-    }
-    /**
-     * unique identifier for staff email ID
-     */
-    private String staffEmailID;
-
-    /**
-     * Get the value of staffEmailID
-     *
-     * @return the value of staffEmailID
-     */
-    public String getStaffEmailID() {
-        return staffEmailID;
-    }
-
-    /**
-     * Set the value of staffEmailID
-     *
-     * @param staffEmailID new value of staffEmailID
-     */
-    public void setStaffEmailID(String staffEmailID) {
-        this.staffEmailID = staffEmailID;
-    }
-    private String moduleID;
-
-    /**
-     * Get the value of moduleID
-     *
-     * @return the value of moduleID
-     */
-    public String getModuleID() {
-        return moduleID;
-    }
-
-    /**
-     * Set the value of moduleID
-     *
-     * @param moduleID new value of moduleID
-     */
-    public void setModuleID(String moduleID) {
-        this.moduleID = moduleID;
-    }
     private boolean isCoordinator;
 
     /**

@@ -5,15 +5,12 @@
 package ejb.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  * The CourseModules class contains the details for the modules
@@ -83,66 +80,6 @@ public class CourseModules implements Serializable {
     @Override
     public String toString() {
         return "ejb.entities.CourseModules[id=" + id + "]";
-    }
-    /**
-     * Unique identifier for courseModuleID
-     */
-    private int courseModuleID;
-
-    /**
-     * Get the value of courseModuleID
-     *
-     * @return the value of courseModuleID
-     */
-    public int getCourseModuleID() {
-        return courseModuleID;
-    }
-
-    /**
-     * Set the value of courseModuleID
-     *
-     * @param courseModuleID new value of courseModuleID
-     */
-    public void setCourseModuleID(int courseModuleID) {
-        this.courseModuleID = courseModuleID;
-    }
-    private String courseID;
-
-    /**
-     * Get the value of courseID
-     *
-     * @return the value of courseID
-     */
-    public String getCourseID() {
-        return courseID;
-    }
-
-    /**
-     * Set the value of courseID
-     *
-     * @param courseID new value of courseID
-     */
-    public void setCourseID(String courseID) {
-        this.courseID = courseID;
-    }
-    private String moduleID;
-
-    /**
-     * Get the value of moduleID
-     *
-     * @return the value of moduleID
-     */
-    public String getModuleID() {
-        return moduleID;
-    }
-
-    /**
-     * Set the value of moduleID
-     *
-     * @param moduleID new value of moduleID
-     */
-    public void setModuleID(String moduleID) {
-        this.moduleID = moduleID;
     }
     private boolean isCompulsary;
 

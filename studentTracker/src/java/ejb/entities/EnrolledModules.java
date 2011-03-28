@@ -5,15 +5,12 @@
 package ejb.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 /**
  * The EnrolledModules details the students enrolled on courses
@@ -83,66 +80,6 @@ public class EnrolledModules implements Serializable {
     @Override
     public String toString() {
         return "ejb.entities.EnrolledModules[id=" + id + "]";
-    }
-    /**
-     * Unique Identifier for enrollment ID
-     */
-    private int enrollmentID;
-
-    /**
-     * Get the value of enrollmentID
-     *
-     * @return the value of enrollmentID
-     */
-    public int getEnrollmentID() {
-        return enrollmentID;
-    }
-
-    /**
-     * Set the value of enrollmentID
-     *
-     * @param enrollmentID new value of enrollmentID
-     */
-    public void setEnrollmentID(int enrollmentID) {
-        this.enrollmentID = enrollmentID;
-    }
-    private String studentID;
-
-    /**
-     * Get the value of studentID
-     *
-     * @return the value of studentID
-     */
-    public String getStudentID() {
-        return studentID;
-    }
-
-    /**
-     * Set the value of studentID
-     *
-     * @param studentID new value of studentID
-     */
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
-    }
-    private int coureseModuleID;
-
-    /**
-     * Get the value of coureseModuleID
-     *
-     * @return the value of coureseModuleID
-     */
-    public int getCoureseModuleID() {
-        return coureseModuleID;
-    }
-
-    /**
-     * Set the value of coureseModuleID
-     *
-     * @param coureseModuleID new value of coureseModuleID
-     */
-    public void setCoureseModuleID(int coureseModuleID) {
-        this.coureseModuleID = coureseModuleID;
     }
     /**
      * Student has many enrolled modules. An enrolled module has one student

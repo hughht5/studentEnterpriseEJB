@@ -92,7 +92,6 @@ public class Assessment implements Serializable {
     /**
      * Unique identifier for assessment
      */
-
     private int sequence;
 
     /**
@@ -112,8 +111,6 @@ public class Assessment implements Serializable {
     public void setSequence(int sequence) {
         this.sequence = sequence;
     }
-
-
     private String type;
 
     /**
